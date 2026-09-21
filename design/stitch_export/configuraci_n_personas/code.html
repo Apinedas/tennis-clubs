@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><title>Tenis Pro Ops - Configuración</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-container": "#61655f", "error": "#ba1a1a", "on-error-container": "#93000a", "inverse-primary": "#7dd9a1", "on-secondary-fixed": "#191d18", "surface-tint": "#006d40", "secondary-fixed-dim": "#c4c8c0", "outline": "#6f7a70", "error-container": "#ffdad6", "primary": "#00643b", "surface-variant": "#e3e3de", "outline-variant": "#becabf", "on-primary-fixed": "#002110", "on-primary-container": "#d1ffde", "secondary-fixed": "#e0e4dc", "surface-container-high": "#e8e8e3", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb3b5", "surface-dim": "#dadad5", "surface": "#fafaf4", "tertiary-fixed": "#ffdada", "surface-container-highest": "#e3e3de", "secondary-container": "#e0e4dc", "primary-container": "#1b7f4f", "surface-container": "#eeeee9", "secondary": "#5b5f5a", "inverse-surface": "#2f312e", "on-tertiary-fixed": "#40000c", "primary-fixed-dim": "#7dd9a1", "surface-container-low": "#f4f4ee", "on-surface-variant": "#3f4941", "tertiary": "#903a42", "on-error": "#ffffff", "surface-bright": "#fafaf4", "on-background": "#1a1c19", "on-primary": "#ffffff", "on-tertiary-container": "#fff0f0", "on-tertiary": "#ffffff", "on-secondary": "#ffffff", "primary-fixed": "#99f6bb", "background": "#fafaf4", "inverse-on-surface": "#f1f1ec", "on-tertiary-fixed-variant": "#7c2b33", "on-surface": "#1a1c19", "on-primary-fixed-variant": "#00522f", "on-secondary-fixed-variant": "#444842", "tertiary-container": "#af5259" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "0.75rem", "space-lg": "1rem", "gutter-desktop": "1rem", "margin-desktop": "1.5rem", "space-xl": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter": "0.75rem", "margin": "1rem" }, "fontFamily": { "body-md-medium": ["Inter"], "label-xs": ["Inter"], "headline-sm": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"] }, "fontSize": { "body-md-medium": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "label-xs": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest border-b border-outline-variant/40"><div class="w-full h-16 px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md min-w-0"><img alt="Tenis Pro Ops Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1VTQ1I1N3XjttOU4JKmUskhHMr5sGXXw0vk4hL2k2Qfccnn9dBmXerJIN4w3ORr0VlWj3eiQdLIjSP8F7SX_uNI1cv21d58dFb2F4pd9RlZId9yDCejBWFP7H1rlEBXwIWP9JESMgJsXhIHdquWhhcxHVo25pAJABDEAFxcQRAIrBquRNR9igwiNAK2T5wI3FGf0ybNtO0_OOV2ZTbfKIqSv2q8WHpEGMOXiZ7KK-VDP2V6EEkW8Ope_sg"/><div class="h-5 w-px bg-outline-variant/60 hidden sm:block"></div><div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-1.5 rounded-lg border border-outline-variant/50"><span class="material-symbols-outlined text-primary text-[18px]">sports_tennis</span><div class="flex flex-col"><span class="font-label-xs text-label-xs text-on-surface-variant leading-none">Sede Activa</span><span class="font-body-md-medium text-body-md-medium text-on-surface truncate leading-tight">Club Campestre El Rodadero</span></div><span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span></div><div class="h-4 w-px bg-outline-variant/60 hidden md:block"></div><nav aria-label="Breadcrumb" class="hidden md:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="hover:text-on-surface cursor-pointer">Configuración</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-on-surface font-body-md-medium text-body-md-medium">Ajustes Generales</span></nav></div><div class="flex items-center gap-space-md flex-shrink-0"><div class="hidden lg:flex flex-col text-right"><span class="font-body-md-medium text-body-md-medium text-on-surface leading-tight">Carlos Mendoza</span><span class="font-label-xs text-label-xs text-on-surface-variant leading-none">Operador de Caseta / Admin</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ring-2 ring-surface-container"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-16 bottom-16 w-64 bg-surface-container-lowest border-r border-outline-variant/40 z-40 flex flex-col justify-between overflow-y-auto"><div class="p-space-md"><div class="px-space-md py-space-sm mb-space-xs"><span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-bold">Panel de Configuración</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-on-primary-container text-primary font-body-md-medium text-body-md-medium rounded-lg shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="club" href="#"><span class="material-symbols-outlined text-[20px]">domain</span><span class="font-body-md-medium text-body-md-medium">Club</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="canchas" href="#"><span class="material-symbols-outlined text-[20px]">stadium</span><span class="font-body-md-medium text-body-md-medium">Canchas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tarifas" href="#"><span class="material-symbols-outlined text-[20px]">payments</span><span class="font-body-md-medium text-body-md-medium">Tarifas</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-2.5 transition-colors bg-on-primary-container text-primary font-body-md-medium text-body-md-medium rounded-lg shadow-sm" data-path="personas" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md-medium text-body-md-medium">Personas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="reservas" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span class="font-body-md-medium text-body-md-medium">Reservas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="modulos" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md-medium text-body-md-medium">Módulos</span></a></nav></div><div class="p-space-md border-t border-outline-variant/30 bg-surface-container-low/50"><div class="flex items-center gap-space-sm px-space-sm py-1"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-xs text-label-xs text-on-surface-variant">Servidor Caseta: Operativo</span></div></div></aside><div class="pl-64"><main class="pt-16 pb-20 w-full min-h-screen bg-surface px-gutter-desktop"><div class="w-full py-space-lg" id="content"><div class="flex flex-col w-full gap-space-lg">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md bg-surface-container-lowest p-space-lg rounded-xl shadow-sm">
+<div class="flex flex-col gap-space-xs max-w-2xl">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-xs text-label-xs uppercase tracking-wider text-primary font-bold">Gestión de Personal y Membresías</span>
+<span class="text-outline-variant font-label-xs">•</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Sede Principal</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Directorio de Personas</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Control de accesos, roles del personal del club, entrenadores certificados y estados de socios.</p>
+</div>
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<button class="flex items-center gap-space-xs px-space-md py-2.5 bg-surface-container-low text-on-surface rounded-lg font-body-md-medium text-body-md-medium hover:bg-surface-container transition-colors shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]">file_download</span>
+<span>Exportar CSV</span>
+</button>
+<button class="flex items-center gap-space-xs px-space-md py-2.5 bg-primary-container text-on-primary rounded-lg font-body-md-medium text-body-md-medium hover:bg-primary transition-colors shadow-sm focus:outline-none" id="btn-invite" type="button">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+<span>+ Invitar persona</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase font-bold">Total Activos</span>
+<span class="material-symbols-outlined text-[18px] text-primary">group</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">142</span>
+<span class="font-label-xs text-label-xs text-primary">+4 este mes</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase font-bold">Socios Registrados</span>
+<span class="material-symbols-outlined text-[18px] text-primary-container">badge</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">118</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Acciones vigentes</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase font-bold">Cuerpo Técnico</span>
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">sports</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-on-surface font-bold">12</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">8 Profes + 4 Caddies</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant uppercase font-bold">Mora / Bloqueados</span>
+<span class="material-symbols-outlined text-[18px] text-tertiary">warning</span>
+</div>
+<div class="mt-space-sm flex items-baseline gap-space-xs">
+<span class="font-headline-lg text-headline-lg text-tertiary font-bold">5</span>
+<span class="font-label-xs text-label-xs text-error font-medium">Revisión requerida</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-xl shadow-sm flex flex-col overflow-hidden">
+<div class="p-space-md bg-surface-container-lowest flex flex-col lg:flex-row gap-space-md justify-between items-stretch lg:items-center">
+<div class="relative flex-1 max-w-lg">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full pl-9 pr-space-md py-2 text-body-md font-body-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-secondary focus:outline-none focus:bg-surface-container-lowest focus:ring-1 focus:ring-primary transition-all" id="search-input" placeholder="Buscar por nombre, email o # acción..." type="text"/>
+</div>
+<div class="flex flex-wrap items-center gap-space-xs" id="role-filters">
+<span class="font-label-xs text-label-xs text-on-surface-variant mr-space-xs hidden sm:inline">Rol:</span>
+<button class="role-filter-btn px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-on-primary-container text-primary font-body-md-medium shadow-xs" data-filter="all" type="button">Todos</button>
+<button class="role-filter-btn px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors" data-filter="Admin" type="button">Administrador</button>
+<button class="role-filter-btn px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors" data-filter="Entrenador" type="button">Entrenador</button>
+<button class="role-filter-btn px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors" data-filter="Socio" type="button">Alumno / Socio</button>
+<button class="role-filter-btn px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container-low text-on-surface-variant hover:bg-surface-container-high transition-colors" data-filter="Caddie" type="button">Caddie</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse" id="users-table">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider select-none">
+<th class="py-space-md px-space-lg font-bold">Nombre &amp; Identificación</th>
+<th class="py-space-md px-space-md font-bold">Correo Electrónico</th>
+<th class="py-space-md px-space-md font-bold">Roles Asignados</th>
+<th class="py-space-md px-space-md font-bold">Estado Membresía</th>
+<th class="py-space-md px-space-md font-bold">Último Acceso</th>
+<th class="py-space-md px-space-lg text-right font-bold">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent font-body-md text-body-md">
+<tr class="hover:bg-surface-container-low/60 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-primary-container/20 text-primary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  CR
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-semibold truncate">Carlos Mario Restrepo</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Acción #0142 • Socio Familiar</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<a class="text-primary hover:underline truncate block max-w-xs font-body-md text-body-md" href="mailto:carlos.restrepo@elrodadero.com">carlos.restrepo@elrodadero.com</a>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-wrap gap-space-xs">
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-purple-50 text-purple-700">Admin</span>
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800">Socio Pleno</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-xs font-label-sm bg-on-primary-container text-primary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Membresía Activa
+              </span>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-label-sm text-label-sm">
+              Hoy, 07:45 AM
+            </td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary transition-colors" title="Editar roles" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-secondary transition-colors" title="Restablecer clave" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Más opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 transition-colors group bg-surface-container-low/20">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-surface-variant flex items-center justify-center text-on-surface font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  VG
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-semibold truncate">Valentina Gómez Duque</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">ITF Level 2 • Entrenadora Principal</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<a class="text-primary hover:underline truncate block max-w-xs font-body-md text-body-md" href="mailto:vgomez.pro@tenispro.co">vgomez.pro@tenispro.co</a>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-wrap gap-space-xs">
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700">Entrenador</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-xs font-label-sm bg-on-primary-container text-primary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Membresía Activa
+              </span>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-label-sm text-label-sm">
+              Ayer, 06:12 PM
+            </td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary transition-colors" title="Editar roles" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-secondary transition-colors" title="Restablecer clave" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Más opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  JB
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-semibold truncate">Jairo Becerra (Caddie Master)</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Turno Mañana • Caseta Canchas 1-6</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<a class="text-primary hover:underline truncate block max-w-xs font-body-md text-body-md" href="mailto:jairo.becerra@campestre.org">jairo.becerra@campestre.org</a>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-wrap gap-space-xs">
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800">Caddie</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-xs font-label-sm bg-on-primary-container text-primary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Membresía Activa
+              </span>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-label-sm text-label-sm">
+              Hoy, 06:05 AM
+            </td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary transition-colors" title="Editar roles" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-secondary transition-colors" title="Restablecer clave" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Más opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 transition-colors group bg-surface-container-low/20">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-error-container text-on-error-container flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  AR
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-semibold truncate">Andrés Felipe Restrepo</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Acción #0884 • Socio Titular</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<a class="text-primary hover:underline truncate block max-w-xs font-body-md text-body-md" href="mailto:afelipe.restrepo@grupo-ar.co">afelipe.restrepo@grupo-ar.co</a>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-wrap gap-space-xs">
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-emerald-50 text-emerald-800">Socio Pleno</span>
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700">Alumno</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-xs font-label-sm bg-error-container text-on-error-container font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span>
+                Suspendida (Mora)
+              </span>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-label-sm text-label-sm">
+              12 Feb 2025
+            </td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary transition-colors" title="Editar roles" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-secondary transition-colors" title="Restablecer clave" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Más opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-primary text-on-primary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  CM
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-semibold truncate">Camilo Mendoza</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Coordinador de Deportes</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<a class="text-primary hover:underline truncate block max-w-xs font-body-md text-body-md" href="mailto:camilo.mendoza@elrodadero.com">camilo.mendoza@elrodadero.com</a>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-wrap gap-space-xs">
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-purple-50 text-purple-700">Admin</span>
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700">Entrenador</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-xs font-label-sm bg-on-primary-container text-primary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Membresía Activa
+              </span>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-label-sm text-label-sm">
+              En línea ahora
+            </td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary transition-colors" title="Editar roles" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-secondary transition-colors" title="Restablecer clave" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Más opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 transition-colors group bg-surface-container-low/20">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-surface-container-high text-on-surface flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  SL
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-semibold truncate">Sofía Londoño Pardo</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Acción #0512 • Escuela Juvenil</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<a class="text-primary hover:underline truncate block max-w-xs font-body-md text-body-md" href="mailto:sofia.londono@escuelatenis.com">sofia.londono@escuelatenis.com</a>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-wrap gap-space-xs">
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-blue-50 text-blue-700">Alumno</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-xs font-label-sm bg-on-primary-container text-primary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Membresía Activa
+              </span>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-label-sm text-label-sm">
+              18 Feb 2025
+            </td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary transition-colors" title="Editar roles" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-secondary transition-colors" title="Restablecer clave" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Más opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="hover:bg-surface-container-low/60 transition-colors group">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md">
+<div class="w-9 h-9 rounded-full bg-amber-100 text-amber-900 flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  HP
+                </div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-semibold truncate">Héctor Fabio Palacios</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Caddie Primera Categoría</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<a class="text-primary hover:underline truncate block max-w-xs font-body-md text-body-md" href="mailto:hector.palacios@campestre.org">hector.palacios@campestre.org</a>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-wrap gap-space-xs">
+<span class="inline-flex items-center px-space-sm py-0.5 rounded text-[11px] font-medium bg-amber-50 text-amber-800">Caddie</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1.5 px-space-sm py-1 rounded-full text-label-xs font-label-sm bg-on-primary-container text-primary font-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Membresía Activa
+              </span>
+</td>
+<td class="py-space-md px-space-md text-on-surface-variant font-label-sm text-label-sm">
+              15 Feb 2025
+            </td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-primary transition-colors" title="Editar roles" type="button">
+<span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-secondary transition-colors" title="Restablecer clave" type="button">
+<span class="material-symbols-outlined text-[18px]">lock_reset</span>
+</button>
+<button class="p-1.5 hover:bg-surface-container rounded text-on-surface-variant hover:text-on-surface transition-colors" title="Más opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-lowest flex flex-col sm:flex-row items-center justify-between gap-space-md">
+<div class="font-label-sm text-label-sm text-on-surface-variant">
+        Mostrando <span class="font-body-md-medium text-body-md-medium text-on-surface">1-7</span> de <span class="font-body-md-medium text-body-md-medium text-on-surface">142</span> personas registradas
+      </div>
+<div class="flex items-center gap-space-xs">
+<button class="p-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface disabled:opacity-40 transition-colors" disabled="" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 rounded-lg bg-primary-container text-on-primary font-label-sm text-label-sm font-bold flex items-center justify-center" type="button">
+          1
+        </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm font-medium flex items-center justify-center transition-colors" type="button">
+          2
+        </button>
+<button class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm font-medium flex items-center justify-center transition-colors" type="button">
+          3
+        </button>
+<span class="px-1 text-on-surface-variant font-label-xs">...</span>
+<button class="w-8 h-8 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container font-label-sm text-label-sm font-medium flex items-center justify-center transition-colors" type="button">
+          15
+        </button>
+<button class="p-2 rounded-lg bg-surface-container-low text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 hidden" id="invite-modal">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full mx-space-md p-space-xl shadow-xl flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-semibold">Invitar Persona</h2>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Envía un enlace de registro seguro con roles preasignados.</p>
+</div>
+<button class="p-1 rounded-lg text-on-surface-variant hover:bg-surface-container transition-colors" id="close-modal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<form class="flex flex-col gap-space-md" onsubmit="event.preventDefault(); document.getElementById('invite-modal').classList.add('hidden');">
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium">Nombre completo</label>
+<input class="w-full px-space-md py-2 text-body-md font-body-md bg-surface-container-low rounded-lg text-on-surface focus:outline-none focus:ring-1 focus:ring-primary" placeholder="Ej: Santiago Barrientos" required="" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium">Correo electrónico</label>
+<input class="w-full px-space-md py-2 text-body-md font-body-md bg-surface-container-low rounded-lg text-on-surface focus:outline-none focus:ring-1 focus:ring-primary" placeholder="ejemplo@club.com" required="" type="email"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant font-medium">Asignar Roles</label>
+<div class="grid grid-cols-2 gap-space-sm pt-1">
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input class="rounded text-primary focus:ring-primary" name="role" type="checkbox" value="admin"/>
+<span class="font-body-md text-body-md text-on-surface">Administrador</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input class="rounded text-primary focus:ring-primary" name="role" type="checkbox" value="entrenador"/>
+<span class="font-body-md text-body-md text-on-surface">Entrenador</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input checked="" class="rounded text-primary focus:ring-primary" name="role" type="checkbox" value="socio"/>
+<span class="font-body-md text-body-md text-on-surface">Socio / Alumno</span>
+</label>
+<label class="flex items-center gap-space-xs p-space-sm rounded-lg bg-surface-container-low cursor-pointer hover:bg-surface-container transition-colors">
+<input class="rounded text-primary focus:ring-primary" name="role" type="checkbox" value="caddie"/>
+<span class="font-body-md text-body-md text-on-surface">Caddie</span>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-md pt-space-sm">
+<button class="px-space-md py-2 bg-surface-container-low text-on-surface rounded-lg font-body-md-medium text-body-md-medium hover:bg-surface-container transition-colors" id="btn-cancel-modal" type="button">Cancelar</button>
+<button class="px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-body-md-medium text-body-md-medium hover:bg-primary transition-colors flex items-center gap-1" type="submit">
+<span class="material-symbols-outlined text-[18px]">send</span>
+<span>Enviar invitación</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+<script>
+    (function() {
+      const inviteBtn = document.getElementById('btn-invite');
+      const modal = document.getElementById('invite-modal');
+      const closeModal = document.getElementById('close-modal');
+      const cancelModal = document.getElementById('btn-cancel-modal');
+      const filterBtns = document.querySelectorAll('.role-filter-btn');
+      const searchInput = document.getElementById('search-input');
+      const rows = document.querySelectorAll('#users-table tbody tr');
+
+      if (inviteBtn && modal) {
+        inviteBtn.addEventListener('click', () => modal.classList.remove('hidden'));
+        closeModal.addEventListener('click', () => modal.classList.add('hidden'));
+        cancelModal.addEventListener('click', () => modal.classList.add('hidden'));
+      }
+
+      function filterTable() {
+        const query = searchInput ? searchInput.value.toLowerCase() : '';
+        const activeFilterBtn = document.querySelector('.role-filter-btn.bg-on-primary-container');
+        const filterRole = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+
+        rows.forEach(row => {
+          const text = row.innerText.toLowerCase();
+          const matchesQuery = text.includes(query);
+          const matchesRole = filterRole === 'all' || text.includes(filterRole.toLowerCase());
+          row.style.display = (matchesQuery && matchesRole) ? '' : 'none';
+        });
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => {
+            b.classList.remove('bg-on-primary-container', 'text-primary', 'font-body-md-medium');
+            b.classList.add('bg-surface-container-low', 'text-on-surface-variant');
+          });
+          btn.classList.add('bg-on-primary-container', 'text-primary', 'font-body-md-medium');
+          btn.classList.remove('bg-surface-container-low', 'text-on-surface-variant');
+          filterTable();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener('input', filterTable);
+      }
+    })();
+  </script>
+</div></div></main></div><footer class="fixed bottom-0 left-64 right-0 h-16 bg-surface-container-lowest border-t border-outline-variant/40 z-50 flex items-center justify-between px-gutter-desktop shadow-[0_-2px_10px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span><span class="font-body-md-medium text-body-md-medium text-on-surface-variant">Sin cambios sin guardar</span></div><div class="flex items-center gap-space-md"><button class="px-space-md py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md-medium text-body-md-medium text-on-surface hover:bg-surface-container-high transition-colors focus:ring-2 focus:ring-outline/20" type="button">Descartar</button><button class="px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-body-md-medium text-body-md-medium hover:bg-primary transition-colors focus:ring-2 focus:ring-primary/40 flex items-center gap-space-xs" type="button"><span class="material-symbols-outlined text-[18px]">save</span><span>Guardar cambios</span></button></div></footer></body></html>

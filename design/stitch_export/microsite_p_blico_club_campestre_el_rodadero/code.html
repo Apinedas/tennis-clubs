@@ -1,0 +1,401 @@
+<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-fixed": "#191d18", "on-secondary-fixed-variant": "#444842", "inverse-surface": "#2f312e", "surface-container-highest": "#e3e3de", "on-primary-container": "#d1ffde", "surface-dim": "#dadad5", "secondary-container": "#e0e4dc", "primary-fixed": "#99f6bb", "secondary": "#5b5f5a", "on-primary": "#ffffff", "surface-bright": "#fafaf4", "on-tertiary-fixed": "#40000c", "on-surface-variant": "#3f4941", "on-error-container": "#93000a", "surface-container-high": "#e8e8e3", "tertiary-fixed-dim": "#ffb3b5", "tertiary-container": "#af5259", "secondary-fixed-dim": "#c4c8c0", "surface-container-lowest": "#ffffff", "inverse-primary": "#7dd9a1", "primary-fixed-dim": "#7dd9a1", "primary": "#00643b", "surface-container-low": "#f4f4ee", "surface": "#fafaf4", "on-secondary": "#ffffff", "secondary-fixed": "#e0e4dc", "outline": "#6f7a70", "inverse-on-surface": "#f1f1ec", "on-primary-fixed-variant": "#00522f", "error": "#ba1a1a", "surface-container": "#eeeee9", "on-background": "#1a1c19", "background": "#fafaf4", "tertiary-fixed": "#ffdada", "on-tertiary": "#ffffff", "outline-variant": "#becabf", "on-tertiary-container": "#fff0f0", "error-container": "#ffdad6", "surface-variant": "#e3e3de", "tertiary": "#903a42", "surface-tint": "#006d40", "on-error": "#ffffff", "on-tertiary-fixed-variant": "#7c2b33", "on-surface": "#1a1c19", "primary-container": "#1b7f4f", "on-primary-fixed": "#002110", "on-secondary-container": "#61655f" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "gutter-desktop": "1rem", "space-md": "0.75rem", "gutter": "0.75rem", "space-sm": "0.5rem", "margin": "1rem", "space-xs": "0.25rem", "space-lg": "1rem", "margin-desktop": "1.5rem", "space-xl": "1.5rem" }, "fontFamily": { "headline-sm": ["Inter"], "label-sm": ["Inter"], "body-md-medium": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"], "label-xs": ["Inter"] }, "fontSize": { "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "body-md-medium": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "headline-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-xs": ["11px", { "lineHeight": "14px", "fontWeight": "500" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface flex flex-col antialiased"><header class="fixed top-0 w-full z-50 pt-safe bg-surface/90 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-gutter flex items-center justify-between gap-space-sm"><div class="flex items-center gap-space-sm min-w-0 flex-1"><img alt="Logo Club Campestre El Rodadero" class="h-8 w-auto object-contain shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1Uo-1XfADYkEdH-UGEd_e6O6cVzdTYgPkPyXAd6e5mkFeEXrMmO_0krD3qoURY6wKI84OXh1_ikmjl6JTxdps_D735rTXeOz1_iCN6see1ll-93nSFauurElDKAUgAwb6C2mljwrbtHcP8pfp55627f0VZ5X76XegR_1T0LOREJ0Kv5cHrPO8R1gxm7iI5zemN_EdRPdhxfB_8XYHE7MB-QWEUo8TdMzfDmOCJa-PzxbZVk6GqCalBgpvU"><div class="flex flex-col min-w-0"><span class="font-body-md-medium text-body-md-medium text-on-surface truncate leading-tight">Club Campestre El Rodadero</span><span class="font-label-xs text-label-xs text-secondary truncate leading-tight">Canchas Disponibles</span></div></div><div class="flex items-center gap-space-xs shrink-0"><a class="h-11 px-space-md flex items-center justify-center font-label-sm text-label-sm text-primary hover:text-primary-container transition-colors" data-path="login-socios" href="#">Ingreso Socios</a><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex flex-col relative w-full pt-16 pb-24 bg-surface min-h-screen"><div class="flex flex-col w-full">
+<!-- FRANJA INFORMATIVA COMPACTA DE UBICACIÓN Y OPERATIVIDAD -->
+<section class="bg-surface-container-low px-gutter py-space-md shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<div class="flex items-center justify-between gap-space-sm">
+<div class="inline-flex items-center gap-space-xs px-space-sm py-0.5 rounded-lg bg-primary/10 text-primary">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse shrink-0"></span>
+<span class="font-label-xs text-label-xs font-semibold">Abierto hoy · 8 canchas operativas</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary shrink-0">Lun - Dom: 6:00 a.m. – 9:30 p.m.</span>
+</div>
+<div class="flex items-center gap-space-xs text-secondary mt-0.5 min-w-0">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">pin_drop</span>
+<span class="font-label-sm text-label-sm truncate">Cra. 1 # 12-45, El Rodadero, Santa Marta, Magdalena</span>
+</div>
+</div>
+</section>
+<!-- SELECTOR DE FECHA HORIZONTAL -->
+<section class="px-gutter pt-space-lg pb-space-sm">
+<div class="flex items-center justify-between mb-space-sm">
+<h1 class="font-headline-lg text-headline-lg text-on-surface">Disponibilidad de canchas</h1>
+<span class="font-label-sm text-label-sm text-primary font-medium flex items-center gap-0.5">
+<span class="material-symbols-outlined text-[16px]">calendar_month</span>
+        Mes
+      </span>
+</div>
+<!-- Carrusel de días -->
+<div aria-label="Seleccionar fecha" class="flex gap-space-xs overflow-x-auto pb-space-xs -mx-gutter px-gutter no-scrollbar" role="tablist">
+<!-- Hoy Activo -->
+<button aria-selected="true" class="flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-primary text-on-primary shadow-sm shrink-0 transition-transform active:scale-95" role="tab">
+<span class="font-label-xs text-label-xs uppercase tracking-wider font-semibold opacity-90">Hoy</span>
+<span class="font-headline-sm text-headline-sm font-semibold leading-tight mt-0.5">Mié 22</span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-primary-fixed mt-1"></span>
+</button>
+<!-- Días siguientes -->
+<button aria-selected="false" class="flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm shrink-0 transition-colors hover:bg-surface-container" role="tab">
+<span class="font-label-xs text-label-xs text-secondary">Mañana</span>
+<span class="font-headline-sm text-headline-sm leading-tight mt-0.5">Jue 23</span>
+<span class="font-label-xs text-label-xs text-primary font-medium mt-1">19 lib.</span>
+</button>
+<button aria-selected="false" class="flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm shrink-0 transition-colors hover:bg-surface-container" role="tab">
+<span class="font-label-xs text-label-xs text-secondary">Viernes</span>
+<span class="font-headline-sm text-headline-sm leading-tight mt-0.5">Vie 24</span>
+<span class="font-label-xs text-label-xs text-primary font-medium mt-1">14 lib.</span>
+</button>
+<button aria-selected="false" class="flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm shrink-0 transition-colors hover:bg-surface-container" role="tab">
+<span class="font-label-xs text-label-xs text-secondary">Sábado</span>
+<span class="font-headline-sm text-headline-sm leading-tight mt-0.5">Sáb 25</span>
+<span class="font-label-xs text-label-xs text-secondary font-medium mt-1">6 lib.</span>
+</button>
+<button aria-selected="false" class="flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm shrink-0 transition-colors hover:bg-surface-container" role="tab">
+<span class="font-label-xs text-label-xs text-secondary">Domingo</span>
+<span class="font-headline-sm text-headline-sm leading-tight mt-0.5">Dom 26</span>
+<span class="font-label-xs text-label-xs text-secondary font-medium mt-1">8 lib.</span>
+</button>
+<button aria-selected="false" class="flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm shrink-0 transition-colors hover:bg-surface-container" role="tab">
+<span class="font-label-xs text-label-xs text-secondary">Lunes</span>
+<span class="font-headline-sm text-headline-sm leading-tight mt-0.5">Lun 27</span>
+<span class="font-label-xs text-label-xs text-primary font-medium mt-1">26 lib.</span>
+</button>
+<button aria-selected="false" class="flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm shrink-0 transition-colors hover:bg-surface-container" role="tab">
+<span class="font-label-xs text-label-xs text-secondary">Martes</span>
+<span class="font-headline-sm text-headline-sm leading-tight mt-0.5">Mar 28</span>
+<span class="font-label-xs text-label-xs text-primary font-medium mt-1">24 lib.</span>
+</button>
+</div>
+</section>
+<!-- LISTA DE CANCHAS & FILTROS OPERACIONALES -->
+<section class="px-gutter pt-space-xs pb-space-lg flex flex-col gap-space-sm">
+<!-- Metadatos de franjas y filtros -->
+<div class="flex flex-col gap-space-xs mt-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">8 canchas operativas</span>
+<span class="font-label-xs text-label-xs px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-semibold">28 franjas libres hoy</span>
+</div>
+<!-- Filtros rápidos por características técnicas -->
+<div aria-label="Filtrar por tipo de cancha" class="flex gap-space-xs overflow-x-auto pb-1 -mx-gutter px-gutter no-scrollbar" role="group">
+<button class="px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-primary text-on-primary font-medium shrink-0 shadow-sm" type="button">
+          Todas (8)
+        </button>
+<button class="px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container text-on-surface font-medium shrink-0 hover:bg-surface-container-high transition-colors" type="button">
+          Arcilla (6)
+        </button>
+<button class="px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container text-on-surface font-medium shrink-0 hover:bg-surface-container-high transition-colors" type="button">
+          Dura (2)
+        </button>
+<button class="px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container text-on-surface font-medium shrink-0 hover:bg-surface-container-high transition-colors" type="button">
+          Techadas (3)
+        </button>
+</div>
+</div>
+<!-- TARJETA CANCHA 1 -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">sports_tennis</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Cancha 1</h2>
+</div>
+<p class="font-label-sm text-label-sm text-secondary truncate mt-0.5">Arcilla · Techada</p>
+</div>
+<span class="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-label-xs text-label-xs font-semibold shrink-0">4 franjas libres</span>
+</div>
+<!-- Grid de horarios disponibles en la cancha -->
+<div class="flex flex-col gap-1.5 pt-space-xs">
+<span class="font-label-xs text-label-xs text-secondary font-medium uppercase tracking-wider">Próximos turnos de 60 min:</span>
+<div class="grid grid-cols-4 gap-space-xs">
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">07:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">09:30</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">15:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">18:00</span>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-1 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">wb_sunny</span>
+<span class="">Iluminación nocturna OK</span>
+</div>
+<button class="h-9 px-space-lg rounded-lg bg-primary text-on-primary font-body-md-medium text-body-md-medium hover:bg-primary-container transition-colors shadow-sm shrink-0 flex items-center justify-center" type="button">
+          Reservar
+        </button>
+</div>
+</article>
+<!-- TARJETA CANCHA 2 -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">sports_tennis</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Cancha 2</h2>
+</div>
+<p class="font-label-sm text-label-sm text-secondary truncate mt-0.5">Arcilla · Al aire libre</p>
+</div>
+<span class="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-label-xs text-label-xs font-semibold shrink-0">6 franjas libres</span>
+</div>
+<div class="flex flex-col gap-1.5 pt-space-xs">
+<span class="font-label-xs text-label-xs text-secondary font-medium uppercase tracking-wider">Horarios libres hoy:</span>
+<div class="grid grid-cols-3 gap-space-xs">
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">06:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">08:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">11:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">14:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">16:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">17:00</span>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-1 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">grain</span>
+<span class="">Polvo de ladrillo compactado</span>
+</div>
+<button class="h-9 px-space-lg rounded-lg bg-primary text-on-primary font-body-md-medium text-body-md-medium hover:bg-primary-container transition-colors shadow-sm shrink-0 flex items-center justify-center" type="button">
+          Reservar
+        </button>
+</div>
+</article>
+<!-- TARJETA CANCHA 3 -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">sports_tennis</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Cancha 3</h2>
+</div>
+<p class="font-label-sm text-label-sm text-secondary truncate mt-0.5">Arcilla · Al aire libre</p>
+</div>
+<span class="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-label-xs text-label-xs font-semibold shrink-0">2 franjas libres</span>
+</div>
+<div class="flex flex-col gap-1.5 pt-space-xs">
+<span class="font-label-xs text-label-xs text-secondary font-medium uppercase tracking-wider">Horarios libres hoy:</span>
+<div class="grid grid-cols-2 gap-space-xs">
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">13:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">19:00</span>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-1 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">schedule</span>
+<span class="">Alta demanda vespertina</span>
+</div>
+<button class="h-9 px-space-lg rounded-lg bg-primary text-on-primary font-body-md-medium text-body-md-medium hover:bg-primary-container transition-colors shadow-sm shrink-0 flex items-center justify-center" type="button">
+          Reservar
+        </button>
+</div>
+</article>
+<!-- TARJETA CANCHA 4 -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-primary shrink-0">sports_tennis</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Cancha 4</h2>
+</div>
+<p class="font-label-sm text-label-sm text-secondary truncate mt-0.5">Superficie dura (Plexicushion) · Al aire libre</p>
+</div>
+<span class="px-2.5 py-1 rounded-lg bg-primary/10 text-primary font-label-xs text-label-xs font-semibold shrink-0">1 franja libre</span>
+</div>
+<div class="flex flex-col gap-1.5 pt-space-xs">
+<span class="font-label-xs text-label-xs text-secondary font-medium uppercase tracking-wider">Último turno del día:</span>
+<div class="grid grid-cols-2 gap-space-xs">
+<span class="py-1.5 px-2 rounded-lg bg-surface-container text-center font-label-sm text-label-sm font-medium text-on-surface">20:00 - 21:00</span>
+<span class="py-1.5 px-2 rounded-lg bg-surface-container-high text-center font-label-xs text-label-xs text-secondary flex items-center justify-center">Tarifa nocturna</span>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs">
+<div class="flex items-center gap-1 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">speed</span>
+<span class="">Bote rápido certificado</span>
+</div>
+<button class="h-9 px-space-lg rounded-lg bg-primary text-on-primary font-body-md-medium text-body-md-medium hover:bg-primary-container transition-colors shadow-sm shrink-0 flex items-center justify-center" type="button">
+          Reservar
+        </button>
+</div>
+</article>
+<!-- TARJETA CANCHA 5 (Ocupada) -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-sm opacity-90">
+<div class="flex items-start justify-between gap-space-sm">
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[18px] text-secondary shrink-0">sports_tennis</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Cancha 5</h2>
+</div>
+<p class="font-label-sm text-label-sm text-secondary truncate mt-0.5">Arcilla · Iluminación LED</p>
+</div>
+<span class="px-2.5 py-1 rounded-lg bg-surface-container-highest text-secondary font-label-xs text-label-xs font-semibold shrink-0">Ocupada hoy</span>
+</div>
+<div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container">
+<div class="flex items-center gap-space-xs text-secondary">
+<span class="material-symbols-outlined text-[18px]">event_busy</span>
+<span class="font-label-sm text-label-sm">Próxima libre: Mañana desde 06:00</span>
+</div>
+<span class="font-label-xs text-label-xs text-primary font-medium">Ver turnos Jueves</span>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs">
+<span class="font-label-xs text-label-xs text-secondary">Mantenimiento de riego a las 18:30</span>
+<button class="h-9 px-space-lg rounded-lg bg-surface-container text-on-surface font-body-md-medium text-body-md-medium hover:bg-surface-container-high transition-colors shrink-0 flex items-center justify-center" type="button">
+          Ver agenda
+        </button>
+</div>
+</article>
+</section>
+<!-- BANNER RÁPIDO DE REGLAMENTO DE CORTE -->
+<section class="mx-gutter mb-space-lg p-space-md rounded-lg bg-surface-container shadow-sm flex items-start gap-space-md">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 text-primary mt-0.5">
+<span class="material-symbols-outlined text-[20px]">info</span>
+</div>
+<div class="flex flex-col">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Reglamento de indumentaria y reserva</span>
+<p class="font-label-sm text-label-sm text-secondary mt-0.5 leading-relaxed">
+        Uso obligatorio de suela para polvo de ladrillo (All-Court / Clay) en canchas 1 a 3, 5 a 8. Cancelaciones sin cobro hasta 3 horas antes de su turno.
+      </p>
+</div>
+</section>
+<!-- SECCIÓN CUERPO TÉCNICO Y ENTRENADORES -->
+<section class="px-gutter pb-space-xl flex flex-col gap-space-md">
+<div class="flex flex-col">
+<div class="flex items-center justify-between">
+<h2 class="font-headline-lg text-headline-lg text-on-surface font-medium">Cuerpo técnico y entrenadores</h2>
+<span class="font-label-xs text-label-xs text-primary font-semibold">2 disponibles</span>
+</div>
+<p class="font-body-md text-body-md text-secondary mt-0.5">Clases individuales y grupales para todos los niveles.</p>
+</div>
+<!-- TARJETA ENTRENADOR 1 -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start gap-space-md">
+<img alt="Entrenador Carlos Mario Restrepo" class="w-16 h-16 rounded-lg object-cover shrink-0 bg-surface-container shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiQMaPgvLk44JweFeVxn_a66GU38P14XCa50vr4pOda4YirUjloLwPl-hQGEf9_KxlA5XIaRLu-C50Zvl5I89V8DOmF1x7-FT83yNC8C9pYwSye5acEOQKWHsWnhLigxhS-M4u9Gvv0vTTZK_1jCl-GCyhpw2Jhy_277R0-FhxufAfDtQSt6lE3iC7djGlPL5QsvSYvly4FSnsk0Zip3vkLAeuGMuT0zMl1dmzaQ3sLLgw6EDXje_0">
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center justify-between gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Carlos Mario Restrepo</h3>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-xs text-label-xs font-semibold shrink-0">ITF Nivel II</span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary mt-0.5 line-clamp-2">
+            Nivel avanzado &amp; Competición Juvenil · Certificado ITF Nivel II
+          </p>
+<div class="flex items-center gap-space-sm mt-1.5 flex-wrap">
+<span class="inline-flex items-center gap-1 font-label-xs text-label-xs text-primary font-medium">
+<span class="material-symbols-outlined text-[14px]">event_available</span>
+              Hoy: 2 cupos tarde
+            </span>
+<span class="font-label-xs text-label-xs text-secondary">·</span>
+<span class="font-label-xs text-label-xs text-on-surface font-semibold">
+              $85.000 COP / hora
+            </span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center gap-1 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">verified</span>
+<span class="">14 años de experiencia en torneos nacionales</span>
+</div>
+<button class="h-8 px-space-md rounded-lg bg-surface-container-lowest text-primary hover:bg-surface-container font-label-sm text-label-sm font-semibold shadow-sm transition-colors shrink-0" type="button">
+          Consultar clase
+        </button>
+</div>
+</article>
+<!-- TARJETA ENTRENADORA 2 -->
+<article class="bg-surface-container-lowest rounded-lg p-space-md shadow-sm flex flex-col gap-space-md">
+<div class="flex items-start gap-space-md">
+<img alt="Entrenadora Valentina Gómez Duque" class="w-16 h-16 rounded-lg object-cover shrink-0 bg-surface-container shadow-sm" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4ue4ldkWk0zhUk2WNX4C2L_Q5bSGkUnthbIj618ReT9xqNKwtDOd4vBNTcu9Zk-i-02nR1C0AZ-H_WjGse23OKmKNiSXTbScNv72hgi0YtlqIVwWkoQdUtjgMCjneUelqVcqZObX0Mc-gaiyOPMAdgNytVhNmlFjw-cLEnn7poHGiQfreQWHUQtmxR_4bR_kIWvpWc_m2SXZuhvwRM_TESpHgaKKk3r93TywMDp8OFBtgeD5fZYMU">
+<div class="flex flex-col min-w-0 flex-1">
+<div class="flex items-center justify-between gap-space-xs">
+<h3 class="font-headline-sm text-headline-sm text-on-surface font-semibold truncate">Valentina Gómez Duque</h3>
+<span class="px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-xs text-label-xs font-semibold shrink-0">Lic. Ed. Física</span>
+</div>
+<p class="font-label-sm text-label-sm text-secondary mt-0.5 line-clamp-2">
+            Iniciación adultos &amp; Perfeccionamiento técnico · Lic. Educación Física
+          </p>
+<div class="flex items-center gap-space-sm mt-1.5 flex-wrap">
+<span class="inline-flex items-center gap-1 font-label-xs text-label-xs text-primary font-medium">
+<span class="material-symbols-outlined text-[14px]">event_available</span>
+              Hoy: 3 cupos mañana
+            </span>
+<span class="font-label-xs text-label-xs text-secondary">·</span>
+<span class="font-label-xs text-label-xs text-on-surface font-semibold">
+              $75.000 COP / hora
+            </span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between gap-space-sm pt-space-xs bg-surface-container-low p-space-sm rounded-lg">
+<div class="flex items-center gap-1 text-secondary font-label-xs text-label-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">groups</span>
+<span class="">Metodología dinámica de juego y cardio</span>
+</div>
+<button class="h-8 px-space-md rounded-lg bg-surface-container-lowest text-primary hover:bg-surface-container font-label-sm text-label-sm font-semibold shadow-sm transition-colors shrink-0" type="button">
+          Consultar clase
+        </button>
+</div>
+</article>
+</section>
+<!-- PIE DE PÁGINA (OPERATIVO / B2B SOCIOS) -->
+<footer class="bg-surface-container px-gutter py-space-lg flex flex-col gap-space-md mt-auto shadow-sm">
+<div class="flex flex-col gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">¿Ya eres socio o tienes cuenta activa?</span>
+<p class="font-label-sm text-label-sm text-secondary leading-relaxed">
+        Ingresa a tu cuenta para aplicar tarifas preferenciales de socio, agendar con 7 días de anticipación y gestionar cancelaciones.
+      </p>
+</div>
+<!-- Acciones de cuenta -->
+<div class="flex items-center gap-space-sm">
+<a class="h-10 px-space-lg rounded-lg bg-primary text-on-primary font-body-md-medium text-body-md-medium flex-1 flex items-center justify-center hover:bg-primary-container transition-colors shadow-sm text-center" href="#">
+        Iniciar sesión
+      </a>
+<a class="h-10 px-space-lg rounded-lg bg-surface-container-lowest text-on-surface font-body-md-medium text-body-md-medium flex-1 flex items-center justify-center hover:bg-surface-container-high transition-colors shadow-sm text-center" href="#">
+        Crear cuenta
+      </a>
+</div>
+<!-- Canales de contacto en sede -->
+<div class="flex flex-col gap-1 pt-space-xs text-secondary font-label-xs text-label-xs">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">call</span>
+<span class="">Recepción tenis: +57 (605) 421-9800</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">chat</span>
+<span class="">Celular / WhatsApp reservas: +57 315 789 2341</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary shrink-0">badge</span>
+<span class="">Coordinador de canchas: Profe Hernando Mendoza</span>
+</div>
+</div>
+<!-- Copyright institucional -->
+<div class="pt-space-sm flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 text-secondary font-label-xs text-label-xs">
+<span class="">© 2025 Club Campestre El Rodadero · Tenis Pro Ops</span>
+<span class="text-primary font-medium">Santa Marta, Colombia</span>
+</div>
+</footer>
+</div>
+<script>
+  // Micro-interacción: cambio de estado en chips de filtro y tabs de fecha
+  document.addEventListener('DOMContentLoaded', () => {
+    // Manejo de tabs de fecha
+    const dateButtons = document.querySelectorAll('[role="tablist"] button');
+    dateButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        dateButtons.forEach(b => {
+          b.setAttribute('aria-selected', 'false');
+          b.className = 'flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-surface-container-lowest text-on-surface shadow-sm shrink-0 transition-colors hover:bg-surface-container';
+        });
+        btn.setAttribute('aria-selected', 'true');
+        btn.className = 'flex flex-col items-center justify-center min-w-[62px] py-2 px-2.5 rounded-lg bg-primary text-on-primary shadow-sm shrink-0 transition-transform active:scale-95';
+      });
+    });
+
+    // Manejo de filtros de canchas
+    const filterButtons = document.querySelectorAll('[aria-label="Filtrar por tipo de cancha"] button');
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterButtons.forEach(b => {
+          b.className = 'px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-surface-container text-on-surface font-medium shrink-0 hover:bg-surface-container-high transition-colors';
+        });
+        btn.className = 'px-space-md py-1.5 rounded-lg font-label-sm text-label-sm bg-primary text-on-primary font-medium shrink-0 shadow-sm';
+      });
+    });
+  });
+</script></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/95 backdrop-blur-xl shadow-[0_-2px_12px_rgba(0,0,0,0.04)]" data-active-classes="text-primary font-body-md-medium"><div class="flex justify-around items-center h-16 px-gutter"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] transition-colors text-primary font-body-md-medium" data-path="canchas-disponibles" href="#"><span class="material-symbols-outlined text-[22px]">sports_tennis</span><span class="font-label-xs text-label-xs mt-space-xs">Canchas</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="entrenadores" href="#"><span class="material-symbols-outlined text-[22px]">sports</span><span class="font-label-xs text-label-xs mt-space-xs">Entrenadores</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="tarifas-y-servicios" href="#"><span class="material-symbols-outlined text-[22px]">payments</span><span class="font-label-xs text-label-xs mt-space-xs">Tarifas</span></a><a class="flex flex-col items-center justify-center min-w-[56px] min-h-[44px] text-on-surface-variant hover:text-on-surface transition-colors" data-path="contacto-sede" href="#"><span class="material-symbols-outlined text-[22px]">location_on</span><span class="font-label-xs text-label-xs mt-space-xs">Sede</span></a></div></nav>
+
+</body></html>

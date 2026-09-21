@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><title>Tenis Pro Ops - Configuración</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-container": "#61655f", "error": "#ba1a1a", "on-error-container": "#93000a", "inverse-primary": "#7dd9a1", "on-secondary-fixed": "#191d18", "surface-tint": "#006d40", "secondary-fixed-dim": "#c4c8c0", "outline": "#6f7a70", "error-container": "#ffdad6", "primary": "#00643b", "surface-variant": "#e3e3de", "outline-variant": "#becabf", "on-primary-fixed": "#002110", "on-primary-container": "#d1ffde", "secondary-fixed": "#e0e4dc", "surface-container-high": "#e8e8e3", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb3b5", "surface-dim": "#dadad5", "surface": "#fafaf4", "tertiary-fixed": "#ffdada", "surface-container-highest": "#e3e3de", "secondary-container": "#e0e4dc", "primary-container": "#1b7f4f", "surface-container": "#eeeee9", "secondary": "#5b5f5a", "inverse-surface": "#2f312e", "on-tertiary-fixed": "#40000c", "primary-fixed-dim": "#7dd9a1", "surface-container-low": "#f4f4ee", "on-surface-variant": "#3f4941", "tertiary": "#903a42", "on-error": "#ffffff", "surface-bright": "#fafaf4", "on-background": "#1a1c19", "on-primary": "#ffffff", "on-tertiary-container": "#fff0f0", "on-tertiary": "#ffffff", "on-secondary": "#ffffff", "primary-fixed": "#99f6bb", "background": "#fafaf4", "inverse-on-surface": "#f1f1ec", "on-tertiary-fixed-variant": "#7c2b33", "on-surface": "#1a1c19", "on-primary-fixed-variant": "#00522f", "on-secondary-fixed-variant": "#444842", "tertiary-container": "#af5259" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "0.75rem", "space-lg": "1rem", "gutter-desktop": "1rem", "margin-desktop": "1.5rem", "space-xl": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter": "0.75rem", "margin": "1rem" }, "fontFamily": { "body-md-medium": ["Inter"], "label-xs": ["Inter"], "headline-sm": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"] }, "fontSize": { "body-md-medium": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "label-xs": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest border-b border-outline-variant/40"><div class="w-full h-16 px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md min-w-0"><img alt="Tenis Pro Ops Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1VTQ1I1N3XjttOU4JKmUskhHMr5sGXXw0vk4hL2k2Qfccnn9dBmXerJIN4w3ORr0VlWj3eiQdLIjSP8F7SX_uNI1cv21d58dFb2F4pd9RlZId9yDCejBWFP7H1rlEBXwIWP9JESMgJsXhIHdquWhhcxHVo25pAJABDEAFxcQRAIrBquRNR9igwiNAK2T5wI3FGf0ybNtO0_OOV2ZTbfKIqSv2q8WHpEGMOXiZ7KK-VDP2V6EEkW8Ope_sg"/><div class="h-5 w-px bg-outline-variant/60 hidden sm:block"></div><div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-1.5 rounded-lg border border-outline-variant/50"><span class="material-symbols-outlined text-primary text-[18px]">sports_tennis</span><div class="flex flex-col"><span class="font-label-xs text-label-xs text-on-surface-variant leading-none">Sede Activa</span><span class="font-body-md-medium text-body-md-medium text-on-surface truncate leading-tight">Club Campestre El Rodadero</span></div><span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span></div><div class="h-4 w-px bg-outline-variant/60 hidden md:block"></div><nav aria-label="Breadcrumb" class="hidden md:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="hover:text-on-surface cursor-pointer">Configuración</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-on-surface font-body-md-medium text-body-md-medium">Ajustes Generales</span></nav></div><div class="flex items-center gap-space-md flex-shrink-0"><div class="hidden lg:flex flex-col text-right"><span class="font-body-md-medium text-body-md-medium text-on-surface leading-tight">Carlos Mendoza</span><span class="font-label-xs text-label-xs text-on-surface-variant leading-none">Operador de Caseta / Admin</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ring-2 ring-surface-container"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-16 bottom-16 w-64 bg-surface-container-lowest border-r border-outline-variant/40 z-40 flex flex-col justify-between overflow-y-auto"><div class="p-space-md"><div class="px-space-md py-space-sm mb-space-xs"><span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-bold">Panel de Configuración</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-on-primary-container text-primary font-body-md-medium text-body-md-medium rounded-lg shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="club" href="#"><span class="material-symbols-outlined text-[20px]">domain</span><span class="font-body-md-medium text-body-md-medium">Club</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="canchas" href="#"><span class="material-symbols-outlined text-[20px]">stadium</span><span class="font-body-md-medium text-body-md-medium">Canchas</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-2.5 transition-colors bg-on-primary-container text-primary font-body-md-medium text-body-md-medium rounded-lg shadow-sm" data-path="tarifas" href="#"><span class="material-symbols-outlined text-[20px]">payments</span><span class="font-body-md-medium text-body-md-medium">Tarifas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="personas" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md-medium text-body-md-medium">Personas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="reservas" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span class="font-body-md-medium text-body-md-medium">Reservas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="modulos" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md-medium text-body-md-medium">Módulos</span></a></nav></div><div class="p-space-md border-t border-outline-variant/30 bg-surface-container-low/50"><div class="flex items-center gap-space-sm px-space-sm py-1"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-xs text-label-xs text-on-surface-variant">Servidor Caseta: Operativo</span></div></div></aside><div class="pl-64"><main class="pt-16 pb-20 w-full min-h-screen bg-surface px-gutter-desktop"><div class="w-full py-space-lg" id="content"><div class="flex flex-col w-full gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pb-space-xs">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-xs text-label-xs tracking-wider uppercase">
+<span>Liquidación y Facturación</span>
+<span>•</span>
+<span class="text-primary font-body-md-medium">COP (Pesos Colombianos)</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tight">Esquema de Tarifas</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">Configuración de precios de alquiler de canchas por franja horaria y categoría de usuario.</p>
+</div>
+<div class="flex items-center gap-space-sm self-start sm:self-auto">
+<button class="px-space-md py-2 bg-surface-container-lowest text-on-surface rounded-lg font-body-md-medium text-body-md-medium shadow-sm hover:bg-surface-container-high transition-colors flex items-center gap-space-xs" type="button">
+<span class="material-symbols-outlined text-[18px] text-on-surface-variant">file_download</span>
+<span>Exportar matriz</span>
+</button>
+<button class="px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-body-md-medium text-body-md-medium shadow-sm hover:bg-primary transition-colors flex items-center gap-space-xs" id="btn-nueva-tarifa" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span>Agregar tarifa</span>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">price_change</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Reglas activas</span>
+<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">12 esquemas</span>
+<span class="font-label-xs text-label-xs text-primary font-body-md-medium leading-none mt-0.5">Todas vigentes</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center text-secondary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">schedule</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Pico actual</span>
+<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">18:00 - 21:30</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant leading-none mt-0.5">Lunes a Domingo</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-700 flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">wb_incandescent</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Recargo nocturno</span>
+<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">$15.000 COP</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant leading-none mt-0.5">A partir de las 18:00</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex items-center gap-space-md">
+<div class="w-10 h-10 rounded-lg bg-tertiary-container/15 flex items-center justify-center text-tertiary flex-shrink-0">
+<span class="material-symbols-outlined text-[22px]">group_remove</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Tarifa No Socio pico</span>
+<span class="font-headline-sm text-headline-sm text-on-surface leading-tight">$80.000 COP</span>
+<span class="font-label-xs text-label-xs text-tertiary font-body-md-medium leading-none mt-0.5">Requiere prepago 100%</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg shadow-sm p-space-md flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-md">
+<div class="flex flex-wrap items-center gap-space-sm flex-1">
+<div class="relative min-w-[200px] flex-1 max-w-xs">
+<span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full h-10 pl-8 pr-3 text-on-surface bg-surface-container-low rounded-lg font-body-md text-body-md placeholder:text-on-secondary-container focus:outline-none focus:ring-2 focus:ring-primary/40" id="search-input" placeholder="Filtrar por cancha o condición..." type="text"/>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low p-1 rounded-lg">
+<span class="font-label-xs text-label-xs text-on-surface-variant px-space-xs uppercase">Usuario:</span>
+<button class="filter-user-btn px- space-md px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-xs" data-user="all" type="button">Todos</button>
+<button class="filter-user-btn px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" data-user="socio" type="button">Socios</button>
+<button class="filter-user-btn px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" data-user="visitante" type="button">Visitantes / No socios</button>
+</div>
+<div class="flex items-center gap-space-xs bg-surface-container-low p-1 rounded-lg">
+<span class="font-label-xs text-label-xs text-on-surface-variant px-space-xs uppercase">Franja:</span>
+<button class="filter-slot-btn px-2.5 py-1 rounded bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-xs" data-slot="all" type="button">Todas</button>
+<button class="filter-slot-btn px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" data-slot="pico" type="button">Pico</button>
+<button class="filter-slot-btn px-2.5 py-1 rounded text-on-surface-variant hover:text-on-surface font-label-sm text-label-sm" data-slot="valle" type="button">Valle</button>
+</div>
+</div>
+<div class="flex items-center gap-space-sm justify-end text-on-surface-variant font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span id="counter-display">6 esquemas visibles</span>
+</span>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left font-body-md text-body-md">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-space-md px-space-lg font-body-md-medium">Cancha / Asignación</th>
+<th class="py-space-md px-space-md font-body-md-medium">Franja Horaria</th>
+<th class="py-space-md px-space-md font-body-md-medium">Aplica a</th>
+<th class="py-space-md px-space-md font-body-md-medium">Tarifa Base (COP)</th>
+<th class="py-space-md px-space-md font-body-md-medium">Suplemento Luz</th>
+<th class="py-space-md px-space-md font-body-md-medium text-center">Estado</th>
+<th class="py-space-md px-space-lg text-right font-body-md-medium">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y-0" id="tarifas-table-body">
+<tr class="tariff-row bg-surface-container-lowest hover:bg-surface-container-low transition-colors" data-slot="valle" data-user="socio">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">sports_baseball</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Todas las canchas de Arcilla</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Canchas 1, 2, 3, 4, 5 y 6</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-secondary font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Horario Valle
+                </span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">06:00 - 17:00 • Lunes a Viernes</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">card_membership</span>
+                Socio del Club
+              </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md-medium text-body-md-medium text-primary font-bold">$0 COP</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Incluido en cuota mensual</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                No aplica (Diurno)
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors flex items-center justify-center" title="Editar tarifa" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-colors flex items-center justify-center" title="Eliminar regla" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="tariff-row bg-surface-container-low/40 hover:bg-surface-container-low transition-colors" data-slot="pico" data-user="socio">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">sports_baseball</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Todas las canchas de Arcilla</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Canchas 1, 2, 3, 4, 5 y 6</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-tertiary-container/15 text-tertiary font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                  Horario Pico
+                </span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">18:00 - 21:30 (L-V) y FDS</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">card_membership</span>
+                Socio del Club
+              </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-bold">$45.000 COP</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Por hora reservada</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/10 text-amber-800 font-label-sm text-label-sm font-body-md-medium">
+<span class="material-symbols-outlined text-[14px]">lightbulb</span>
+                +$15.000 COP luz nocturna
+              </div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="tariff-row bg-surface-container-lowest hover:bg-surface-container-low transition-colors" data-slot="valle" data-user="visitante">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">roofing</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Cancha 1 y 2 (Techadas)</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Polvo de ladrillo bajo carpa</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-secondary font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Horario Valle
+                </span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">06:00 - 17:00 • Lunes a Viernes</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">person_outline</span>
+                Visitante / No Socio
+              </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-bold">$65.000 COP</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Por hora reservada</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">remove</span>
+                Opcional ($10.000 COP)
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="tariff-row bg-surface-container-low/40 hover:bg-surface-container-low transition-colors" data-slot="pico" data-user="visitante">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">roofing</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Cancha 1 y 2 (Techadas)</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Polvo de ladrillo bajo carpa</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-tertiary-container/15 text-tertiary font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                  Horario Pico
+                </span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">18:00 - 21:30 • Fines de semana</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-secondary-container text-on-secondary-container font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">person_outline</span>
+                Visitante / No Socio
+              </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md-medium text-body-md-medium text-tertiary font-bold">$80.000 COP</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Por turno completo</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/10 text-amber-800 font-label-sm text-label-sm font-body-md-medium">
+<span class="material-symbols-outlined text-[14px]">lightbulb</span>
+                +$15.000 COP luz nocturna
+              </div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="tariff-row bg-surface-container-lowest hover:bg-surface-container-low transition-colors" data-slot="valle" data-user="socio">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Cancha 4 (Plexicushion)</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Superficie dura rápida</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container text-secondary font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                  Horario Valle
+                </span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">07:00 - 16:00 • Lunes a Viernes</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">card_membership</span>
+                Socio del Club
+              </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-bold">$20.000 COP</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Mantenimiento especial</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="font-label-sm text-label-sm text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">do_not_disturb_on</span>
+                No aplica
+              </span>
+</td>
+<td class="py-space-md px-space-md text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<tr class="tariff-row bg-surface-container-low/40 hover:bg-surface-container-low transition-colors" data-slot="pico" data-user="all">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-primary flex-shrink-0">
+<span class="material-symbols-outlined text-[18px]">layers</span>
+</div>
+<div class="flex flex-col min-w-0">
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Cancha 4 (Plexicushion)</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Superficie dura rápida</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col gap-1 items-start">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-tertiary-container/15 text-tertiary font-label-xs text-label-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                  Horario Pico
+                </span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">17:00 - 22:00 • Todos los días</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-container-high text-on-surface font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[14px]">groups</span>
+                Todos los usuarios
+              </span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex flex-col">
+<span class="font-body-md-medium text-body-md-medium text-on-surface font-bold">$70.000 COP</span>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Por hora reservada</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-amber-500/10 text-amber-800 font-label-sm text-label-sm font-body-md-medium">
+<span class="material-symbols-outlined text-[14px]">lightbulb</span>
+                +$15.000 COP luz nocturna
+              </div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<label class="relative inline-flex items-center cursor-pointer">
+<input class="sr-only peer" type="checkbox"/>
+<div class="w-9 h-5 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-surface-container-lowest after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-surface-container-lowest after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-primary hover:bg-surface-container-high transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="w-8 h-8 rounded-lg text-on-surface-variant hover:text-error hover:bg-error-container/20 transition-colors flex items-center justify-center" type="button">
+<span class="material-symbols-outlined text-[18px]">delete</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-space-md bg-surface-container-low flex flex-col sm:flex-row items-center justify-between gap-space-sm text-on-surface-variant font-label-sm text-label-sm">
+<span class="font-body-md-medium">Mostrando 5 de 5 reglas configuradas para la sede principal</span>
+<div class="flex items-center gap-space-xs">
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest opacity-50 cursor-not-allowed font-label-sm text-label-sm" disabled="" type="button">Anterior</button>
+<span class="px-2 py-1 text-on-surface font-body-md-medium">1 de 1</span>
+<button class="px-2.5 py-1 rounded bg-surface-container-lowest opacity-50 cursor-not-allowed font-label-sm text-label-sm" disabled="" type="button">Siguiente</button>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<div class="lg:col-span-2 bg-surface-container-lowest rounded-lg p-space-lg shadow-sm flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">tune</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-tight">Reglas de Aplicación Automática en Taquilla</h2>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Prioridad de motor de cálculo al facturar en recepción y app móvil</span>
+</div>
+</div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-on-primary-container text-primary font-label-xs text-label-xs font-body-md-medium">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          Motor en vivo
+        </span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-body-md-medium text-body-md-medium">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+<span>Sensor de Alumbrado Automático</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-normal">
+            A partir de las 18:00 horas, el recargo de luz (+$15.000 COP) se añade automáticamente a cualquier reserva que finalice después de dicho horario, sin requerir intervención del operario.
+          </p>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-body-md-medium text-body-md-medium">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+<span>Validación de Socio con Cuota al Día</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-normal">
+            Si el socio titular presenta cartera vencida mayor a 30 días, el sistema desactiva la tarifa exenta de $0 COP y cobra la tarifa de Visitante hasta el paz y salvo contable.
+          </p>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-body-md-medium text-body-md-medium">
+<span class="material-symbols-outlined text-[18px]">hourglass_bottom</span>
+<span>Cancelación Tardia y No-Show</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-normal">
+            Cancelaciones con menos de 4 horas de anticipación en horario pico facturan el 50% de la tarifa asignada como penalidad con cargo al balance del socio.
+          </p>
+</div>
+<div class="bg-surface-container-low p-space-md rounded-lg flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-primary font-body-md-medium text-body-md-medium">
+<span class="material-symbols-outlined text-[18px]">badge</span>
+<span>Invitados por Turno</span>
+</div>
+<p class="font-label-sm text-label-sm text-on-surface-variant leading-normal">
+            Un socio puede registrar hasta 3 invitados. Si el socio juega singles contra un invitado en franja pico, se liquida el 50% de la tarifa de no socio ($40.000 COP).
+          </p>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest rounded-lg p-space-lg shadow-sm flex flex-col justify-between">
+<div class="flex flex-col gap-space-md">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-tertiary/10 flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[20px]">percent</span>
+</div>
+<div class="flex flex-col">
+<h2 class="font-headline-sm text-headline-sm text-on-surface leading-tight">Distribución de Ingresos</h2>
+<span class="font-label-xs text-label-xs text-on-surface-variant">Fracción de turnos por horario (mes actual)</span>
+</div>
+</div>
+<div class="flex items-center justify-center py-2">
+<svg class="w-36 h-36 transform -rotate-90" viewbox="0 0 100 100">
+<circle class="text-surface-container-high" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-width="12"></circle>
+<circle class="text-primary" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="85" stroke-linecap="round" stroke-width="12"></circle>
+<circle class="text-amber-500" cx="50" cy="50" fill="transparent" r="40" stroke="currentColor" stroke-dasharray="251.2" stroke-dashoffset="190" stroke-linecap="round" stroke-width="12"></circle>
+</svg>
+</div>
+<div class="flex flex-col gap-space-xs font-label-sm text-label-sm">
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-primary"></span>
+<span class="text-on-surface">Horario Pico (Con luz)</span>
+</div>
+<span class="font-body-md-medium text-on-surface">66%</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
+<span class="text-on-surface">Horario Valle (Diurno)</span>
+</div>
+<span class="font-body-md-medium text-on-surface">24%</span>
+</div>
+<div class="flex items-center justify-between py-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-surface-container-high"></span>
+<span class="text-on-surface-variant">Clases / Torneos</span>
+</div>
+<span class="font-body-md-medium text-on-surface">10%</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-md bg-surface-container-low p-space-sm rounded-lg flex items-center justify-between">
+<span class="font-label-xs text-label-xs text-on-surface-variant">Facturación proyectada</span>
+<span class="font-body-md-medium text-body-md-medium text-primary font-bold">$18.450.000 COP</span>
+</div>
+</div>
+</div>
+<div class="hidden fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-space-md" id="modal-nueva-tarifa">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-xl shadow-xl flex flex-col gap-space-lg">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<div class="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">add_circle</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Nueva Regla de Tarifa</h3>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface" id="btn-cerrar-modal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="flex flex-col gap-space-md font-label-sm text-label-sm">
+<div class="flex flex-col gap-1">
+<label class="font-body-md-medium text-on-surface">Canchas Asignadas</label>
+<select class="w-full h-10 px-3 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+<option>Todas las canchas de Arcilla</option>
+<option>Cancha 1 y 2 (Techadas)</option>
+<option>Cancha 4 (Plexicushion dura)</option>
+<option>Cancha Central / Estadio</option>
+</select>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-body-md-medium text-on-surface">Franja Horaria</label>
+<select class="w-full h-10 px-3 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+<option>Horario Valle (06:00 - 17:00)</option>
+<option>Horario Pico (18:00 - 21:30)</option>
+<option>Nocturno Especial (21:30+)</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-body-md-medium text-on-surface">Aplica a</label>
+<select class="w-full h-10 px-3 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40">
+<option>Socio del Club</option>
+<option>Visitante / No Socio</option>
+<option>Todos los usuarios</option>
+</select>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-body-md-medium text-on-surface">Precio Base (COP)</label>
+<input class="w-full h-10 px-3 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40" placeholder="Ej. $45.000" type="text"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-body-md-medium text-on-surface">Suplemento Luz (COP)</label>
+<input class="w-full h-10 px-3 bg-surface-container-low rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40" placeholder="Ej. +$15.000" type="text"/>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-xs">
+<button class="px-space-md py-2 bg-surface-container-low text-on-surface rounded-lg font-body-md-medium text-body-md-medium hover:bg-surface-container-high transition-colors" id="btn-cancelar-modal" type="button">
+          Cancelar
+        </button>
+<button class="px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-body-md-medium text-body-md-medium hover:bg-primary transition-colors" id="btn-guardar-tarifa" type="button">
+          Guardar Tarifa
+        </button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    const userButtons = document.querySelectorAll('.filter-user-btn');
+    const slotButtons = document.querySelectorAll('.filter-slot-btn');
+    const searchInput = document.getElementById('search-input');
+    const rows = document.querySelectorAll('.tariff-row');
+    const counterDisplay = document.getElementById('counter-display');
+
+    let currentUser = 'all';
+    let currentSlot = 'all';
+    let currentSearch = '';
+
+    function filterTable() {
+      let visibleCount = 0;
+      rows.forEach(row => {
+        const rowUser = row.getAttribute('data-user');
+        const rowSlot = row.getAttribute('data-slot');
+        const textContent = row.textContent.toLowerCase();
+
+        const matchUser = (currentUser === 'all') || (rowUser === currentUser) || (rowUser === 'all');
+        const matchSlot = (currentSlot === 'all') || (rowSlot === currentSlot);
+        const matchSearch = !currentSearch || textContent.includes(currentSearch);
+
+        if (matchUser && matchSlot && matchSearch) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      if (counterDisplay) {
+        counterDisplay.textContent = visibleCount + ' esquema' + (visibleCount === 1 ? '' : 's') + ' visible' + (visibleCount === 1 ? '' : 's');
+      }
+    }
+
+    userButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        userButtons.forEach(b => {
+          b.classList.remove('bg-surface-container-lowest', 'text-on-surface', 'shadow-xs');
+          b.classList.add('text-on-surface-variant');
+        });
+        btn.classList.add('bg-surface-container-lowest', 'text-on-surface', 'shadow-xs');
+        btn.classList.remove('text-on-surface-variant');
+        currentUser = btn.getAttribute('data-user');
+        filterTable();
+      });
+    });
+
+    slotButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        slotButtons.forEach(b => {
+          b.classList.remove('bg-surface-container-lowest', 'text-on-surface', 'shadow-xs');
+          b.classList.add('text-on-surface-variant');
+        });
+        btn.classList.add('bg-surface-container-lowest', 'text-on-surface', 'shadow-xs');
+        btn.classList.remove('text-on-surface-variant');
+        currentSlot = btn.getAttribute('data-slot');
+        filterTable();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value.toLowerCase().trim();
+        filterTable();
+      });
+    }
+
+    const modal = document.getElementById('modal-nueva-tarifa');
+    const openBtn = document.getElementById('btn-nueva-tarifa');
+    const closeBtn = document.getElementById('btn-cerrar-modal');
+    const cancelBtn = document.getElementById('btn-cancelar-modal');
+    const saveBtn = document.getElementById('btn-guardar-tarifa');
+
+    function toggleModal(show) {
+      if (modal) {
+        if (show) modal.classList.remove('hidden');
+        else modal.classList.add('hidden');
+      }
+    }
+
+    if (openBtn) openBtn.addEventListener('click', () => toggleModal(true));
+    if (closeBtn) closeBtn.addEventListener('click', () => toggleModal(false));
+    if (cancelBtn) cancelBtn.addEventListener('click', () => toggleModal(false));
+    if (saveBtn) saveBtn.addEventListener('click', () => toggleModal(false));
+  })();
+</script></div></main></div><footer class="fixed bottom-0 left-64 right-0 h-16 bg-surface-container-lowest border-t border-outline-variant/40 z-50 flex items-center justify-between px-gutter-desktop shadow-[0_-2px_10px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span><span class="font-body-md-medium text-body-md-medium text-on-surface-variant">Sin cambios sin guardar</span></div><div class="flex items-center gap-space-md"><button class="px-space-md py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md-medium text-body-md-medium text-on-surface hover:bg-surface-container-high transition-colors focus:ring-2 focus:ring-outline/20" type="button">Descartar</button><button class="px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-body-md-medium text-body-md-medium hover:bg-primary transition-colors focus:ring-2 focus:ring-primary/40 flex items-center gap-space-xs" type="button"><span class="material-symbols-outlined text-[18px]">save</span><span>Guardar cambios</span></button></div></footer></body></html>

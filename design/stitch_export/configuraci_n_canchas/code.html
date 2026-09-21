@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><title>Tenis Pro Ops - Configuración</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base { html, body { margin: 0; padding: 0; } body { overscroll-behavior: none; } main > :first-child { margin-top: 0 !important; } main > :last-child { margin-bottom: 0 !important; } } ::-webkit-scrollbar { display: none; }</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-secondary-container": "#61655f", "error": "#ba1a1a", "on-error-container": "#93000a", "inverse-primary": "#7dd9a1", "on-secondary-fixed": "#191d18", "surface-tint": "#006d40", "secondary-fixed-dim": "#c4c8c0", "outline": "#6f7a70", "error-container": "#ffdad6", "primary": "#00643b", "surface-variant": "#e3e3de", "outline-variant": "#becabf", "on-primary-fixed": "#002110", "on-primary-container": "#d1ffde", "secondary-fixed": "#e0e4dc", "surface-container-high": "#e8e8e3", "surface-container-lowest": "#ffffff", "tertiary-fixed-dim": "#ffb3b5", "surface-dim": "#dadad5", "surface": "#fafaf4", "tertiary-fixed": "#ffdada", "surface-container-highest": "#e3e3de", "secondary-container": "#e0e4dc", "primary-container": "#1b7f4f", "surface-container": "#eeeee9", "secondary": "#5b5f5a", "inverse-surface": "#2f312e", "on-tertiary-fixed": "#40000c", "primary-fixed-dim": "#7dd9a1", "surface-container-low": "#f4f4ee", "on-surface-variant": "#3f4941", "tertiary": "#903a42", "on-error": "#ffffff", "surface-bright": "#fafaf4", "on-background": "#1a1c19", "on-primary": "#ffffff", "on-tertiary-container": "#fff0f0", "on-tertiary": "#ffffff", "on-secondary": "#ffffff", "primary-fixed": "#99f6bb", "background": "#fafaf4", "inverse-on-surface": "#f1f1ec", "on-tertiary-fixed-variant": "#7c2b33", "on-surface": "#1a1c19", "on-primary-fixed-variant": "#00522f", "on-secondary-fixed-variant": "#444842", "tertiary-container": "#af5259" }, "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, "spacing": { "space-md": "0.75rem", "space-lg": "1rem", "gutter-desktop": "1rem", "margin-desktop": "1.5rem", "space-xl": "1.5rem", "space-sm": "0.5rem", "space-xs": "0.25rem", "gutter": "0.75rem", "margin": "1rem" }, "fontFamily": { "body-md-medium": ["Inter"], "label-xs": ["Inter"], "headline-sm": ["Inter"], "label-sm": ["Inter"], "headline-lg": ["Inter"], "body-md": ["Inter"] }, "fontSize": { "body-md-medium": ["14px", { "lineHeight": "20px", "fontWeight": "500" }], "label-xs": ["11px", { "lineHeight": "14px", "fontWeight": "500" }], "headline-sm": ["16px", { "lineHeight": "24px", "fontWeight": "500" }], "label-sm": ["12px", { "lineHeight": "16px", "letterSpacing": "0.01em", "fontWeight": "500" }], "headline-lg": ["20px", { "lineHeight": "28px", "fontWeight": "500" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 h-16 z-50 bg-surface-container-lowest border-b border-outline-variant/40"><div class="w-full h-16 px-gutter-desktop flex items-center justify-between gap-space-lg"><div class="flex items-center gap-space-md min-w-0"><img alt="Tenis Pro Ops Logo" class="h-8 w-auto object-contain flex-shrink-0" src="https://lh3.googleusercontent.com/aida/AEtjO1VTQ1I1N3XjttOU4JKmUskhHMr5sGXXw0vk4hL2k2Qfccnn9dBmXerJIN4w3ORr0VlWj3eiQdLIjSP8F7SX_uNI1cv21d58dFb2F4pd9RlZId9yDCejBWFP7H1rlEBXwIWP9JESMgJsXhIHdquWhhcxHVo25pAJABDEAFxcQRAIrBquRNR9igwiNAK2T5wI3FGf0ybNtO0_OOV2ZTbfKIqSv2q8WHpEGMOXiZ7KK-VDP2V6EEkW8Ope_sg"/><div class="h-5 w-px bg-outline-variant/60 hidden sm:block"></div><div class="flex items-center gap-space-sm bg-surface-container-low px-space-md py-1.5 rounded-lg border border-outline-variant/50"><span class="material-symbols-outlined text-primary text-[18px]">sports_tennis</span><div class="flex flex-col"><span class="font-label-xs text-label-xs text-on-surface-variant leading-none">Sede Activa</span><span class="font-body-md-medium text-body-md-medium text-on-surface truncate leading-tight">Club Campestre El Rodadero</span></div><span class="material-symbols-outlined text-on-surface-variant text-[18px]">expand_more</span></div><div class="h-4 w-px bg-outline-variant/60 hidden md:block"></div><nav aria-label="Breadcrumb" class="hidden md:flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="hover:text-on-surface cursor-pointer">Configuración</span><span class="material-symbols-outlined text-[14px]">chevron_right</span><span class="text-on-surface font-body-md-medium text-body-md-medium">Ajustes Generales</span></nav></div><div class="flex items-center gap-space-md flex-shrink-0"><div class="hidden lg:flex flex-col text-right"><span class="font-body-md-medium text-body-md-medium text-on-surface leading-tight">Carlos Mendoza</span><span class="font-label-xs text-label-xs text-on-surface-variant leading-none">Operador de Caseta / Admin</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center ring-2 ring-surface-container"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><aside class="fixed left-0 top-16 bottom-16 w-64 bg-surface-container-lowest border-r border-outline-variant/40 z-40 flex flex-col justify-between overflow-y-auto"><div class="p-space-md"><div class="px-space-md py-space-sm mb-space-xs"><span class="font-label-xs text-label-xs uppercase tracking-wider text-on-surface-variant font-bold">Panel de Configuración</span></div><nav class="flex flex-col gap-space-xs" data-active-classes="bg-on-primary-container text-primary font-body-md-medium text-body-md-medium rounded-lg shadow-sm"><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="club" href="#"><span class="material-symbols-outlined text-[20px]">domain</span><span class="font-body-md-medium text-body-md-medium">Club</span></a><a aria-current="page" class="flex items-center gap-space-md px-space-md py-2.5 transition-colors bg-on-primary-container text-primary font-body-md-medium text-body-md-medium rounded-lg shadow-sm" data-path="canchas" href="#"><span class="material-symbols-outlined text-[20px]">stadium</span><span class="font-body-md-medium text-body-md-medium">Canchas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="tarifas" href="#"><span class="material-symbols-outlined text-[20px]">payments</span><span class="font-body-md-medium text-body-md-medium">Tarifas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="personas" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md-medium text-body-md-medium">Personas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="reservas" href="#"><span class="material-symbols-outlined text-[20px]">calendar_clock</span><span class="font-body-md-medium text-body-md-medium">Reservas</span></a><a class="flex items-center gap-space-md px-space-md py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface transition-colors" data-path="modulos" href="#"><span class="material-symbols-outlined text-[20px]">extension</span><span class="font-body-md-medium text-body-md-medium">Módulos</span></a></nav></div><div class="p-space-md border-t border-outline-variant/30 bg-surface-container-low/50"><div class="flex items-center gap-space-sm px-space-sm py-1"><span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span><span class="font-label-xs text-label-xs text-on-surface-variant">Servidor Caseta: Operativo</span></div></div></aside><div class="pl-64"><main class="pt-16 pb-20 w-full min-h-screen bg-surface px-gutter-desktop"><div class="w-full py-space-lg" id="content"><div class="flex flex-col w-full">
+<!-- Encabezado de Sección -->
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-md mb-space-lg">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs text-on-surface-variant font-label-xs text-label-xs uppercase tracking-wider mb-0.5">
+<span>Sede Central</span>
+<span>•</span>
+<span>Infraestructura Deportiva</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">Gestión de Canchas</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+        Administra las pistas de tenis, tipos de superficie, iluminación y disponibilidad operativa en tiempo real.
+      </p>
+</div>
+<!-- Indicadores Compactos de Estado Global -->
+<div class="flex items-center gap-space-sm bg-surface-container-lowest p-space-sm rounded-lg shadow-sm">
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">7 Activas</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low">
+<span class="w-2 h-2 rounded-full bg-tertiary"></span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-medium">1 Mantenimiento</span>
+</div>
+<div class="flex items-center gap-space-xs px-space-sm py-1 rounded bg-surface-container-low">
+<span class="material-symbols-outlined text-[16px] text-primary">lightbulb</span>
+<span class="font-label-sm text-label-sm text-on-surface font-medium">5 con Focos LED</span>
+</div>
+</div>
+</div>
+<!-- Barra de Filtros, Búsqueda y Botón de Acción -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm mb-space-md flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex flex-wrap items-center gap-space-sm flex-1">
+<!-- Input de Búsqueda Rápida -->
+<div class="relative min-w-[240px] max-w-sm flex-1">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[18px]">search</span>
+<input class="w-full h-10 pl-9 pr-space-md bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface placeholder:text-secondary focus:outline-none focus:ring-2 focus:ring-primary/30" id="search-input" placeholder="Buscar por nombre o número de cancha..." type="text"/>
+</div>
+<!-- Filtro de Superficie Segmentado -->
+<div class="flex items-center bg-surface-container-low p-0.5 rounded-lg">
+<button class="surface-filter-btn px-space-md py-1.5 rounded-md font-label-sm text-label-sm text-on-surface bg-surface-container-lowest shadow-sm transition-all" data-surface="all" type="button">
+          Todas (8)
+        </button>
+<button class="surface-filter-btn px-space-md py-1.5 rounded-md font-label-sm text-label-sm text-secondary hover:text-on-surface transition-all" data-surface="arcilla" type="button">
+          Polvo de Ladrillo (6)
+        </button>
+<button class="surface-filter-btn px-space-md py-1.5 rounded-md font-label-sm text-label-sm text-secondary hover:text-on-surface transition-all" data-surface="plexicushion" type="button">
+          Plexicushion / Rápida (2)
+        </button>
+</div>
+<!-- Filtro de Turno Nocturno / Techado -->
+<div class="hidden xl:flex items-center gap-space-xs text-secondary font-label-sm text-label-sm pl-space-xs">
+<span class="material-symbols-outlined text-[16px]">tune</span>
+<span>Vista compacta de caseta</span>
+</div>
+</div>
+<!-- Botón Primario: Agregar Cancha -->
+<div class="flex items-center gap-space-sm flex-shrink-0">
+<button class="h-10 px-space-lg bg-primary-container text-on-primary font-body-md-medium text-body-md-medium rounded-lg hover:bg-primary transition-colors focus:ring-2 focus:ring-primary/40 flex items-center gap-space-xs shadow-sm" id="btn-add-court" type="button">
+<span class="material-symbols-outlined text-[20px]">add</span>
+<span>Agregar cancha</span>
+</button>
+</div>
+</div>
+<!-- Contenedor Principal: Tabla Densa y Estructurada -->
+<div class="bg-surface-container-lowest rounded-lg shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse" id="courts-table">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-space-md px-space-lg font-medium">Cancha / Identificador</th>
+<th class="py-space-md px-space-md font-medium">Superficie Reglamentaria</th>
+<th class="py-space-md px-space-md font-medium text-center">Cubierta</th>
+<th class="py-space-md px-space-md font-medium">Iluminación</th>
+<th class="py-space-md px-space-md font-medium">Estado Operativo</th>
+<th class="py-space-md px-space-lg font-medium text-right">Acciones</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-transparent font-body-md text-body-md text-on-surface">
+<!-- FILA 1: Cancha 1 Principal (Arcilla) -->
+<tr class="court-row hover:bg-surface-container-low transition-colors" data-name="Cancha 1 - Principal Campo Central Estadio" data-surface-type="arcilla">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-primary/10 text-primary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  1
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 1 - Principal</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-xs text-label-xs font-semibold uppercase tracking-tight">Estadio</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary truncate">Capacidad 250 espectadores · Grada Norte</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Polvo de ladrillo</span>
+<span class="font-label-xs text-label-xs text-secondary">(Arcilla roja compactada)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">wb_sunny</span>
+<span>Descubierta</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-on-primary-container/70 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">lightbulb</span>
+<span>LED 750 Lux</span>
+</span>
+<span class="font-label-xs text-label-xs text-secondary">Apta TV</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="true" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-4 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-primary">Activa</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 1" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 2: Cancha 2 Lateral (Arcilla) -->
+<tr class="court-row bg-surface-container-lowest hover:bg-surface-container-low transition-colors" data-name="Cancha 2 - Lateral Sector A" data-surface-type="arcilla">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-secondary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  2
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 2 - Lateral</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-medium uppercase">Sector A</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary truncate">Sistema de riego automático perimetral</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Polvo de ladrillo</span>
+<span class="font-label-xs text-label-xs text-secondary">(Grano fino 0-1mm)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">wb_sunny</span>
+<span>Descubierta</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-on-primary-container/70 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">lightbulb</span>
+<span>LED 500 Lux</span>
+</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="true" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-4 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-primary">Activa</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 2" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 3: Cancha 3 Semifinal Techada (Arcilla) -->
+<tr class="court-row hover:bg-surface-container-low transition-colors" data-name="Cancha 3 - Semifinal Cubierta Lluvia" data-surface-type="arcilla">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-secondary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  3
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 3 - Semifinal</span>
+<span class="px-1.5 py-0.5 rounded bg-secondary-container text-on-secondary-fixed font-label-xs text-label-xs font-medium uppercase">Domo 1</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary truncate">Estructura tensada anti-lluvia</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Polvo de ladrillo</span>
+<span class="font-label-xs text-label-xs text-secondary">(Tratamiento higroscópico)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[15px]">roofing</span>
+<span>Sí (Techada)</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-on-primary-container/70 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">lightbulb</span>
+<span>LED 500 Lux</span>
+</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="true" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-4 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-primary">Activa</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 3" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 4: Cancha 4 Rápida Plexicushion -->
+<tr class="court-row bg-surface-container-lowest hover:bg-surface-container-low transition-colors" data-name="Cancha 4 - Rápida Plexicushion Hard Court" data-surface-type="plexicushion">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-secondary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  4
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 4 - Rápida</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-variant text-on-surface-variant font-label-xs text-label-xs font-semibold uppercase">Hard Court</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary truncate">Pintura acrílica ITF Cat. 3 Media</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Plexicushion</span>
+<span class="font-label-xs text-label-xs text-secondary">(Superficie Rápida)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">wb_sunny</span>
+<span>Descubierta</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-on-primary-container/70 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">lightbulb</span>
+<span>LED 500 Lux</span>
+</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="true" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-4 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-primary">Activa</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 4" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 5: Cancha 5 Mantenimiento (Arcilla - Inactiva) -->
+<tr class="court-row bg-surface-container-low/40 hover:bg-surface-container-low transition-colors" data-name="Cancha 5 - Mantenimiento Nivelado" data-surface-type="arcilla">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-tertiary/10 text-tertiary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  5
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 5 - Mantenimiento</span>
+<span class="px-1.5 py-0.5 rounded bg-tertiary-fixed text-on-tertiary-fixed-variant font-label-xs text-label-xs font-semibold uppercase">Rodillo</span>
+</div>
+<span class="font-label-xs text-label-xs text-error font-medium truncate">Re-nivelación de flejes y reposición</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Polvo de ladrillo</span>
+<span class="font-label-xs text-label-xs text-secondary">(En nivelado)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">wb_sunny</span>
+<span>Descubierta</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">light_off</span>
+<span>Sin Iluminación</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="false" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-secondary-fixed-dim transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-0 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-tertiary font-semibold">En mantenimiento</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 5" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 6: Cancha 6 Escuela Infantil (Arcilla) -->
+<tr class="court-row hover:bg-surface-container-low transition-colors" data-name="Cancha 6 - Escuela Formativa" data-surface-type="arcilla">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-secondary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  6
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 6 - Escuela</span>
+<span class="px-1.5 py-0.5 rounded bg-primary-fixed text-on-primary-fixed-variant font-label-xs text-label-xs font-semibold uppercase">Infantil</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary truncate">Prioridad clases y clínica juvenil</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Polvo de ladrillo</span>
+<span class="font-label-xs text-label-xs text-secondary">(Convencional)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">wb_sunny</span>
+<span>Descubierta</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-on-primary-container/70 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">lightbulb</span>
+<span>LED 400 Lux</span>
+</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="true" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-4 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-primary">Activa</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 6" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 7: Cancha 7 Rápida Climatizada (Plexicushion) -->
+<tr class="court-row bg-surface-container-lowest hover:bg-surface-container-low transition-colors" data-name="Cancha 7 - Rápida Entrenamiento" data-surface-type="plexicushion">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-secondary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  7
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 7 - Rápida</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-variant text-on-surface-variant font-label-xs text-label-xs font-semibold uppercase">Hard Court</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary truncate">Resina acrílica con amortiguación de caucho</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Plexicushion</span>
+<span class="font-label-xs text-label-xs text-secondary">(Torneos Nacionales)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">wb_sunny</span>
+<span>Descubierta</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-1.5">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-on-primary-container/70 text-primary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">lightbulb</span>
+<span>LED 500 Lux</span>
+</span>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="true" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-4 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-primary">Activa</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 7" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- FILA 8: Cancha 8 Práctica / Muro (Arcilla) -->
+<tr class="court-row hover:bg-surface-container-low transition-colors" data-name="Cancha 8 - Práctica Frontón" data-surface-type="arcilla">
+<td class="py-space-md px-space-lg">
+<div class="flex items-center gap-space-md min-w-0">
+<div class="w-9 h-9 rounded-lg bg-surface-container text-secondary flex items-center justify-center font-headline-sm text-headline-sm font-bold flex-shrink-0">
+                  8
+                </div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-space-xs">
+<span class="font-body-md-medium text-body-md-medium text-on-surface truncate">Cancha 8 - Frontón &amp; Reserva</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-medium uppercase">Práctica</span>
+</div>
+<span class="font-label-xs text-label-xs text-secondary truncate">Sector posterior contiguo a piscina</span>
+</div>
+</div>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-xs">
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-container flex-shrink-0"></span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface">Polvo de ladrillo</span>
+<span class="font-label-xs text-label-xs text-secondary">(Convencional)</span>
+</div>
+</td>
+<td class="py-space-md px-space-md text-center">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">wb_sunny</span>
+<span>Descubierta</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<span class="inline-flex items-center gap-1 px-space-sm py-0.5 rounded bg-surface-container-high text-secondary font-label-sm text-label-sm font-medium">
+<span class="material-symbols-outlined text-[15px]">light_off</span>
+<span>Sin Iluminación</span>
+</span>
+</td>
+<td class="py-space-md px-space-md">
+<div class="flex items-center gap-space-sm">
+<button aria-checked="true" class="toggle-switch relative inline-flex h-5 w-9 flex-shrink-0 cursor-pointer rounded-full bg-primary transition-colors duration-200 ease-in-out focus:outline-none" role="switch" type="button">
+<span class="translate-x-4 pointer-events-none inline-block h-4 w-4 transform rounded-full bg-white shadow-sm ring-0 transition duration-200 ease-in-out mt-0.5 ml-0.5"></span>
+</button>
+<span class="status-label font-body-md-medium text-body-md-medium text-primary">Activa</span>
+</div>
+</td>
+<td class="py-space-md px-space-lg text-right">
+<div class="flex items-center justify-end gap-space-xs">
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Editar Cancha 8" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<button class="p-1.5 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high transition-colors" title="Opciones" type="button">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pie de Tabla: Resumen y Metadatos de la Sede -->
+<div class="bg-surface-container-low px-space-lg py-space-md flex flex-col sm:flex-row items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-xs font-body-md-medium text-body-md-medium text-on-surface">
+<span class="material-symbols-outlined text-primary text-[18px]">domain_verification</span>
+<span>Total: <span class="font-bold">8 canchas registradas</span> · <span class="text-primary font-bold">7 operativas</span> · <span class="text-tertiary font-bold">1 inactiva</span></span>
+</div>
+<div class="flex items-center gap-space-md font-label-sm text-label-sm text-secondary">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">history</span>
+          Última actualización de rodillo: Hoy 06:15 AM
+        </span>
+</div>
+</div>
+</div>
+<!-- Micro-interacción: Diálogo Modal Rápido de "Agregar Cancha" (Oculto por defecto) -->
+<div class="fixed inset-0 bg-on-background/40 z-50 hidden items-center justify-center p-4" id="modal-backdrop">
+<div class="bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-lg shadow-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between pb-space-sm">
+<div class="flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-primary text-[22px]">add_circle</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface font-bold">Nueva Cancha de Tenis</h2>
+</div>
+<button class="p-1 rounded text-secondary hover:text-on-surface hover:bg-surface-container-high" id="btn-close-modal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="sm:col-span-2">
+<label class="block font-label-sm text-label-sm text-secondary mb-1">Nombre / Identificador de Cancha</label>
+<input class="w-full h-10 px-space-md bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30" placeholder="Ej. Cancha 9 - Norte" type="text"/>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-1">Tipo de Superficie</label>
+<select class="w-full h-10 px-space-md bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30">
+<option>Polvo de Ladrillo</option>
+<option>Plexicushion (Rápida)</option>
+<option>Césped Natural</option>
+<option>Césped Sintético</option>
+</select>
+</div>
+<div>
+<label class="block font-label-sm text-label-sm text-secondary mb-1">Iluminación</label>
+<select class="w-full h-10 px-space-md bg-surface-container-lowest rounded-lg font-body-md text-body-md text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/30">
+<option>LED 500 Lux (Estándar)</option>
+<option>LED 750 Lux (Torneo TV)</option>
+<option>LED 400 Lux (Formativa)</option>
+<option>Sin iluminación</option>
+</select>
+</div>
+<div class="flex items-center gap-space-sm pt-2">
+<input class="w-4 h-4 rounded text-primary focus:ring-primary/30" id="modal-techada" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface cursor-pointer select-none" for="modal-techada">Pista techada / Domo</label>
+</div>
+<div class="flex items-center gap-space-sm pt-2">
+<input checked="" class="w-4 h-4 rounded text-primary focus:ring-primary/30" id="modal-activa" type="checkbox"/>
+<label class="font-body-md text-body-md text-on-surface cursor-pointer select-none" for="modal-activa">Habilitar inmediatamente</label>
+</div>
+</div>
+<div class="flex items-center justify-end gap-space-sm pt-space-md mt-space-sm">
+<button class="px-space-md py-2 bg-surface-container-lowest text-on-surface font-body-md-medium text-body-md-medium rounded-lg hover:bg-surface-container-high transition-colors" id="btn-cancel-modal" type="button">
+          Cancelar
+        </button>
+<button class="px-space-lg py-2 bg-primary-container text-on-primary font-body-md-medium text-body-md-medium rounded-lg hover:bg-primary transition-colors flex items-center gap-space-xs" id="btn-save-modal" type="button">
+<span class="material-symbols-outlined text-[18px]">check</span>
+<span>Registrar cancha</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+  (function() {
+    // 1. Manejo interactivo de Switches de Estado (Activa / Mantenimiento)
+    const toggles = document.querySelectorAll('.toggle-switch');
+    toggles.forEach(toggle => {
+      toggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        const isChecked = this.getAttribute('aria-checked') === 'true';
+        const circle = this.querySelector('span');
+        const statusLabel = this.closest('tr').querySelector('.status-label');
+        
+        if (isChecked) {
+          // Desactivar -> Mantenimiento
+          this.setAttribute('aria-checked', 'false');
+          this.classList.remove('bg-primary');
+          this.classList.add('bg-secondary-fixed-dim');
+          circle.classList.remove('translate-x-4');
+          circle.classList.add('translate-x-0');
+          if (statusLabel) {
+            statusLabel.textContent = 'En mantenimiento';
+            statusLabel.classList.remove('text-primary');
+            statusLabel.classList.add('text-tertiary', 'font-semibold');
+          }
+        } else {
+          // Activar -> Activa
+          this.setAttribute('aria-checked', 'true');
+          this.classList.remove('bg-secondary-fixed-dim');
+          this.classList.add('bg-primary');
+          circle.classList.remove('translate-x-0');
+          circle.classList.add('translate-x-4');
+          if (statusLabel) {
+            statusLabel.textContent = 'Activa';
+            statusLabel.classList.remove('text-tertiary', 'font-semibold');
+            statusLabel.classList.add('text-primary');
+          }
+        }
+      });
+    });
+
+    // 2. Filtro de Superficie (Todas / Arcilla / Plexicushion)
+    const filterBtns = document.querySelectorAll('.surface-filter-btn');
+    const rows = document.querySelectorAll('.court-row');
+    const searchInput = document.getElementById('search-input');
+
+    function applyFilters() {
+      const activeBtn = document.querySelector('.surface-filter-btn.bg-surface-container-lowest');
+      const selectedSurface = activeBtn ? activeBtn.getAttribute('data-surface') : 'all';
+      const term = (searchInput ? searchInput.value.toLowerCase().trim() : '');
+
+      rows.forEach(row => {
+        const rowSurface = row.getAttribute('data-surface-type');
+        const rowName = (row.getAttribute('data-name') || '').toLowerCase();
+
+        const matchesSurface = (selectedSurface === 'all' || rowSurface === selectedSurface);
+        const matchesSearch = term === '' || rowName.includes(term);
+
+        if (matchesSurface && matchesSearch) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-surface-container-lowest', 'text-on-surface', 'shadow-sm');
+          b.classList.add('text-secondary');
+        });
+        this.classList.add('bg-surface-container-lowest', 'text-on-surface', 'shadow-sm');
+        this.classList.remove('text-secondary');
+        applyFilters();
+      });
+    });
+
+    // 3. Búsqueda en Vivo
+    if (searchInput) {
+      searchInput.addEventListener('input', applyFilters);
+    }
+
+    // 4. Apertura y Cierre de Modal de Creación
+    const btnAddCourt = document.getElementById('btn-add-court');
+    const modalBackdrop = document.getElementById('modal-backdrop');
+    const btnCloseModal = document.getElementById('btn-close-modal');
+    const btnCancelModal = document.getElementById('btn-cancel-modal');
+    const btnSaveModal = document.getElementById('btn-save-modal');
+
+    function openModal() {
+      if (modalBackdrop) {
+        modalBackdrop.classList.remove('hidden');
+        modalBackdrop.classList.add('flex');
+      }
+    }
+
+    function closeModal() {
+      if (modalBackdrop) {
+        modalBackdrop.classList.add('hidden');
+        modalBackdrop.classList.remove('flex');
+      }
+    }
+
+    if (btnAddCourt) btnAddCourt.addEventListener('click', openModal);
+    if (btnCloseModal) btnCloseModal.addEventListener('click', closeModal);
+    if (btnCancelModal) btnCancelModal.addEventListener('click', closeModal);
+    if (btnSaveModal) btnSaveModal.addEventListener('click', closeModal);
+
+    // Cerrar al dar click fuera de la tarjeta modal
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener('click', function(e) {
+        if (e.target === modalBackdrop) {
+          closeModal();
+        }
+      });
+    }
+  })();
+</script></div></main></div><footer class="fixed bottom-0 left-64 right-0 h-16 bg-surface-container-lowest border-t border-outline-variant/40 z-50 flex items-center justify-between px-gutter-desktop shadow-[0_-2px_10px_rgba(0,0,0,0.03)]"><div class="flex items-center gap-space-sm"><span class="material-symbols-outlined text-primary text-[20px]">check_circle</span><span class="font-body-md-medium text-body-md-medium text-on-surface-variant">Sin cambios sin guardar</span></div><div class="flex items-center gap-space-md"><button class="px-space-md py-2 bg-surface-container-lowest border border-outline-variant rounded-lg font-body-md-medium text-body-md-medium text-on-surface hover:bg-surface-container-high transition-colors focus:ring-2 focus:ring-outline/20" type="button">Descartar</button><button class="px-space-md py-2 bg-primary-container text-on-primary rounded-lg font-body-md-medium text-body-md-medium hover:bg-primary transition-colors focus:ring-2 focus:ring-primary/40 flex items-center gap-space-xs" type="button"><span class="material-symbols-outlined text-[18px]">save</span><span>Guardar cambios</span></button></div></footer></body></html>
