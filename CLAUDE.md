@@ -9,6 +9,7 @@
 ## Convenciones
 - Componentes funcionales, TypeScript estricto
 - Un commit por feature completa, mensajes en español
+- URLs y identificadores de código en inglés (`/login`, `/select-club`, `/coach`); tablas, columnas y textos de UI en español
 
 ## Módulos del MVP (en orden de construcción)
 1. Auth y roles (admin, entrenador, alumno)
