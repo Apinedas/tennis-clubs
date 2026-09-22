@@ -3,9 +3,9 @@ import { NextResponse, type NextRequest } from "next/server";
 import { parseContext, type AuthContext } from "@/lib/auth/roles";
 import { supabaseKey, supabaseUrl } from "./env";
 
-// Refresca la sesión y lee los claims del JWT sin consultar la base de datos.
-// Devuelve la respuesta con las cookies actualizadas: si el proxy redirige,
-// debe copiarlas a la redirección (ver withCookies).
+// Refreshes the session and reads the JWT claims without querying the
+// database. Returns the response with the updated cookies: if the proxy
+// redirects, it must copy them onto the redirect (see withCookies).
 export async function readSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 

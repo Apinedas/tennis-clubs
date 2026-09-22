@@ -2,7 +2,7 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { supabaseKey, supabaseUrl } from "./env";
 
-// Cliente para Server Components, Server Actions y Route Handlers.
+// Client for Server Components, Server Actions and Route Handlers.
 export async function createClient() {
   const cookieStore = await cookies();
 
@@ -17,8 +17,8 @@ export async function createClient() {
             cookieStore.set(name, value, options);
           }
         } catch {
-          // Llamado desde un Server Component: no se pueden escribir cookies.
-          // proxy.ts refresca la sesión, así que se ignora.
+          // Called from a Server Component: cookies can't be written here.
+          // proxy.ts refreshes the session, so this is safe to ignore.
         }
       },
     },

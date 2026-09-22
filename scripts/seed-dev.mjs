@@ -29,24 +29,24 @@ const check = ({ data, error }, what) => {
   return data;
 };
 
-async function upsertClub(slug, nombre) {
+async function upsertClub(slug, name) {
   const existing = check(
     await supabase.from("club").select("id").eq("slug", slug).maybeSingle(),
     "buscar club",
   );
   if (existing) return existing.id;
   return check(
-    await supabase.from("club").insert({ slug, nombre }).select("id").single(),
+    await supabase.from("club").insert({ slug, name }).select("id").single(),
     "crear club",
   ).id;
 }
 
-async function upsertUser(email, nombre) {
+async function upsertUser(email, fullName) {
   const created = await supabase.auth.admin.createUser({
     email,
     password: PASSWORD,
     email_confirm: true,
-    user_metadata: { nombre_completo: nombre },
+    user_metadata: { full_name: fullName },
   });
   if (!created.error) return created.data.user.id;
 
@@ -57,11 +57,11 @@ async function upsertUser(email, nombre) {
   return user.id;
 }
 
-async function membership(personaId, clubId, roles) {
+async function membership(personId, clubId, roles) {
   check(
     await supabase
-      .from("membresia")
-      .upsert({ persona_id: personaId, club_id: clubId, roles, activo: true }),
+      .from("membership")
+      .upsert({ person_id: personId, club_id: clubId, roles, active: true }),
     "membresía",
   );
 }
@@ -69,32 +69,32 @@ async function membership(personaId, clubId, roles) {
 const rodadero = await upsertClub("el-rodadero", "Club Campestre El Rodadero");
 const demo2 = await upsertClub("club-demo-2", "Club Demo 2");
 
-for (const [i, nombre] of ["Cancha 1", "Cancha 2", "Cancha 3"].entries()) {
+for (const [i, name] of ["Cancha 1", "Cancha 2", "Cancha 3"].entries()) {
   check(
     await supabase
-      .from("cancha")
-      .upsert({ club_id: rodadero, nombre, superficie: i === 2 ? "Cemento" : "Arcilla" }, { onConflict: "club_id,nombre" }),
+      .from("court")
+      .upsert({ club_id: rodadero, name, surface: i === 2 ? "Cemento" : "Arcilla" }, { onConflict: "club_id,name" }),
     "cancha",
   );
 }
 
-const plataforma = await upsertUser("plataforma@demo.test", "Paula Plataforma");
-check(await supabase.from("admin_plataforma").upsert({ persona_id: plataforma }), "admin_plataforma");
+const platform = await upsertUser("plataforma@demo.test", "Paula Plataforma");
+check(await supabase.from("platform_admin").upsert({ person_id: platform }), "platform_admin");
 
 const admin = await upsertUser("admin@demo.test", "Carlos Mendoza");
-await membership(admin, rodadero, ["admin", "entrenador"]); // varios roles en un club
+await membership(admin, rodadero, ["admin", "coach"]); // varios roles en un club
 
-const alumno = await upsertUser("alumno@demo.test", "Ana Alumna");
-await membership(alumno, rodadero, ["alumno"]);
+const student = await upsertUser("alumno@demo.test", "Ana Alumna");
+await membership(student, rodadero, ["student"]);
 
 const multi = await upsertUser("multi@demo.test", "Marta Multiclub");
-await membership(multi, rodadero, ["alumno"]);
+await membership(multi, rodadero, ["student"]);
 await membership(multi, demo2, ["admin"]); // varios clubes
 
 await upsertUser("sinclub@demo.test", "Sara Sinclub"); // sin membresías
 
-for (const [id, club] of [[admin, rodadero], [alumno, rodadero]]) {
-  check(await supabase.from("persona").update({ club_activo_id: club }).eq("id", id), "club activo");
+for (const [id, club] of [[admin, rodadero], [student, rodadero]]) {
+  check(await supabase.from("person").update({ active_club_id: club }).eq("id", id), "club activo");
 }
 
 console.log(`Listo. Contraseña de todos: ${PASSWORD}
@@ -104,4 +104,3 @@ console.log(`Listo. Contraseña de todos: ${PASSWORD}
   multi@demo.test       → /select-club (alumno en El Rodadero, admin en Club Demo 2)
   sinclub@demo.test     → /no-club
   Registro abierto: /register?club=el-rodadero`);
-

@@ -29,7 +29,7 @@ export async function login(_: FormState, formData: FormData): Promise<FormState
   const supabase = await createClient();
   const { error } = await supabase.auth.signInWithPassword({ email, password });
   if (error) {
-    // Mismo mensaje para correo inexistente y contraseña errónea.
+    // Same message for a nonexistent email and a wrong password.
     return { error: "Correo o contraseña incorrectos.", fields: { email } };
   }
 
@@ -66,9 +66,9 @@ export async function register(
     email,
     password,
     options: {
-      // Con este club_slug el trigger de la base crea la membresía de alumno.
-      // Admin y entrenador solo entran por invitación.
-      data: { nombre_completo: fullName, club_slug: clubSlug || undefined },
+      // With this club_slug the database trigger creates the student
+      // membership. Admin and coach only join via invitation.
+      data: { full_name: fullName, club_slug: clubSlug || undefined },
       emailRedirectTo: `${origin}/auth/confirm${next ? `?next=${encodeURIComponent(next)}` : ""}`,
     },
   });
@@ -86,7 +86,7 @@ export async function register(
     return { error: "No pudimos crear la cuenta. Inténtalo de nuevo.", fields };
   }
 
-  // Sin sesión = el proyecto exige confirmar el correo.
+  // No session = the project requires confirming the email.
   if (!data.session) {
     return {
       message: "Te enviamos un correo para confirmar tu cuenta. Revisa tu bandeja.",

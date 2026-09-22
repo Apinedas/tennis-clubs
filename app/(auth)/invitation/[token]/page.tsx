@@ -9,14 +9,14 @@ import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Invitación · Academia de Tenis" };
 
-type Invitation = { club_nombre: string; email: string; roles: Role[] };
+type Invitation = { club_name: string; email: string; roles: Role[] };
 
 export default async function InvitationPage({
   params,
 }: PageProps<"/invitation/[token]">) {
   const { token } = await params;
   const supabase = await createClient();
-  const { data } = await supabase.rpc("ver_invitacion", { p_token: token });
+  const { data } = await supabase.rpc("view_invitation", { p_token: token });
   const invitation = (Array.isArray(data) ? data[0] : null) as Invitation | null;
 
   if (!invitation) {
@@ -37,7 +37,7 @@ export default async function InvitationPage({
   return (
     <>
       <h1 className="text-headline-lg text-on-surface">
-        Te invitaron a {invitation.club_nombre}
+        Te invitaron a {invitation.club_name}
       </h1>
       <p className="text-body-md text-on-surface-variant">
         Vas a unirte como{" "}

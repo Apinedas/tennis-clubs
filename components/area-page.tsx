@@ -2,8 +2,8 @@ import { AppShell } from "@/components/app-shell";
 import { getProfile, requireArea } from "@/lib/auth/dal";
 import { ROLE_LABELS, type Area } from "@/lib/auth/roles";
 
-// Página provisional de cada área: confirma sesión, rol y club. Se reemplaza
-// por las pantallas reales de cada módulo.
+// Placeholder page for each area: confirms session, role and club. It gets
+// replaced by each module's real screens.
 export async function AreaPage({
   area,
   title,

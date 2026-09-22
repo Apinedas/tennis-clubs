@@ -2,8 +2,8 @@ import { NextResponse, type NextRequest } from "next/server";
 import { decideRedirect } from "@/lib/auth/roles";
 import { readSession, withCookies } from "@/lib/supabase/proxy";
 
-// Redirección optimista según el rol, leyendo solo los claims del JWT (sin
-// base de datos). La autorización real está en RLS y en lib/auth/dal.ts.
+// Optimistic role-based redirect, reading only the JWT claims (no database
+// access). Real authorization lives in RLS and in lib/auth/dal.ts.
 export async function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
   const { response, context } = await readSession(request);

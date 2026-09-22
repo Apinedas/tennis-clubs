@@ -8,8 +8,8 @@ import {
 } from "./roles.ts";
 
 const none: AuthContext = { isPlatformAdmin: false, clubCount: 0, clubId: null, roles: [] };
-const student: AuthContext = { ...none, clubCount: 1, clubId: "a", roles: ["alumno"] };
-const adminCoach: AuthContext = { ...none, clubCount: 1, clubId: "a", roles: ["admin", "entrenador"] };
+const student: AuthContext = { ...none, clubCount: 1, clubId: "a", roles: ["student"] };
+const adminCoach: AuthContext = { ...none, clubCount: 1, clubId: "a", roles: ["admin", "coach"] };
 const multi: AuthContext = { ...none, clubCount: 2, clubId: null, roles: [] };
 const platform: AuthContext = { ...none, isPlatformAdmin: true };
 
@@ -18,7 +18,7 @@ describe("homePath", () => {
     assert.equal(homePath(platform), "/platform");
     assert.equal(homePath({ ...adminCoach, isPlatformAdmin: true }), "/platform");
     assert.equal(homePath(adminCoach), "/admin");
-    assert.equal(homePath({ ...student, roles: ["alumno", "entrenador"] }), "/coach");
+    assert.equal(homePath({ ...student, roles: ["student", "coach"] }), "/coach");
     assert.equal(homePath(student), "/student");
   });
   it("sin club activo: elegir o sin club", () => {
@@ -84,18 +84,18 @@ describe("decideRedirect con sesión", () => {
 describe("parseContext", () => {
   it("lee los claims del hook", () => {
     assert.deepEqual(
-      parseContext({ es_admin_plataforma: true, n_clubes: 2, club_id: "c", roles_club: ["admin", "alumno"] }),
-      { isPlatformAdmin: true, clubCount: 2, clubId: "c", roles: ["admin", "alumno"] },
+      parseContext({ is_platform_admin: true, club_count: 2, club_id: "c", club_roles: ["admin", "student"] }),
+      { isPlatformAdmin: true, clubCount: 2, clubId: "c", roles: ["admin", "student"] },
     );
   });
   it("sin hook o con datos raros no da permisos", () => {
     assert.deepEqual(parseContext({}), none);
     assert.deepEqual(
-      parseContext({ es_admin_plataforma: "true", n_clubes: "3", club_id: "c", roles_club: ["root", 1, "admin"] }),
+      parseContext({ is_platform_admin: "true", club_count: "3", club_id: "c", club_roles: ["root", 1, "admin"] }),
       { isPlatformAdmin: false, clubCount: 0, clubId: "c", roles: ["admin"] },
     );
   });
   it("ignora los roles si no hay club activo", () => {
-    assert.deepEqual(parseContext({ club_id: null, roles_club: ["admin"], n_clubes: 2 }).roles, []);
+    assert.deepEqual(parseContext({ club_id: null, club_roles: ["admin"], club_count: 2 }).roles, []);
   });
 });

@@ -3,8 +3,8 @@ import type { EmailOtpType } from "@supabase/supabase-js";
 import { safeNext } from "@/lib/auth/redirect";
 import { createClient } from "@/lib/supabase/server";
 
-// Destino de los enlaces de correo (confirmación de cuenta). Acepta el flujo
-// PKCE (?code=) y el de token_hash (?token_hash=&type=).
+// Destination for email links (account confirmation). Accepts both the PKCE
+// flow (?code=) and the token_hash flow (?token_hash=&type=).
 export async function GET(request: NextRequest) {
   const { searchParams } = request.nextUrl;
   const code = searchParams.get("code");

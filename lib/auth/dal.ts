@@ -10,8 +10,8 @@ import {
   type AuthContext,
 } from "./roles";
 
-// Capa de acceso a datos de sesión. El proxy hace la primera redirección; esto
-// es la segunda línea de defensa y la fuente del contexto para las pantallas.
+// Session data access layer. The proxy does the first redirect; this is the
+// second line of defense and the source of context for the screens.
 
 export const getSession = cache(async () => {
   const supabase = await createClient();
@@ -32,7 +32,7 @@ export async function requireSession() {
   return session;
 }
 
-// Exige acceso a un área; si no lo tiene, lo manda a su inicio.
+// Requires access to an area; sends them to their home if they don't have it.
 export async function requireArea(area: Area) {
   const session = await requireSession();
   if (!allowedAreas(session.context).includes(area)) {
@@ -53,16 +53,16 @@ export async function getProfile(): Promise<Profile> {
   const session = await requireSession();
   const supabase = await createClient();
 
-  const [{ data: persona }, { data: club }] = await Promise.all([
+  const [{ data: person }, { data: club }] = await Promise.all([
     supabase
-      .from("persona")
-      .select("nombre_completo")
+      .from("person")
+      .select("full_name")
       .eq("id", session.userId)
       .maybeSingle(),
     session.context.clubId
       ? supabase
           .from("club")
-          .select("nombre")
+          .select("name")
           .eq("id", session.context.clubId)
           .maybeSingle()
       : Promise.resolve({ data: null }),
@@ -71,8 +71,8 @@ export async function getProfile(): Promise<Profile> {
   return {
     userId: session.userId,
     email: session.email,
-    fullName: persona?.nombre_completo ?? session.email,
-    clubName: club?.nombre ?? null,
+    fullName: person?.full_name ?? session.email,
+    clubName: club?.name ?? null,
     context: session.context,
   };
 }

@@ -1,17 +1,17 @@
-// Contexto de autenticación y reglas de redirección por rol.
-// Módulo puro (sin acceso a datos): lo usan el proxy y la capa de acceso.
+// Auth context and role-based redirect rules.
+// Pure module (no data access): used by the proxy and the data access layer.
 //
-// Los claims los agrega public.hook_token_acceso (migración 0004). Son solo
-// una pista para redirigir; la autorización real es RLS en la base de datos.
+// Claims are added by public.access_token_hook (migration 0004). They're
+// only a hint for redirecting; real authorization is RLS in the database.
 
-export type Role = "admin" | "entrenador" | "alumno";
+export type Role = "admin" | "coach" | "student";
 
 export type Area = "platform" | "admin" | "coach" | "student";
 
 export const ROLE_LABELS: Record<Role, string> = {
   admin: "Administrador",
-  entrenador: "Entrenador",
-  alumno: "Alumno",
+  coach: "Entrenador",
+  student: "Alumno",
 };
 
 export type AuthContext = {
@@ -21,7 +21,7 @@ export type AuthContext = {
   roles: Role[];
 };
 
-// Precedencia para elegir la pantalla de inicio: plataforma > admin > entrenador > alumno.
+// Precedence for picking the home screen: platform > admin > coach > student.
 export const AREAS: { area: Area; path: string; label: string }[] = [
   { area: "platform", path: "/platform", label: "Plataforma" },
   { area: "admin", path: "/admin", label: "Administración" },
@@ -31,22 +31,22 @@ export const AREAS: { area: Area; path: string; label: string }[] = [
 
 const ROLE_AREA: Record<Role, Area> = {
   admin: "admin",
-  entrenador: "coach",
-  alumno: "student",
+  coach: "coach",
+  student: "student",
 };
 
 const VALID_ROLES = new Set<string>(Object.keys(ROLE_AREA));
 
 export function parseContext(claims: Record<string, unknown>): AuthContext {
-  const roles = Array.isArray(claims.roles_club)
-    ? (claims.roles_club.filter(
+  const roles = Array.isArray(claims.club_roles)
+    ? (claims.club_roles.filter(
         (r): r is Role => typeof r === "string" && VALID_ROLES.has(r),
       ) as Role[])
     : [];
 
   return {
-    isPlatformAdmin: claims.es_admin_plataforma === true,
-    clubCount: typeof claims.n_clubes === "number" ? claims.n_clubes : 0,
+    isPlatformAdmin: claims.is_platform_admin === true,
+    clubCount: typeof claims.club_count === "number" ? claims.club_count : 0,
     clubId: typeof claims.club_id === "string" ? claims.club_id : null,
     roles: claims.club_id ? roles : [],
   };
@@ -70,24 +70,24 @@ export function areaOfPath(pathname: string): Area | null {
   return match?.area ?? null;
 }
 
-// Pantalla de inicio de una sesión ya autenticada.
+// Home screen for an already authenticated session.
 export function homePath(ctx: AuthContext): string {
   const [first] = allowedAreas(ctx);
   if (first) return areaPath(first);
-  // Miembro de varios clubes sin uno activo: debe elegir.
+  // Member of several clubs with none active: must choose one.
   if (ctx.clubCount > 1) return "/select-club";
   return "/no-club";
 }
 
 // ---------------------------------------------------------------------------
-// Reglas de redirección del proxy (puras, para poder probarlas sin Supabase)
+// Proxy redirect rules (pure, so they can be tested without Supabase)
 // ---------------------------------------------------------------------------
 
 const GUEST_PAGES = ["/login", "/register"];
-// Accesibles con o sin sesión: confirmación de correo e invitaciones.
+// Reachable with or without a session: email confirmation and invitations.
 const PUBLIC_PREFIXES = ["/auth/", "/invitation/"];
 
-// Devuelve la ruta a la que hay que redirigir, o null si la petición sigue.
+// Returns the path to redirect to, or null if the request should proceed.
 export function decideRedirect(
   pathname: string,
   search: string,
@@ -104,7 +104,7 @@ export function decideRedirect(
 
   const home = homePath(ctx);
 
-  // Quien ya tiene sesión y abre el enlace de registro de un club se une a él.
+  // Someone with a session who opens a club's sign-up link joins that club.
   const club = new URLSearchParams(search).get("club");
   if (pathname === "/register" && club) {
     return `/join/${encodeURIComponent(club)}`;
@@ -115,7 +115,7 @@ export function decideRedirect(
   const area = areaOfPath(pathname);
   if (area && !allowedAreas(ctx).includes(area)) return home;
 
-  // Sin clubes no hay nada que elegir; con un club activo no hace falta esperar.
+  // No clubs to choose from; with one active club there's nothing to wait for.
   if (pathname === "/select-club" && ctx.clubCount === 0) return home;
   if (pathname === "/no-club" && home !== "/no-club") return home;
 

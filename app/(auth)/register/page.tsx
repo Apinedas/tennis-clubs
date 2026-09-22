@@ -13,14 +13,14 @@ export default async function RegisterPage({
   const slug = typeof params.club === "string" ? params.club : undefined;
   const next = safeNext(typeof params.next === "string" ? params.next : null);
 
-  // Con ?club=<slug> el alumno se registra directamente en ese club.
+  // With ?club=<slug> the student signs up directly into that club.
   let clubName: string | null = null;
   let clubClosed = false;
   if (slug) {
     const supabase = await createClient();
-    const { data } = await supabase.rpc("club_publico", { p_slug: slug });
+    const { data } = await supabase.rpc("public_club", { p_slug: slug });
     const club = Array.isArray(data) ? data[0] : null;
-    if (club?.registro_abierto) clubName = club.nombre;
+    if (club?.open_registration) clubName = club.name;
     else clubClosed = true;
   }
 

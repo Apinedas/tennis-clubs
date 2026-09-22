@@ -4,8 +4,8 @@ import { Button } from "@/components/ui/button";
 import type { Profile } from "@/lib/auth/dal";
 import { AREAS, allowedAreas, type Area } from "@/lib/auth/roles";
 
-// Estructura común de las áreas autenticadas: cabecera con club, selector de
-// área (solo las que el usuario puede ver) y salida.
+// Common structure for authenticated areas: header with club, area selector
+// (only the ones the user can see) and sign-out.
 export function AppShell({
   profile,
   area,

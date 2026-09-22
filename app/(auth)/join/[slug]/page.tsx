@@ -12,10 +12,10 @@ export default async function JoinPage({ params }: PageProps<"/join/[slug]">) {
   await requireSession();
 
   const supabase = await createClient();
-  const { data } = await supabase.rpc("club_publico", { p_slug: slug });
+  const { data } = await supabase.rpc("public_club", { p_slug: slug });
   const club = Array.isArray(data) ? data[0] : null;
 
-  if (!club || !club.registro_abierto) {
+  if (!club || !club.open_registration) {
     return (
       <>
         <h1 className="text-headline-lg text-on-surface">Unirme a un club</h1>
@@ -33,7 +33,7 @@ export default async function JoinPage({ params }: PageProps<"/join/[slug]">) {
   return (
     <>
       <h1 className="text-headline-lg text-on-surface">
-        Unirme a {club.nombre}
+        Unirme a {club.name}
       </h1>
       <p className="text-body-md text-on-surface-variant">
         Te agregaremos como alumno. Conservas tus demás clubes y roles.

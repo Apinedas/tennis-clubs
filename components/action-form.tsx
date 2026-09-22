@@ -5,8 +5,8 @@ import type { FormState } from "@/app/actions/auth";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 
-// Formulario de un solo botón para Server Actions (elegir club, aceptar
-// invitación, unirse a un club).
+// Single-button form for Server Actions (select a club, accept an
+// invitation, join a club).
 export function ActionForm({
   action,
   hidden,

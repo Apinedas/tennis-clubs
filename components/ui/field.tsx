@@ -1,6 +1,6 @@
 import type { ComponentProps } from "react";
 
-// Etiqueta arriba (12px/500, secundaria) + input de 40px, según DESIGN.md.
+// Label on top (12px/500, secondary) + 40px input, per DESIGN.md.
 export function Field({
   label,
   id,

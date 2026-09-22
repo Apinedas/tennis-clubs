@@ -3,8 +3,8 @@ const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 if (!url || !key) {
   throw new Error(
-    "Faltan NEXT_PUBLIC_SUPABASE_URL o NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY. " +
-      "Copia .env.local.example a .env.local y completa los valores.",
+    "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY. " +
+      "Copy .env.local.example to .env.local and fill in the values.",
   );
 }
 

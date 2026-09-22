@@ -11,7 +11,7 @@ export const metadata = { title: "Elegir club · Academia de Tenis" };
 type Membership = {
   club_id: string;
   roles: Role[];
-  club: { nombre: string } | null;
+  club: { name: string } | null;
 };
 
 export default async function SelectClubPage() {
@@ -19,11 +19,11 @@ export default async function SelectClubPage() {
   const supabase = await createClient();
 
   const { data } = await supabase
-    .from("membresia")
-    .select("club_id, roles, club(nombre)")
-    .eq("persona_id", session.userId)
-    .eq("activo", true)
-    .order("creado_en");
+    .from("membership")
+    .select("club_id, roles, club(name)")
+    .eq("person_id", session.userId)
+    .eq("active", true)
+    .order("created_at");
   const memberships = (data ?? []) as unknown as Membership[];
 
   return (
@@ -40,7 +40,7 @@ export default async function SelectClubPage() {
           >
             <div>
               <p className="text-headline-sm text-on-surface">
-                {m.club?.nombre}
+                {m.club?.name}
               </p>
               <p className="text-label-sm text-on-surface-variant">
                 {m.roles.map((r) => ROLE_LABELS[r]).join(" · ")}
