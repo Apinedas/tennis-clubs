@@ -431,6 +431,44 @@ begin
 end $$;
 
 -- ---------------------------------------------------------------------------
+-- Configuración del club: columnas nuevas y logos
+-- ---------------------------------------------------------------------------
+
+select t.as_user(t.u(2)); -- ana, admin de A
+select t.affects($$update public.club set contact_email = 'ops@a.co', contact_phone = '+57 300', currency = 'USD', brand_color = '#123ABC' where id = t.u(101)$$, 1,
+  'admin edita los ajustes de su club');
+select t.fails($$update public.club set currency = 'XXX' where id = t.u(101)$$, '23514', 'moneda fuera del catálogo se rechaza');
+select t.fails($$update public.club set brand_color = '123ABC' where id = t.u(101)$$, '23514', 'color de marca sin # se rechaza');
+select t.fails($$update public.club set brand_color = '#12G456' where id = t.u(101)$$, '23514', 'color de marca con carácter inválido se rechaza');
+select t.affects($$update public.club set contact_email = 'hack@a.co' where id = t.u(102)$$, 0,
+  'admin de A no edita el club B');
+
+select t.as_user(t.u(3)); -- beto, student de A
+select t.affects($$update public.club set contact_email = 'hack@x.co' where id = t.u(101)$$, 0,
+  'un student no puede editar la configuración del club');
+select t.fails($$insert into storage.objects (bucket_id, name) values ('club-logos', t.u(101)::text || '/logo.png')$$, '42501',
+  'un student no sube el logo de su club');
+
+select t.as_user(t.u(2));
+select t.affects($$insert into storage.objects (bucket_id, name) values ('club-logos', t.u(101)::text || '/logo.png')$$, 1,
+  'el admin sube el logo de su propio club');
+select t.fails($$insert into storage.objects (bucket_id, name) values ('club-logos', t.u(102)::text || '/logo.png')$$, '42501',
+  'el admin de A no sube el logo del club B');
+select t.affects($$delete from storage.objects where bucket_id = 'club-logos' and name = t.u(102)::text || '/logo.png'$$, 0,
+  'ana no puede borrar el logo del club B');
+
+select t.as_user(t.u(1)); -- admin de plataforma
+select t.affects($$insert into storage.objects (bucket_id, name) values ('club-logos', t.u(102)::text || '/logo.png')$$, 1,
+  'el admin de plataforma sube el logo de cualquier club');
+
+select t.as_user(t.u(2));
+select t.affects($$delete from storage.objects where bucket_id = 'club-logos' and name = t.u(101)::text || '/logo.png'$$, 1,
+  'ana borra el logo de su propio club');
+
+select t.anon();
+select t.rows($$select 1 from storage.objects where bucket_id = 'club-logos'$$, 1, 'la lectura de logos es pública');
+
+-- ---------------------------------------------------------------------------
 -- Borrado de un club completo (cascada) no lo frena la protección de admins
 -- ---------------------------------------------------------------------------
 

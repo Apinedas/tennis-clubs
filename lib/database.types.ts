@@ -125,24 +125,39 @@ export type Database = {
       }
       club: {
         Row: {
+          brand_color: string
+          contact_email: string | null
+          contact_phone: string | null
           created_at: string
+          currency: string
           id: string
+          logo_url: string | null
           name: string
           open_registration: boolean
           slug: string
           timezone: string
         }
         Insert: {
+          brand_color?: string
+          contact_email?: string | null
+          contact_phone?: string | null
           created_at?: string
+          currency?: string
           id?: string
+          logo_url?: string | null
           name: string
           open_registration?: boolean
           slug: string
           timezone?: string
         }
         Update: {
+          brand_color?: string
+          contact_email?: string | null
+          contact_phone?: string | null
           created_at?: string
+          currency?: string
           id?: string
+          logo_url?: string | null
           name?: string
           open_registration?: boolean
           slug?: string

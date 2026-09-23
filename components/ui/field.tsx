@@ -4,8 +4,9 @@ import type { ComponentProps } from "react";
 export function Field({
   label,
   id,
+  hint,
   ...props
-}: ComponentProps<"input"> & { label: string; id: string }) {
+}: ComponentProps<"input"> & { label: string; id: string; hint?: string }) {
   return (
     <div className="flex flex-col gap-1">
       <label htmlFor={id} className="text-label-sm text-on-surface-variant">
@@ -17,6 +18,7 @@ export function Field({
         className="h-10 rounded-lg border border-border bg-surface-container-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant focus:border-primary"
         {...props}
       />
+      {hint && <span className="text-label-xs text-on-surface-variant">{hint}</span>}
     </div>
   );
 }
