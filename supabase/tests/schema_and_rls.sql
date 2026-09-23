@@ -107,10 +107,10 @@ insert into public.membership (person_id, club_id, roles) values
 
 update public.person set active_club_id = t.u(101) where id = t.u(2);
 
-insert into public.court (id, club_id, name) values
-  (t.u(201), t.u(101), 'Cancha 1'),
-  (t.u(202), t.u(101), 'Cancha 2'),
-  (t.u(203), t.u(102), 'Cancha B1');
+insert into public.court (id, club_id, name, surface) values
+  (t.u(201), t.u(101), 'Cancha 1', 'clay'),
+  (t.u(202), t.u(101), 'Cancha 2', 'clay'),
+  (t.u(203), t.u(102), 'Cancha B1', 'hard');
 
 -- ---------------------------------------------------------------------------
 -- Registro y módulos
@@ -159,7 +159,7 @@ select t.affects($$update public.person set phone = '300' where id = t.u(3)$$, 1
 select t.affects($$update public.person set phone = 'x' where id = t.u(2)$$, 0, 'student no edita a otra persona');
 select t.fails($$update public.person set id = t.u(99) where id = t.u(3)$$, '42501', 'no se puede reescribir el id');
 select t.fails($$insert into public.club (slug, name) values ('otro','Otro')$$, '42501', 'student no crea clubes');
-select t.fails($$insert into public.court (club_id, name) values (t.u(101), 'Nueva')$$, '42501', 'student no crea canchas');
+select t.fails($$insert into public.court (club_id, name, surface) values (t.u(101), 'Nueva', 'clay')$$, '42501', 'student no crea canchas');
 select t.rows($$select 1 from public.invitation$$, 0, 'student no ve invitaciones');
 select t.rows($$select 1 from public.platform_admin$$, 0, 'student no ve admins de plataforma');
 
@@ -429,6 +429,33 @@ begin
   end if;
   perform t.ok('hook: persona sin membresías');
 end $$;
+
+-- ---------------------------------------------------------------------------
+-- Gestión de canchas
+-- ---------------------------------------------------------------------------
+
+select t.as_user(t.u(2)); -- ana, admin de A
+select t.fails($$insert into public.court (club_id, name, surface) values (t.u(101), 'Cancha 1', 'clay')$$, '23505',
+  'no se puede repetir el nombre de una cancha en el mismo club');
+select t.affects($$insert into public.court (id, club_id, name, surface, covered, has_lighting, notes)
+  values (t.u(204), t.u(101), 'Cancha 4', 'hard', true, true, 'Techada nueva')$$, 1,
+  'admin crea una cancha nueva');
+select t.affects($$update public.court set covered = true, has_lighting = false, notes = 'Sin luces por ahora' where id = t.u(202)$$, 1,
+  'admin edita una cancha existente');
+select t.fails($$update public.court set surface = 'clay-court' where id = t.u(202)$$, '22P02',
+  'un valor de superficie fuera del catálogo se rechaza');
+select t.affects($$delete from public.court where id = t.u(204)$$, 1,
+  'se puede borrar una cancha sin reservas ni tarifas');
+select t.fails($$delete from public.court where id = t.u(201)$$, '23503',
+  'no se puede borrar una cancha con reservas asociadas');
+select t.affects($$update public.court set active = false where id = t.u(201)$$, 1,
+  'en su lugar, se desactiva');
+
+select t.as_user(t.u(3)); -- beto, student de A
+select t.affects($$update public.court set name = 'Hackeada' where id = t.u(202)$$, 0,
+  'un student no puede editar canchas');
+select t.affects($$delete from public.court where id = t.u(202)$$, 0,
+  'un student no puede borrar canchas');
 
 -- ---------------------------------------------------------------------------
 -- Configuración del club: columnas nuevas y logos

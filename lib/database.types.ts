@@ -198,23 +198,32 @@ export type Database = {
         Row: {
           active: boolean
           club_id: string
+          covered: boolean
+          has_lighting: boolean
           id: string
           name: string
-          surface: string | null
+          notes: string | null
+          surface: Database["public"]["Enums"]["court_surface"]
         }
         Insert: {
           active?: boolean
           club_id: string
+          covered?: boolean
+          has_lighting?: boolean
           id?: string
           name: string
-          surface?: string | null
+          notes?: string | null
+          surface: Database["public"]["Enums"]["court_surface"]
         }
         Update: {
           active?: boolean
           club_id?: string
+          covered?: boolean
+          has_lighting?: boolean
           id?: string
           name?: string
-          surface?: string | null
+          notes?: string | null
+          surface?: Database["public"]["Enums"]["court_surface"]
         }
         Relationships: [
           {
@@ -469,6 +478,7 @@ export type Database = {
         | "dynamic_pricing"
         | "tournaments"
       club_role: "admin" | "coach" | "student"
+      court_surface: "clay" | "hard" | "grass" | "carpet" | "other"
       rate_category: "member" | "non_member"
     }
     CompositeTypes: {
@@ -609,6 +619,7 @@ export const Constants = {
         "tournaments",
       ],
       club_role: ["admin", "coach", "student"],
+      court_surface: ["clay", "hard", "grass", "carpet", "other"],
       rate_category: ["member", "non_member"],
     },
   },

@@ -69,11 +69,16 @@ async function membership(personId, clubId, roles) {
 const rodadero = await upsertClub("el-rodadero", "Club Campestre El Rodadero");
 const demo2 = await upsertClub("club-demo-2", "Club Demo 2");
 
-for (const [i, name] of ["Cancha 1", "Cancha 2", "Cancha 3"].entries()) {
+const courts = [
+  { name: "Cancha 1", surface: "clay", covered: false, has_lighting: true },
+  { name: "Cancha 2", surface: "clay", covered: false, has_lighting: false },
+  { name: "Cancha 3", surface: "hard", covered: true, has_lighting: true },
+];
+for (const court of courts) {
   check(
     await supabase
       .from("court")
-      .upsert({ club_id: rodadero, name, surface: i === 2 ? "Cemento" : "Arcilla" }, { onConflict: "club_id,name" }),
+      .upsert({ club_id: rodadero, ...court }, { onConflict: "club_id,name" }),
     "cancha",
   );
 }
