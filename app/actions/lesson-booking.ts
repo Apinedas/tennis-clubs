@@ -55,6 +55,7 @@ export async function requestLesson(
   const dateISO = text(formData, "date");
   const startsAtUtc = text(formData, "starts_at");
   const endsAtUtc = text(formData, "ends_at");
+  const notes = text(formData, "notes").slice(0, 250);
   const fields = { coach_id: coachId, date: dateISO };
 
   if (!coachId) return { error: "Elige un entrenador.", fields };
@@ -133,6 +134,7 @@ export async function requestLesson(
         status: "pending",
         starts_at: startsAtUtc,
         ends_at: endsAtUtc,
+        notes: notes || null,
       })
       .select("id")
       .single();

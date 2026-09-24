@@ -358,6 +358,15 @@ select t.rows($$select 1 from public.list_my_lessons(t.u(101)) where id = t.u(30
   and viewer_role = 'coach' and counterpart_name = 'beto'$$, 1,
   'y en cada una de sus clases');
 
+select t.as_user(t.u(8)); -- gus, student
+select t.affects($$insert into public.booking (id, club_id, court_id, person_id, coach_id, type, status, notes, starts_at, ends_at)
+  values (t.u(305), t.u(101), t.u(202), t.u(8), t.u(5), 'lesson', 'pending', 'Quiero mejorar el saque', '2030-02-04 09:00+00', '2030-02-04 10:00+00')$$, 1,
+  'la solicitud puede llevar una nota opcional para el coach');
+
+select t.as_user(t.u(5));
+select t.rows($$select 1 from public.list_my_lessons(t.u(101)) where id = t.u(305) and notes = 'Quiero mejorar el saque'$$, 1,
+  'el coach ve la nota del alumno en la solicitud');
+
 select t.as_user(t.u(4)); -- carla, ajena a estas clases
 select t.rows($$select 1 from public.list_my_lessons(t.u(101)) where id in (t.u(303), t.u(304))$$, 0,
   'quien no participa en la clase no la ve en list_my_lessons');

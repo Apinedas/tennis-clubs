@@ -532,6 +532,7 @@ export type Database = {
           court_name: string
           ends_at: string
           id: string
+          notes: string
           starts_at: string
           status: Database["public"]["Enums"]["booking_status"]
           viewer_role: Database["public"]["Enums"]["club_role"]

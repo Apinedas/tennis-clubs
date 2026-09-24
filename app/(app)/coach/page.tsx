@@ -64,6 +64,11 @@ export default async function CoachPage() {
                       · {formatLocalTime(l.starts_at, timeZone)}–
                       {formatLocalTime(l.ends_at, timeZone)} · {l.court_name}
                     </p>
+                    {l.notes && (
+                      <p className="mt-1 max-w-sm text-label-xs text-on-surface italic">
+                        “{l.notes}”
+                      </p>
+                    )}
                   </div>
                   <RespondButtons bookingId={l.id} />
                 </li>

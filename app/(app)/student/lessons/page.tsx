@@ -3,7 +3,7 @@ import { AppShell } from "@/components/app-shell";
 import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
 import { formatLocalTime, generateSlots } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
-import { RequestSlotButton } from "./lesson-actions";
+import { LessonRequestPanel } from "./lesson-actions";
 
 export const metadata = { title: "Clases · Academia de Tenis" };
 
@@ -119,24 +119,14 @@ export default async function StudentLessonsPage({
             <h2 className="text-headline-sm text-on-surface">
               Horarios disponibles
             </h2>
-            {slots.length === 0 ? (
-              <p className="text-body-md text-on-surface-variant">
-                No hay horarios libres ese día. Prueba con otra fecha.
-              </p>
-            ) : (
-              <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-                {slots.map((slot) => (
-                  <RequestSlotButton
-                    key={slot.startsAtUtc}
-                    coachId={coachId}
-                    date={date}
-                    startsAtUtc={slot.startsAtUtc}
-                    endsAtUtc={slot.endsAtUtc}
-                    label={formatLocalTime(slot.startsAtUtc, club?.timezone ?? "America/Bogota")}
-                  />
-                ))}
-              </div>
-            )}
+            <LessonRequestPanel
+              coachId={coachId}
+              date={date}
+              slots={slots.map((s) => ({
+                ...s,
+                label: formatLocalTime(s.startsAtUtc, club?.timezone ?? "America/Bogota"),
+              }))}
+            />
           </section>
         )}
 
