@@ -181,7 +181,7 @@ export default async function BookCourtPage({
             No hay canchas que coincidan con el filtro.
           </p>
         ) : (
-          <BookingGrid courts={courtsWithSlots} date={date} timeZone={timeZone} />
+          <BookingGrid key={date} courts={courtsWithSlots} date={date} timeZone={timeZone} />
         )}
 
         <Link
