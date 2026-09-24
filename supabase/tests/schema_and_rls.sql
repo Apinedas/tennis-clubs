@@ -623,6 +623,49 @@ select t.affects($$update public.booking_policy set slot_minutes = 30 where club
   'un student no puede editar la política de reservas');
 
 -- ---------------------------------------------------------------------------
+-- Reporte de uso de canchas
+-- ---------------------------------------------------------------------------
+
+select t.as_user(t.u(2)); -- ana, admin de A
+select t.affects($$insert into public.court (id, club_id, name, surface) values (t.u(205), t.u(101), 'Cancha Reporte', 'clay')$$, 1,
+  'cancha nueva y activa para el reporte (la 201 quedó inactiva antes)');
+select t.affects($$insert into public.booking (id, club_id, court_id, person_id, type, status, starts_at, ends_at)
+  values (t.u(306), t.u(101), t.u(205), t.u(8), 'singles', 'confirmed', '2035-01-01 14:00+00', '2035-01-01 15:00+00')$$, 1,
+  'reserva de prueba para el reporte, cancha nueva');
+select t.affects($$insert into public.booking (id, club_id, court_id, person_id, type, status, starts_at, ends_at)
+  values (t.u(307), t.u(101), t.u(205), t.u(8), 'singles', 'confirmed', '2035-01-03 14:00+00', '2035-01-03 15:00+00')$$, 1,
+  'segunda reserva, misma cancha, se cancelará');
+select t.rows($$select 1 from (select public.cancel_booking(t.u(307))) x$$, 1, 'se cancela para probar el conteo');
+select t.affects($$insert into public.booking (id, club_id, court_id, person_id, type, status, starts_at, ends_at)
+  values (t.u(308), t.u(101), t.u(202), t.u(8), 'singles', 'confirmed', '2035-01-02 14:00+00', '2035-01-02 15:30+00')$$, 1,
+  'reserva de prueba, cancha 2 (90 min)');
+
+select t.rows($$select * from public.court_usage_report(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z')$$, 3,
+  'una fila por cancha del club (incluida la inactiva 201, sin actividad), sin importar cuántas reservas tenga cada una');
+select t.rows($$select 1 from public.court_usage_report(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z')
+  where court_id = t.u(205) and confirmed_count = 1 and cancelled_count = 1 and hours_reserved = 1$$, 1,
+  'cancha nueva: 1 confirmada + 1 cancelada, 1 hora reservada (la cancelada no cuenta horas)');
+select t.rows($$select 1 from public.court_usage_report(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z')
+  where court_id = t.u(202) and confirmed_count = 1 and cancelled_count = 0 and hours_reserved = 1.5$$, 1,
+  'cancha 2: 1 confirmada de 90 minutos');
+select t.rows($$select * from public.court_usage_report(t.u(101), '2020-01-01T00:00:00Z', '2020-01-08T00:00:00Z')
+  where confirmed_count > 0 or cancelled_count > 0$$, 0,
+  'un rango sin reservas no muestra actividad, pero sí las canchas (left join)');
+
+select t.rows($$select 1 from (select sum(bookings_count) s from public.court_usage_heatmap(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z')) x where s = 2$$, 1,
+  'el mapa de calor solo cuenta confirmadas (la cancelada queda fuera)');
+select t.rows($$select 1 from public.court_usage_heatmap(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z') where hour <> 9$$, 0,
+  'la hora local se calculó bien (14:00 UTC = 09:00 Bogotá)');
+select t.rows($$select 1 from (select count(distinct weekday) w from public.court_usage_heatmap(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z')) x where w = 2$$, 1,
+  'dos reservas confirmadas en dos días distintos de la semana');
+
+select t.as_user(t.u(3)); -- beto, student
+select t.rows($$select * from public.court_usage_report(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z')$$, 0,
+  'un student no ve el reporte de uso');
+select t.rows($$select * from public.court_usage_heatmap(t.u(101), '2035-01-01T00:00:00Z', '2035-01-08T00:00:00Z')$$, 0,
+  'ni el mapa de calor');
+
+-- ---------------------------------------------------------------------------
 -- Configuración del club: columnas nuevas y logos
 -- ---------------------------------------------------------------------------
 

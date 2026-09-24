@@ -503,6 +503,25 @@ export type Database = {
       accept_lesson_request: { Args: { p_id: string }; Returns: undefined }
       access_token_hook: { Args: { event: Json }; Returns: Json }
       cancel_booking: { Args: { p_id: string }; Returns: undefined }
+      court_usage_heatmap: {
+        Args: { p_club: string; p_end: string; p_start: string }
+        Returns: {
+          bookings_count: number
+          hour: number
+          weekday: number
+        }[]
+      }
+      court_usage_report: {
+        Args: { p_club: string; p_end: string; p_start: string }
+        Returns: {
+          cancelled_count: number
+          confirmed_count: number
+          court_id: string
+          court_name: string
+          hours_reserved: number
+          surface: Database["public"]["Enums"]["court_surface"]
+        }[]
+      }
       join_club: { Args: { p_slug: string }; Returns: string }
       list_club_coaches: {
         Args: { p_club: string }

@@ -47,6 +47,12 @@ const SHORTCUTS = [
     title: "Módulos",
     description: "Activa o desactiva las funcionalidades del club.",
   },
+  {
+    href: "/admin/reports/court-usage",
+    icon: "monitoring",
+    title: "Uso de canchas",
+    description: "Ocupación agregada por cancha y horario.",
+  },
 ];
 
 export default async function AdminPage() {
