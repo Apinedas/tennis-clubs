@@ -2,10 +2,10 @@ import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
   formatLocalTime,
-  generateLessonSlots,
+  generateSlots,
   isoWeekday,
   zonedTimeToUtcISO,
-} from "./lesson-slots.ts";
+} from "./slot-scheduling.ts";
 
 describe("isoWeekday", () => {
   it("returns 1 for Monday and 7 for Sunday", () => {
@@ -35,7 +35,7 @@ describe("zonedTimeToUtcISO", () => {
   });
 });
 
-describe("generateLessonSlots", () => {
+describe("generateSlots", () => {
   const base = {
     dateISO: "2030-02-04",
     timeZone: "America/Bogota",
@@ -46,14 +46,14 @@ describe("generateLessonSlots", () => {
   };
 
   it("slices the default 06:00–22:00 window into hourly slots", () => {
-    const slots = generateLessonSlots(base);
+    const slots = generateSlots(base);
     assert.equal(slots.length, 16); // 06 to 21 inclusive start times
     assert.equal(slots[0].label, "06:00");
     assert.equal(slots.at(-1)?.label, "21:00");
   });
 
   it("respects a narrower window", () => {
-    const slots = generateLessonSlots({
+    const slots = generateSlots({
       ...base,
       window: { startTime: "08:00", endTime: "10:00" },
     });
@@ -61,7 +61,7 @@ describe("generateLessonSlots", () => {
   });
 
   it("drops slots that overlap an existing booking", () => {
-    const slots = generateLessonSlots({
+    const slots = generateSlots({
       ...base,
       window: { startTime: "08:00", endTime: "11:00" },
       existingBookingsUtc: [
@@ -75,7 +75,7 @@ describe("generateLessonSlots", () => {
   });
 
   it("drops slots before the minimum advance window", () => {
-    const slots = generateLessonSlots({
+    const slots = generateSlots({
       ...base,
       window: { startTime: "08:00", endTime: "12:00" },
       minAdvanceHours: 3,
@@ -87,7 +87,7 @@ describe("generateLessonSlots", () => {
   });
 
   it("never returns a slot narrower than slot_minutes at the window edge", () => {
-    const slots = generateLessonSlots({
+    const slots = generateSlots({
       ...base,
       slotMinutes: 90,
       window: { startTime: "08:00", endTime: "10:00" },

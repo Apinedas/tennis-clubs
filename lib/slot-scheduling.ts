@@ -1,11 +1,14 @@
-// Pure scheduling math for the lesson-request flow: no DB, no framework —
-// easy to unit test, and the one place timezone conversion happens.
+// Pure scheduling math shared by lesson requests and court bookings: no DB,
+// no framework — easy to unit test, and the one place timezone conversion
+// happens.
 //
-// Availability is intentionally not tied to a per-coach calendar or to a
-// specific rate window (neither exists yet): every day offers the same
-// broad operating-hours window, sliced into slot_minutes blocks, minus
-// whatever the coach already has booked. Price is looked up separately
-// (best effort, for display only) once a slot and a court are chosen.
+// Availability is intentionally not tied to a per-coach/per-court calendar
+// or to a rate window (neither exists as a distinct "operating hours"
+// concept): every day offers the same broad window, sliced into
+// slot_minutes blocks, minus whatever's already booked for that resource
+// (a coach, for lessons; a court, for general reservations). Price is
+// looked up separately (best effort, for display only) once a slot and a
+// court are chosen — see rate-matching.ts.
 
 export const DEFAULT_OPERATING_HOURS = { startTime: "06:00", endTime: "22:00" };
 
@@ -86,7 +89,7 @@ export function formatLocalTime(utcISO: string, timeZone: string): string {
   }).format(new Date(utcISO));
 }
 
-export function generateLessonSlots(opts: {
+export function generateSlots(opts: {
   dateISO: string;
   timeZone: string;
   slotMinutes: number;

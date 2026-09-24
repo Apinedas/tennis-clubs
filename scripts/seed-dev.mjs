@@ -102,6 +102,12 @@ await upsertRate(rodadero, "Clases con entrenador", {
   weekdays: [1, 2, 3, 4, 5, 6, 7],
   price_amount: 60000,
 });
+await upsertRate(rodadero, "Alquiler de cancha", {
+  start_time: "06:00",
+  end_time: "22:00",
+  weekdays: [1, 2, 3, 4, 5, 6, 7],
+  price_amount: 45000,
+});
 
 const platform = await upsertUser("plataforma@demo.test", "Paula Plataforma");
 check(await supabase.from("platform_admin").upsert({ person_id: platform }), "platform_admin");

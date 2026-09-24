@@ -2,13 +2,12 @@
 
 import { revalidatePath } from "next/cache";
 import { requireArea } from "@/lib/auth/dal";
-import { formatLocalTime, generateLessonSlots, isoWeekday } from "@/lib/lesson-slots";
+import { selectApplicableRate } from "@/lib/rate-matching";
+import { generateSlots } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
-import type { Database } from "@/lib/database.types";
 import type { FormState } from "./auth";
 
 type SupabaseServer = Awaited<ReturnType<typeof createClient>>;
-type Rate = Database["public"]["Tables"]["rate"]["Row"];
 
 function text(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -17,8 +16,7 @@ function text(formData: FormData, key: string) {
 
 // Best-effort price lookup for display only — nothing is charged yet
 // (Payments is phase 2), so an unmatched rate just shows as "to confirm"
-// rather than blocking the request. Every enrolled student is treated as
-// 'member' category: there's no separate guest flow for self-booked lessons.
+// rather than blocking the request.
 async function estimateLessonPrice(
   supabase: SupabaseServer,
   clubId: string,
@@ -33,27 +31,17 @@ async function estimateLessonPrice(
     .select("*")
     .eq("club_id", clubId)
     .eq("active", true)
-    .or("service.eq.lesson,service.is.null")
     .or("category.eq.member,category.is.null");
 
-  const weekday = isoWeekday(startsAtUtc.slice(0, 10));
-  const startLocal = formatLocalTime(startsAtUtc, timeZone);
-  const endLocal = formatLocalTime(endsAtUtc, timeZone);
-
-  const candidates = (rates ?? []).filter((r: Rate) => {
-    if (r.court_id && r.court_id !== courtId) return false;
-    if (!r.court_id && r.surface && r.surface !== courtSurface) return false;
-    if (!r.weekdays.includes(weekday)) return false;
-    return r.start_time.slice(0, 5) <= startLocal && endLocal <= r.end_time.slice(0, 5);
+  const rate = selectApplicableRate(rates ?? [], {
+    courtId,
+    courtSurface,
+    service: "lesson",
+    startsAtUtc,
+    endsAtUtc,
+    timeZone,
   });
-
-  candidates.sort((a: Rate, b: Rate) => {
-    const specificity = (r: Rate) => (r.court_id ? 0 : r.surface ? 1 : 2);
-    const categoryScore = (r: Rate) => (r.category ? 0 : 1);
-    return specificity(a) - specificity(b) || categoryScore(a) - categoryScore(b);
-  });
-
-  return candidates[0]?.price_amount ?? null;
+  return rate?.price_amount ?? null;
 }
 
 export async function requestLesson(
@@ -98,7 +86,7 @@ export async function requestLesson(
   // Re-derive the day's valid slots server-side rather than trusting the
   // submitted timestamps outright — the client only ever offers real slots,
   // but the form data could be tampered with.
-  const validSlots = generateLessonSlots({
+  const validSlots = generateSlots({
     dateISO,
     timeZone: club.timezone,
     slotMinutes: policy.slot_minutes,
@@ -159,7 +147,7 @@ export async function requestLesson(
         endsAtUtc,
         club.timezone,
       );
-      revalidatePath("/student");
+      revalidatePath("/student/lessons");
       return {
         message:
           price != null
@@ -183,14 +171,24 @@ export async function cancelMyLesson(
   _: FormState,
   formData: FormData,
 ): Promise<FormState> {
-  await requireArea("student");
+  const { context } = await requireArea("student");
+  const clubId = context.clubId as string;
   const bookingId = text(formData, "booking_id");
 
   const supabase = await createClient();
+  const { data: policy } = await supabase
+    .from("booking_policy")
+    .select("self_cancel_allowed")
+    .eq("club_id", clubId)
+    .single();
+  if (policy && !policy.self_cancel_allowed) {
+    return { error: "Este club no permite cancelar por tu cuenta. Contáctalo directamente." };
+  }
+
   const { error } = await supabase.rpc("cancel_booking", { p_id: bookingId });
   if (error) return { error: "No pudimos cancelar la solicitud." };
 
-  revalidatePath("/student");
+  revalidatePath("/student/lessons");
   return undefined;
 }
 

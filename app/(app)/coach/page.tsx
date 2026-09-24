@@ -1,7 +1,7 @@
 import { AppShell } from "@/components/app-shell";
 import { LessonStatusBadge } from "@/components/lesson-status-badge";
 import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
-import { formatLocalTime } from "@/lib/lesson-slots";
+import { formatLocalTime } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import { RespondButtons } from "./lesson-actions";
 
