@@ -118,28 +118,3 @@ export async function bookCourt(
         : "Reserva confirmada. El club te confirmará la tarifa.",
   };
 }
-
-export async function cancelMyBooking(
-  _: FormState,
-  formData: FormData,
-): Promise<FormState> {
-  const { context } = await requireArea("student");
-  const clubId = context.clubId as string;
-  const bookingId = text(formData, "booking_id");
-
-  const supabase = await createClient();
-  const { data: policy } = await supabase
-    .from("booking_policy")
-    .select("self_cancel_allowed")
-    .eq("club_id", clubId)
-    .single();
-  if (policy && !policy.self_cancel_allowed) {
-    return { error: "Este club no permite cancelar por tu cuenta. Contáctalo directamente." };
-  }
-
-  const { error } = await supabase.rpc("cancel_booking", { p_id: bookingId });
-  if (error) return { error: "No pudimos cancelar la reserva." };
-
-  revalidatePath("/student/book");
-  return undefined;
-}

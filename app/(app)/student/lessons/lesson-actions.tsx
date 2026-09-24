@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { cancelMyLesson, requestLesson } from "@/app/actions/lesson-booking";
+import { requestLesson } from "@/app/actions/lesson-booking";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 
@@ -36,27 +36,6 @@ export function RequestSlotButton({
         </Button>
         {state?.error && <span className="text-label-xs text-blocked-fg">{state.error}</span>}
       </div>
-    </form>
-  );
-}
-
-export function CancelLessonButton({ bookingId }: { bookingId: string }) {
-  const [state, formAction, pending] = useActionState(cancelMyLesson, undefined);
-
-  return (
-    <form action={formAction}>
-      <input type="hidden" name="booking_id" value={bookingId} />
-      <button
-        type="submit"
-        disabled={pending}
-        onClick={(e) => {
-          if (!confirm("¿Cancelar esta clase?")) e.preventDefault();
-        }}
-        className="text-label-sm text-blocked-fg hover:underline disabled:opacity-60"
-      >
-        Cancelar
-      </button>
-      {state?.error && <p className="text-label-xs text-blocked-fg">{state.error}</p>}
     </form>
   );
 }

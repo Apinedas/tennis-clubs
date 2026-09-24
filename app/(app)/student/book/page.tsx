@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
-import { LessonStatusBadge } from "@/components/lesson-status-badge";
 import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
-import { formatLocalTime, generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
+import { generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
-import { BookingGrid, CancelBookingButton } from "./booking-actions";
+import { BookingGrid } from "./booking-actions";
 
 export const metadata = { title: "Reservar cancha · Academia de Tenis" };
 
@@ -86,14 +85,6 @@ export default async function BookCourtPage({
         .toISOString()
         .slice(0, 10)
     : undefined;
-
-  const { data: myBookings } = await supabase
-    .from("booking")
-    .select("id, status, starts_at, ends_at, type, court:court(name)")
-    .eq("club_id", clubId)
-    .eq("person_id", session.userId)
-    .in("type", ["singles", "doubles"])
-    .order("starts_at", { ascending: false });
 
   const dayChips = Array.from({ length: 5 }, (_, i) => addDays(today, i));
   function withParams(overrides: Record<string, string | null>) {
@@ -191,57 +182,12 @@ export default async function BookCourtPage({
           <BookingGrid courts={courtsWithSlots} date={date} timeZone={timeZone} />
         )}
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-headline-sm text-on-surface">Mis reservas</h2>
-          {!myBookings || myBookings.length === 0 ? (
-            <p className="text-body-md text-on-surface-variant">
-              Todavía no tienes reservas de cancha.
-            </p>
-          ) : (
-            <ul className="flex flex-col gap-2">
-              {myBookings.map((b) => (
-                <li
-                  key={b.id}
-                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-surface-container-lowest p-3"
-                >
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="text-body-md-medium text-on-surface">
-                        {b.court?.name} · {b.type === "singles" ? "Sencillos" : "Dobles"}
-                      </p>
-                      <LessonStatusBadge status={b.status} />
-                    </div>
-                    <p className="text-label-xs text-on-surface-variant">
-                      {new Date(b.starts_at).toLocaleDateString("es-CO", {
-                        weekday: "long",
-                        day: "numeric",
-                        month: "long",
-                      })}{" "}
-                      · {formatLocalTime(b.starts_at, timeZone)}–{formatLocalTime(b.ends_at, timeZone)}
-                    </p>
-                  </div>
-                  {b.status === "confirmed" &&
-                    (policy?.self_cancel_allowed ? (
-                      <div className="flex flex-col items-end gap-1">
-                        <CancelBookingButton bookingId={b.id} />
-                        {policy &&
-                          new Date(b.starts_at).getTime() - new Date().getTime() <
-                            policy.cancellation_hours * 3_600_000 && (
-                            <span className="max-w-[160px] text-right text-label-xs text-on-surface-variant">
-                              Fuera del plazo de cancelación ({policy.cancellation_hours}h antes)
-                            </span>
-                          )}
-                      </div>
-                    ) : (
-                      <span className="text-label-xs text-on-surface-variant">
-                        El club gestiona las cancelaciones
-                      </span>
-                    ))}
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        <Link
+          href="/student/reservations"
+          className="text-body-md text-primary hover:underline"
+        >
+          Ver mis clases y reservas →
+        </Link>
       </div>
     </AppShell>
   );

@@ -22,6 +22,15 @@ const SHORTCUTS: { module: "bookings" | "lessons"; href: string; icon: string; t
   },
 ];
 
+// Always available: viewing and cancelling what you've already booked
+// shouldn't disappear just because a module got toggled off afterward.
+const RESERVATIONS_SHORTCUT = {
+  href: "/student/reservations",
+  icon: "event_note",
+  title: "Mis reservas",
+  description: "Tus próximas clases y reservas, y tu historial.",
+};
+
 export default async function StudentPage() {
   const session = await requireArea("student");
   const profile = await getProfile();
@@ -34,7 +43,10 @@ export default async function StudentPage() {
     .eq("club_id", clubId);
   const enabled = new Set((modules ?? []).filter((m) => m.active).map((m) => m.module));
 
-  const available = SHORTCUTS.filter((s) => enabled.has(s.module));
+  const available = [
+    ...SHORTCUTS.filter((s) => enabled.has(s.module)),
+    RESERVATIONS_SHORTCUT,
+  ];
 
   return (
     <AppShell profile={profile} area="student">
@@ -42,29 +54,23 @@ export default async function StudentPage() {
       <p className="mt-1 text-body-md text-on-surface-variant">
         {profile.clubName}
       </p>
-      {available.length === 0 ? (
-        <p className="mt-6 text-body-md text-on-surface-variant">
-          Todavía no hay funciones activas para socios en este club.
-        </p>
-      ) : (
-        <div className="mt-6 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
-          {available.map((s) => (
-            <Link
-              key={s.href}
-              href={s.href}
-              className="flex items-center gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm hover:bg-surface-container-low"
-            >
-              <span className="material-symbols-outlined text-primary" aria-hidden>
-                {s.icon}
-              </span>
-              <div>
-                <p className="text-body-md-medium text-on-surface">{s.title}</p>
-                <p className="text-label-xs text-on-surface-variant">{s.description}</p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      )}
+      <div className="mt-6 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
+        {available.map((s) => (
+          <Link
+            key={s.href}
+            href={s.href}
+            className="flex items-center gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm hover:bg-surface-container-low"
+          >
+            <span className="material-symbols-outlined text-primary" aria-hidden>
+              {s.icon}
+            </span>
+            <div>
+              <p className="text-body-md-medium text-on-surface">{s.title}</p>
+              <p className="text-label-xs text-on-surface-variant">{s.description}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </AppShell>
   );
 }

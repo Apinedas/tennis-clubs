@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import { bookCourt, cancelMyBooking } from "@/app/actions/court-booking";
+import { bookCourt } from "@/app/actions/court-booking";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { formatLocalTime } from "@/lib/slot-scheduling";
@@ -117,27 +117,6 @@ function BookSlotButton({
         </Button>
         {state?.error && <span className="text-label-xs text-blocked-fg">{state.error}</span>}
       </div>
-    </form>
-  );
-}
-
-export function CancelBookingButton({ bookingId }: { bookingId: string }) {
-  const [state, formAction, pending] = useActionState(cancelMyBooking, undefined);
-
-  return (
-    <form action={formAction}>
-      <input type="hidden" name="booking_id" value={bookingId} />
-      <button
-        type="submit"
-        disabled={pending}
-        onClick={(e) => {
-          if (!confirm("¿Cancelar esta reserva?")) e.preventDefault();
-        }}
-        className="text-label-sm text-blocked-fg hover:underline disabled:opacity-60"
-      >
-        Cancelar
-      </button>
-      {state?.error && <p className="text-label-xs text-blocked-fg">{state.error}</p>}
     </form>
   );
 }

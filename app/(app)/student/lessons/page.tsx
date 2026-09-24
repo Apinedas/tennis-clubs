@@ -1,10 +1,9 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
-import { LessonStatusBadge } from "@/components/lesson-status-badge";
 import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
 import { formatLocalTime, generateSlots } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
-import { CancelLessonButton, RequestSlotButton } from "./lesson-actions";
+import { RequestSlotButton } from "./lesson-actions";
 
 export const metadata = { title: "Clases · Academia de Tenis" };
 
@@ -21,15 +20,11 @@ export default async function StudentLessonsPage({
   const coachId = typeof params.coach === "string" ? params.coach : "";
   const date = typeof params.date === "string" ? params.date : "";
 
-  const [{ data: coaches }, { data: club }, { data: policy }, { data: lessons }] =
-    await Promise.all([
-      supabase.rpc("list_club_coaches", { p_club: clubId }),
-      supabase.from("club").select("timezone").eq("id", clubId).single(),
-      supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
-      supabase.rpc("list_my_lessons", { p_club: clubId }),
-    ]);
-
-  const myLessons = (lessons ?? []).filter((l) => l.viewer_role === "student");
+  const [{ data: coaches }, { data: club }, { data: policy }] = await Promise.all([
+    supabase.rpc("list_club_coaches", { p_club: clubId }),
+    supabase.from("club").select("timezone").eq("id", clubId).single(),
+    supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
+  ]);
 
   let slots: { startsAtUtc: string; endsAtUtc: string; label: string }[] = [];
   if (coachId && date && club && policy) {
@@ -145,59 +140,12 @@ export default async function StudentLessonsPage({
           </section>
         )}
 
-        <section className="flex flex-col gap-3">
-          <h2 className="text-headline-sm text-on-surface">Mis clases</h2>
-          {myLessons.length === 0 ? (
-            <p className="text-body-md text-on-surface-variant">
-              Todavía no tienes clases solicitadas.
-            </p>
-          ) : (
-            <ul className="flex flex-col gap-2">
-              {myLessons.map((l) => (
-                <li
-                  key={l.id}
-                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-border bg-surface-container-lowest p-3"
-                >
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <p className="text-body-md-medium text-on-surface">
-                        {l.counterpart_name}
-                      </p>
-                      <LessonStatusBadge status={l.status} />
-                    </div>
-                    <p className="text-label-xs text-on-surface-variant">
-                      {new Date(l.starts_at).toLocaleDateString("es-CO", {
-                        weekday: "long",
-                        day: "numeric",
-                        month: "long",
-                      })}{" "}
-                      · {formatLocalTime(l.starts_at, club?.timezone ?? "America/Bogota")}–
-                      {formatLocalTime(l.ends_at, club?.timezone ?? "America/Bogota")} ·{" "}
-                      {l.court_name}
-                    </p>
-                  </div>
-                  {(l.status === "pending" || l.status === "confirmed") &&
-                    (policy?.self_cancel_allowed ? (
-                      <div className="flex flex-col items-end gap-1">
-                        <CancelLessonButton bookingId={l.id} />
-                        {policy &&
-                          new Date(l.starts_at).getTime() - new Date().getTime() <
-                            policy.cancellation_hours * 3_600_000 && (
-                            <span className="max-w-[160px] text-right text-label-xs text-on-surface-variant">
-                              Fuera del plazo de cancelación ({policy.cancellation_hours}h antes)
-                            </span>
-                          )}
-                      </div>
-                    ) : (
-                      <span className="text-label-xs text-on-surface-variant">
-                        El club gestiona las cancelaciones
-                      </span>
-                    ))}
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
+        <Link
+          href="/student/reservations"
+          className="text-body-md text-primary hover:underline"
+        >
+          Ver mis clases y reservas →
+        </Link>
       </div>
     </AppShell>
   );
