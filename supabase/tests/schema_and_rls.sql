@@ -273,16 +273,25 @@ select t.fails($$insert into public.booking (club_id, court_id, person_id, type,
   'un coach sin rol student no reserva como student');
 
 -- ---------------------------------------------------------------------------
--- Tarifas: integridad entre clubes
+-- Tarifas: integridad entre clubes y catálogo
 -- ---------------------------------------------------------------------------
 
 select t.as_user(t.u(2));
-select t.affects($$insert into public.rate (club_id, name, category, start_time, end_time, price_cop)
+select t.affects($$insert into public.rate (club_id, name, category, start_time, end_time, price_amount)
   values (t.u(101), 'Base socio', 'member', '06:00', '17:00', 15000)$$, 1, 'admin crea una tarifa para todas las canchas');
-select t.fails($$insert into public.rate (club_id, court_id, name, category, start_time, end_time, price_cop)
+select t.fails($$insert into public.rate (club_id, court_id, name, category, start_time, end_time, price_amount)
   values (t.u(101), t.u(203), 'Mala', 'member', '06:00', '17:00', 1)$$, '23503', 'una tarifa no apunta a la cancha de otro club');
-select t.fails($$insert into public.rate (club_id, name, category, start_time, end_time, price_cop)
+select t.fails($$insert into public.rate (club_id, name, category, start_time, end_time, price_amount)
   values (t.u(101), 'Mala', 'member', '18:00', '17:00', 1)$$, '23514', 'la franja debe tener fin posterior al inicio');
+select t.affects($$insert into public.rate (club_id, name, start_time, end_time, price_amount, service)
+  values (t.u(101), 'Clases todas las canchas', '08:00', '20:00', 60000, 'lesson')$$, 1,
+  'category en null aplica a socios y no socios por igual');
+select t.affects($$insert into public.rate (club_id, name, surface, start_time, end_time, price_amount)
+  values (t.u(101), 'Arcilla pico', 'clay', '17:00', '21:00', 45000)$$, 1,
+  'una tarifa puede asignarse a todas las canchas de una superficie');
+select t.fails($$insert into public.rate (club_id, court_id, surface, name, start_time, end_time, price_amount)
+  values (t.u(101), t.u(201), 'clay', 'Mala', '06:00', '17:00', 1)$$, '23514',
+  'una tarifa no puede fijar cancha y superficie a la vez');
 
 -- ---------------------------------------------------------------------------
 -- Último admin y varios roles

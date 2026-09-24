@@ -4,6 +4,27 @@ import { getProfile, requireArea } from "@/lib/auth/dal";
 
 export const metadata = { title: "Administración · Academia de Tenis" };
 
+const SHORTCUTS = [
+  {
+    href: "/admin/settings/club",
+    icon: "domain",
+    title: "Configuración del club",
+    description: "Nombre, slug, marca y localización de la sede.",
+  },
+  {
+    href: "/admin/settings/courts",
+    icon: "stadium",
+    title: "Canchas",
+    description: "Nombre, superficie y disponibilidad de cada cancha.",
+  },
+  {
+    href: "/admin/settings/rates",
+    icon: "payments",
+    title: "Tarifas",
+    description: "Precios por cancha, horario, categoría y servicio.",
+  },
+];
+
 export default async function AdminPage() {
   await requireArea("admin");
   const profile = await getProfile();
@@ -15,36 +36,21 @@ export default async function AdminPage() {
         {profile.clubName}
       </p>
       <div className="mt-6 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
-        <Link
-          href="/admin/settings/club"
-          className="flex items-center gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm hover:bg-surface-container-low"
-        >
-          <span className="material-symbols-outlined text-primary" aria-hidden>
-            domain
-          </span>
-          <div>
-            <p className="text-body-md-medium text-on-surface">
-              Configuración del club
-            </p>
-            <p className="text-label-xs text-on-surface-variant">
-              Nombre, slug, marca y localización de la sede.
-            </p>
-          </div>
-        </Link>
-        <Link
-          href="/admin/settings/courts"
-          className="flex items-center gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm hover:bg-surface-container-low"
-        >
-          <span className="material-symbols-outlined text-primary" aria-hidden>
-            stadium
-          </span>
-          <div>
-            <p className="text-body-md-medium text-on-surface">Canchas</p>
-            <p className="text-label-xs text-on-surface-variant">
-              Nombre, superficie y disponibilidad de cada cancha.
-            </p>
-          </div>
-        </Link>
+        {SHORTCUTS.map((s) => (
+          <Link
+            key={s.href}
+            href={s.href}
+            className="flex items-center gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm hover:bg-surface-container-low"
+          >
+            <span className="material-symbols-outlined text-primary" aria-hidden>
+              {s.icon}
+            </span>
+            <div>
+              <p className="text-body-md-medium text-on-surface">{s.title}</p>
+              <p className="text-label-xs text-on-surface-variant">{s.description}</p>
+            </div>
+          </Link>
+        ))}
       </div>
     </AppShell>
   );

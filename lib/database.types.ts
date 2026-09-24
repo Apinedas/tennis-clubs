@@ -395,36 +395,45 @@ export type Database = {
       }
       rate: {
         Row: {
-          category: Database["public"]["Enums"]["rate_category"]
+          active: boolean
+          category: Database["public"]["Enums"]["rate_category"] | null
           club_id: string
           court_id: string | null
           end_time: string
           id: string
           name: string
-          price_cop: number
+          price_amount: number
+          service: Database["public"]["Enums"]["booking_type"] | null
           start_time: string
+          surface: Database["public"]["Enums"]["court_surface"] | null
           weekdays: number[]
         }
         Insert: {
-          category: Database["public"]["Enums"]["rate_category"]
+          active?: boolean
+          category?: Database["public"]["Enums"]["rate_category"] | null
           club_id: string
           court_id?: string | null
           end_time: string
           id?: string
           name: string
-          price_cop: number
+          price_amount: number
+          service?: Database["public"]["Enums"]["booking_type"] | null
           start_time: string
+          surface?: Database["public"]["Enums"]["court_surface"] | null
           weekdays?: number[]
         }
         Update: {
-          category?: Database["public"]["Enums"]["rate_category"]
+          active?: boolean
+          category?: Database["public"]["Enums"]["rate_category"] | null
           club_id?: string
           court_id?: string | null
           end_time?: string
           id?: string
           name?: string
-          price_cop?: number
+          price_amount?: number
+          service?: Database["public"]["Enums"]["booking_type"] | null
           start_time?: string
+          surface?: Database["public"]["Enums"]["court_surface"] | null
           weekdays?: number[]
         }
         Relationships: [

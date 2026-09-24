@@ -13,19 +13,10 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Field } from "@/components/ui/field";
 import { Select } from "@/components/ui/select";
 import type { Database } from "@/lib/database.types";
+import { SURFACE_LABELS, SURFACE_OPTIONS } from "@/lib/labels";
 
 type Court = Database["public"]["Tables"]["court"]["Row"];
 type Surface = Court["surface"];
-
-const SURFACE_LABELS: Record<Surface, string> = {
-  clay: "Polvo de Ladrillo",
-  hard: "Plexicushion / Dura",
-  grass: "Césped",
-  carpet: "Sintética",
-  other: "Otra",
-};
-
-const SURFACE_OPTIONS = Object.entries(SURFACE_LABELS) as [Surface, string][];
 
 export function CourtsManager({ courts }: { courts: Court[] }) {
   const [search, setSearch] = useState("");

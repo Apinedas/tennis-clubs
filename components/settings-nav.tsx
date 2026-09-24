@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 const ITEMS: { icon: string; label: string; path: string | null }[] = [
   { icon: "domain", label: "Club", path: "/admin/settings/club" },
   { icon: "stadium", label: "Canchas", path: "/admin/settings/courts" },
-  { icon: "payments", label: "Tarifas", path: null },
+  { icon: "payments", label: "Tarifas", path: "/admin/settings/rates" },
   { icon: "group", label: "Personas", path: null },
   { icon: "calendar_clock", label: "Reservas", path: null },
   { icon: "extension", label: "Módulos", path: null },
