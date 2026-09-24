@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
-import { generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
+import { addDays, generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import { BookingGrid } from "./booking-actions";
 
@@ -14,12 +14,6 @@ const SURFACE_LABELS: Record<string, string> = {
   carpet: "Sintética",
   other: "Otra",
 };
-
-function addDays(dateISO: string, days: number) {
-  const d = new Date(`${dateISO}T00:00:00Z`);
-  d.setUTCDate(d.getUTCDate() + days);
-  return d.toISOString().slice(0, 10);
-}
 
 export default async function BookCourtPage({
   searchParams,

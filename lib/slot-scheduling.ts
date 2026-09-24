@@ -23,6 +23,14 @@ export type Slot = {
 
 export type ExistingBooking = { startsAtUtc: string; endsAtUtc: string };
 
+// Calendar-date arithmetic (not an instant): moves a plain "YYYY-MM-DD" by
+// N days, independent of any timezone.
+export function addDays(dateISO: string, days: number): string {
+  const d = new Date(`${dateISO}T00:00:00Z`);
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
 // The calendar weekday of a plain date, as ISO (1=Monday..7=Sunday),
 // independent of any timezone — it's a property of the date itself.
 export function isoWeekday(dateISO: string): number {

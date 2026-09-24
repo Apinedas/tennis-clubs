@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
 import {
+  addDays,
   formatLocalTime,
   generateSlots,
   isoWeekday,
@@ -11,6 +12,17 @@ describe("isoWeekday", () => {
   it("returns 1 for Monday and 7 for Sunday", () => {
     assert.equal(isoWeekday("2030-02-04"), 1); // a Monday
     assert.equal(isoWeekday("2030-02-10"), 7); // the following Sunday
+  });
+});
+
+describe("addDays", () => {
+  it("moves forward and backward across month and year boundaries", () => {
+    assert.equal(addDays("2030-02-04", 1), "2030-02-05");
+    assert.equal(addDays("2030-02-28", 1), "2030-03-01");
+    assert.equal(addDays("2030-01-01", -1), "2029-12-31");
+  });
+  it("is a no-op for 0 days", () => {
+    assert.equal(addDays("2030-02-04", 0), "2030-02-04");
   });
 });
 
