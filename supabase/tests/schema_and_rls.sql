@@ -467,6 +467,34 @@ select t.affects($$delete from public.court where id = t.u(202)$$, 0,
   'un student no puede borrar canchas');
 
 -- ---------------------------------------------------------------------------
+-- Directorio de personas
+-- ---------------------------------------------------------------------------
+
+select t.as_user(t.u(2)); -- ana, admin de A
+select t.rows($$select * from public.list_club_members(t.u(101))$$, 6,
+  'el admin ve a las 6 personas del club, activas e inactivas');
+select t.rows($$select * from public.list_club_members(t.u(101)) where person_id = t.u(3) and email = 'beto@x.co'$$, 1,
+  'list_club_members expone el correo de auth.users');
+select t.rows($$select * from public.list_club_members(t.u(102))$$, 0,
+  'el admin de A no ve el directorio de un club ajeno');
+select t.affects($$update public.membership set title = 'Entrenadora Principal' where person_id = t.u(5) and club_id = t.u(101)$$, 1,
+  'admin agrega un cargo libre a una membresía');
+select t.affects($$update public.membership set roles = '{student,coach}' where person_id = t.u(3) and club_id = t.u(101)$$, 1,
+  'admin le suma un rol a un alumno');
+select t.fails($$delete from public.membership where person_id = t.u(3) and club_id = t.u(101)$$, '23503',
+  'no se puede quitar a alguien con reservas asociadas');
+select t.affects($$update public.membership set active = false where person_id = t.u(3) and club_id = t.u(101)$$, 1,
+  'en su lugar, se desactiva su membresía');
+
+select t.as_user(t.u(3)); -- beto, student (no admin)
+select t.rows($$select * from public.list_club_members(t.u(101))$$, 0,
+  'un alumno no ve el directorio de personas');
+
+select t.as_user(t.u(1)); -- admin de plataforma
+select t.rows($$select * from public.list_club_members(t.u(101))$$, 6,
+  'el admin de plataforma ve el directorio de cualquier club');
+
+-- ---------------------------------------------------------------------------
 -- Configuración del club: columnas nuevas y logos
 -- ---------------------------------------------------------------------------
 

@@ -304,6 +304,7 @@ export type Database = {
           member_number: string | null
           person_id: string
           roles: Database["public"]["Enums"]["club_role"][]
+          title: string | null
         }
         Insert: {
           active?: boolean
@@ -312,6 +313,7 @@ export type Database = {
           member_number?: string | null
           person_id: string
           roles: Database["public"]["Enums"]["club_role"][]
+          title?: string | null
         }
         Update: {
           active?: boolean
@@ -320,6 +322,7 @@ export type Database = {
           member_number?: string | null
           person_id?: string
           roles?: Database["public"]["Enums"]["club_role"][]
+          title?: string | null
         }
         Relationships: [
           {
@@ -462,6 +465,20 @@ export type Database = {
       access_token_hook: { Args: { event: Json }; Returns: Json }
       cancel_booking: { Args: { p_id: string }; Returns: undefined }
       join_club: { Args: { p_slug: string }; Returns: string }
+      list_club_members: {
+        Args: { p_club: string }
+        Returns: {
+          active: boolean
+          created_at: string
+          email: string
+          full_name: string
+          member_number: string
+          person_id: string
+          phone: string
+          roles: Database["public"]["Enums"]["club_role"][]
+          title: string
+        }[]
+      }
       public_club: {
         Args: { p_slug: string }
         Returns: {

@@ -23,6 +23,12 @@ const SHORTCUTS = [
     title: "Tarifas",
     description: "Precios por cancha, horario, categoría y servicio.",
   },
+  {
+    href: "/admin/settings/people",
+    icon: "group",
+    title: "Personas",
+    description: "Invita entrenadores y alumnos, gestiona sus roles.",
+  },
 ];
 
 export default async function AdminPage() {

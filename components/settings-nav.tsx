@@ -10,7 +10,7 @@ const ITEMS: { icon: string; label: string; path: string | null }[] = [
   { icon: "domain", label: "Club", path: "/admin/settings/club" },
   { icon: "stadium", label: "Canchas", path: "/admin/settings/courts" },
   { icon: "payments", label: "Tarifas", path: "/admin/settings/rates" },
-  { icon: "group", label: "Personas", path: null },
+  { icon: "group", label: "Personas", path: "/admin/settings/people" },
   { icon: "calendar_clock", label: "Reservas", path: null },
   { icon: "extension", label: "Módulos", path: null },
 ];
