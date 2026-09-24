@@ -12,7 +12,7 @@ const ITEMS: { icon: string; label: string; path: string | null }[] = [
   { icon: "payments", label: "Tarifas", path: "/admin/settings/rates" },
   { icon: "group", label: "Personas", path: "/admin/settings/people" },
   { icon: "calendar_clock", label: "Reservas", path: "/admin/settings/booking-policy" },
-  { icon: "extension", label: "Módulos", path: null },
+  { icon: "extension", label: "Módulos", path: "/admin/settings/modules" },
 ];
 
 export function SettingsNav() {

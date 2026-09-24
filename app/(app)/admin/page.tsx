@@ -35,6 +35,12 @@ const SHORTCUTS = [
     title: "Reservas",
     description: "Duración de turno y ventanas para agendar y cancelar.",
   },
+  {
+    href: "/admin/settings/modules",
+    icon: "extension",
+    title: "Módulos",
+    description: "Activa o desactiva las funcionalidades del club.",
+  },
 ];
 
 export default async function AdminPage() {
