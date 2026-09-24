@@ -11,7 +11,9 @@ import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field } from "@/components/ui/field";
+import { IconButton } from "@/components/ui/icon-button";
 import { Select } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import type { Database } from "@/lib/database.types";
 import { SURFACE_LABELS, SURFACE_OPTIONS } from "@/lib/labels";
 
@@ -36,7 +38,9 @@ export function CourtsManager({ courts }: { courts: Court[] }) {
     const term = search.trim().toLowerCase();
     return courts.filter((c) => {
       if (surfaceFilter !== "all" && c.surface !== surfaceFilter) return false;
-      if (term && !c.name.toLowerCase().includes(term)) return false;
+      if (term && !c.name.toLowerCase().includes(term) && !c.notes?.toLowerCase().includes(term)) {
+        return false;
+      }
       return true;
     });
   }, [courts, search, surfaceFilter]);
@@ -74,7 +78,7 @@ export function CourtsManager({ courts }: { courts: Court[] }) {
           <input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar por nombre…"
+            placeholder="Buscar por nombre o notas…"
             className="h-10 w-full max-w-xs rounded-lg border border-border bg-surface-container-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant focus:border-primary"
           />
           <FilterChip
@@ -133,23 +137,33 @@ export function CourtsManager({ courts }: { courts: Court[] }) {
                   {SURFACE_LABELS[court.surface]}
                 </td>
                 <td className="px-4 py-3">
-                  <BoolBadge value={court.covered} />
+                  <FeatureIcon
+                    active={court.covered}
+                    iconOn="roofing"
+                    iconOff="wb_sunny"
+                    labelOn="Cubierta"
+                    labelOff="Al aire libre"
+                  />
                 </td>
                 <td className="px-4 py-3">
-                  <BoolBadge value={court.has_lighting} />
+                  <FeatureIcon
+                    active={court.has_lighting}
+                    iconOn="lightbulb"
+                    iconOff="lightbulb"
+                    labelOn="Con iluminación"
+                    labelOff="Sin iluminación"
+                  />
                 </td>
                 <td className="px-4 py-3">
                   <ActiveToggle courtId={court.id} active={court.active} />
                 </td>
                 <td className="px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
+                  <div className="flex items-center gap-1">
+                    <IconButton
+                      icon="edit"
+                      label="Editar cancha"
                       onClick={() => openEdit(court)}
-                      className="text-label-sm text-primary hover:underline"
-                    >
-                      Editar
-                    </button>
+                    />
                     <DeleteCourtButton courtId={court.id} />
                   </div>
                 </td>
@@ -205,16 +219,32 @@ function FilterChip({
   );
 }
 
-function BoolBadge({ value }: { value: boolean }) {
+function FeatureIcon({
+  active,
+  iconOn,
+  iconOff,
+  labelOn,
+  labelOff,
+}: {
+  active: boolean;
+  iconOn: string;
+  iconOff: string;
+  labelOn: string;
+  labelOff: string;
+}) {
   return (
     <span
+      title={active ? labelOn : labelOff}
+      aria-label={active ? labelOn : labelOff}
       className={
-        value
-          ? "inline-flex items-center gap-1 rounded-md border border-available-border bg-available-bg px-2 py-0.5 text-label-xs text-available-fg"
-          : "inline-flex items-center gap-1 rounded-md border border-border bg-surface-container px-2 py-0.5 text-label-xs text-on-surface-variant"
+        active
+          ? "inline-flex h-7 w-7 items-center justify-center rounded-md bg-available-bg text-available-fg"
+          : "inline-flex h-7 w-7 items-center justify-center rounded-md bg-surface-container text-on-surface-variant"
       }
     >
-      {value ? "Sí" : "No"}
+      <span className="material-symbols-outlined text-[16px]" aria-hidden>
+        {active ? iconOn : iconOff}
+      </span>
     </span>
   );
 }
@@ -227,7 +257,7 @@ function ActiveToggle({ courtId, active }: { courtId: string; active: boolean })
     <form ref={formRef} action={formAction}>
       <input type="hidden" name="court_id" value={courtId} />
       <input type="hidden" name="active" value={(!active).toString()} />
-      <Checkbox
+      <Switch
         id={`active-${courtId}`}
         label={active ? "Activa" : "Inactiva"}
         checked={active}
@@ -247,7 +277,10 @@ function DeleteCourtButton({ courtId }: { courtId: string }) {
   return (
     <form action={formAction}>
       <input type="hidden" name="court_id" value={courtId} />
-      <button
+      <IconButton
+        icon="delete"
+        label="Eliminar cancha"
+        tone="danger"
         type="submit"
         disabled={pending}
         onClick={(e) => {
@@ -257,10 +290,7 @@ function DeleteCourtButton({ courtId }: { courtId: string }) {
             e.preventDefault();
           }
         }}
-        className="text-label-sm text-blocked-fg hover:underline disabled:opacity-60"
-      >
-        Eliminar
-      </button>
+      />
       {state?.error && (
         <p className="mt-1 max-w-[220px] text-label-xs text-blocked-fg">{state.error}</p>
       )}

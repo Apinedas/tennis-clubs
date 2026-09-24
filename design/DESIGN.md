@@ -202,3 +202,15 @@ La geometría del sistema equilibra solidez estructural y ergonomía visual medi
 
 ### 6. Controles de Selección (Checkboxes & Radios)
 - Checkboxes cuadrados de 16x16px con radio de 4px, borde 1.5px `#5E625C`. Al seleccionarse: fondo `#1B7F4F`, borde `#1B7F4F` con check blanco en contraste directo.
+
+### 7. Switch (Activar/Desactivar)
+- Para estados binarios accionables (activo/inactivo de una fila), no un checkbox con texto al lado.
+- Pista rectangular de 40x24px, radio 6px (no 9999px — ver "Sin Formas Circulares Completas"), borde 1.5px `#5E625C`. Perilla interna cuadrada de 16x16px, radio 4px, que se desliza sin volverse circular.
+- Apagado: pista `#FFFFFF`, perilla `#5E625C`. Encendido: pista y borde `#1B7F4F`, perilla `#FFFFFF`.
+- El estado se sigue leyendo por posición y color de la perilla, no requiere la palabra "Activa/Inactiva" junto al control.
+
+### 8. Botones de Icono (Acciones de Fila)
+- Acciones repetidas por fila en una tabla (Editar, Eliminar) van como icono dentro de un cuadrado de 32x32px, radio 8px — no como texto con subrayado.
+- El icono siempre lleva `aria-label` y `title` con el verbo completo (ej. "Editar cancha"), nunca solo el icono sin texto accesible.
+- Tono neutro (`#5E625C`, hover fondo `#F6F7F5`) para acciones no destructivas; tono destructivo (`#A35005` sobre fondo `#FFF3E6` en hover) para eliminar, consistente con el botón Destructivo de la sección 1.
+- Los indicadores binarios de una característica de fila (ej. cubierta, iluminación) siguen el mismo espíritu: icono dentro de una insignia de 28x28px, radio 6px, con `aria-label`/`title` describiendo el estado — en vez de una insignia de texto "Sí/No".

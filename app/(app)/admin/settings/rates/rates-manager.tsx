@@ -11,7 +11,9 @@ import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Field } from "@/components/ui/field";
+import { IconButton } from "@/components/ui/icon-button";
 import { Select } from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
 import type { Database } from "@/lib/database.types";
 import {
   CATEGORY_LABELS,
@@ -178,14 +180,12 @@ export function RatesManager({
                   <ActiveToggle rateId={rate.id} active={rate.active} />
                 </td>
                 <td className="px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <button
-                      type="button"
+                  <div className="flex items-center gap-1">
+                    <IconButton
+                      icon="edit"
+                      label="Editar tarifa"
                       onClick={() => openEdit(rate)}
-                      className="text-label-sm text-primary hover:underline"
-                    >
-                      Editar
-                    </button>
+                    />
                     <DeleteRateButton rateId={rate.id} />
                   </div>
                 </td>
@@ -249,7 +249,7 @@ function ActiveToggle({ rateId, active }: { rateId: string; active: boolean }) {
     <form ref={formRef} action={formAction}>
       <input type="hidden" name="rate_id" value={rateId} />
       <input type="hidden" name="active" value={(!active).toString()} />
-      <Checkbox
+      <Switch
         id={`rate-active-${rateId}`}
         label={active ? "Activa" : "Inactiva"}
         checked={active}
@@ -269,7 +269,10 @@ function DeleteRateButton({ rateId }: { rateId: string }) {
   return (
     <form action={formAction}>
       <input type="hidden" name="rate_id" value={rateId} />
-      <button
+      <IconButton
+        icon="delete"
+        label="Eliminar tarifa"
+        tone="danger"
         type="submit"
         disabled={pending}
         onClick={(e) => {
@@ -277,10 +280,7 @@ function DeleteRateButton({ rateId }: { rateId: string }) {
             e.preventDefault();
           }
         }}
-        className="text-label-sm text-blocked-fg hover:underline disabled:opacity-60"
-      >
-        Eliminar
-      </button>
+      />
       {state?.error && (
         <p className="mt-1 max-w-[220px] text-label-xs text-blocked-fg">{state.error}</p>
       )}
