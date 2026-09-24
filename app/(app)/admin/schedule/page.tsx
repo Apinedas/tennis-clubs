@@ -10,8 +10,6 @@ export const metadata = { title: "Calendario · Academia de Tenis" };
 
 const GRID_START_MIN = 6 * 60; // 06:00
 const GRID_END_MIN = 22 * 60; // 22:00
-const STEP_MIN = 30;
-const TOTAL_ROWS = (GRID_END_MIN - GRID_START_MIN) / STEP_MIN;
 
 const SURFACE_LABELS: Record<string, string> = {
   clay: "Arcilla",
@@ -24,6 +22,10 @@ const SURFACE_LABELS: Record<string, string> = {
 function toMinutes(hhmm: string) {
   const [h, m] = hhmm.split(":").map(Number);
   return h * 60 + m;
+}
+
+function toHHMM(min: number) {
+  return `${String(Math.floor(min / 60)).padStart(2, "0")}:${String(min % 60).padStart(2, "0")}`;
 }
 
 const CELL_STYLE: Record<string, string> = {
@@ -45,16 +47,28 @@ export default async function AdminSchedulePage({
   const date = typeof params.date === "string" && params.date ? params.date : today;
   const surfaceFilter = typeof params.surface === "string" ? params.surface : "";
   const selectedBookingId = typeof params.booking === "string" ? params.booking : "";
+  // Prefill for the "Crear reserva" panel, set when a free grid cell is clicked.
+  const prefillCourt = typeof params.court === "string" ? params.court : "";
+  const prefillStart = typeof params.start === "string" ? params.start : "";
 
-  const [{ data: club }, { data: allCourts }, { data: members }, { data: coaches }] =
+  const [{ data: club }, { data: allCourts }, { data: members }, { data: coaches }, { data: policy }, { data: rates }] =
     await Promise.all([
       supabase.from("club").select("timezone").eq("id", clubId).single(),
       supabase.from("court").select("*").eq("club_id", clubId).eq("active", true).order("name"),
       supabase.rpc("list_club_members", { p_club: clubId }),
       supabase.rpc("list_club_coaches", { p_club: clubId }),
+      supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
+      supabase
+        .from("rate")
+        .select("*")
+        .eq("club_id", clubId)
+        .eq("active", true)
+        .or("category.eq.member,category.is.null"),
     ]);
 
   const timeZone = club?.timezone ?? "America/Bogota";
+  const stepMin = policy?.slot_minutes ?? 60;
+  const totalRows = Math.floor((GRID_END_MIN - GRID_START_MIN) / stepMin);
   const courts = (allCourts ?? []).filter((c) => !surfaceFilter || c.surface === surfaceFilter);
   const courtIndex = new Map(courts.map((c, i) => [c.id, i]));
 
@@ -90,12 +104,7 @@ export default async function AdminSchedulePage({
     return `${who} · ${b.type === "doubles" ? "Dobles" : "Sencillos"}`;
   }
 
-  const rowLabels = Array.from({ length: TOTAL_ROWS }, (_, i) => {
-    const min = GRID_START_MIN + i * STEP_MIN;
-    return min % 60 === 0
-      ? `${String(Math.floor(min / 60)).padStart(2, "0")}:00`
-      : "";
-  });
+  const rowLabels = Array.from({ length: totalRows }, (_, i) => toHHMM(GRID_START_MIN + i * stepMin));
 
   function withParams(overrides: Record<string, string | null>) {
     const p = new URLSearchParams();
@@ -108,18 +117,41 @@ export default async function AdminSchedulePage({
     return `?${p.toString()}`;
   }
 
+  // One free-slot cell per court per row: same "does this overlap an
+  // existing booking" question the self-service flows ask, but without the
+  // min/max advance-hour rules — those exist to constrain self-service, not
+  // staff at the desk.
+  const freeCells = courts.flatMap((court) =>
+    rowLabels.map((hhmm, row) => {
+      const startMin = GRID_START_MIN + row * stepMin;
+      if (startMin + stepMin > GRID_END_MIN) return null;
+      const slotStart = new Date(zonedTimeToUtcISO(date, hhmm, timeZone));
+      const slotEnd = new Date(zonedTimeToUtcISO(date, toHHMM(startMin + stepMin), timeZone));
+      const overlaps = bookings.some(
+        (b) =>
+          b.court_id === court.id &&
+          slotStart < new Date(b.ends_at) &&
+          new Date(b.starts_at) < slotEnd,
+      );
+      if (overlaps) return null;
+      const rate = selectApplicableRate(rates ?? [], {
+        courtId: court.id,
+        courtSurface: court.surface,
+        service: "singles",
+        startsAtUtc: slotStart.toISOString(),
+        endsAtUtc: slotEnd.toISOString(),
+        timeZone,
+      });
+      return { courtId: court.id, row, startTime: hhmm, endTime: toHHMM(startMin + stepMin), price: rate?.price_amount ?? null };
+    }),
+  ).filter((c) => c !== null);
+
   const selected = bookings.find((b) => b.id === selectedBookingId);
   let selectedPrice: number | null = null;
   let selectedCourt: (typeof courts)[number] | undefined;
   if (selected) {
     selectedCourt = courts.find((c) => c.id === selected.court_id);
     if (selectedCourt && selected.status !== "blocked") {
-      const { data: rates } = await supabase
-        .from("rate")
-        .select("*")
-        .eq("club_id", clubId)
-        .eq("active", true)
-        .or("category.eq.member,category.is.null");
       const rate = selectApplicableRate(rates ?? [], {
         courtId: selectedCourt.id,
         courtSurface: selectedCourt.surface,
@@ -131,6 +163,9 @@ export default async function AdminSchedulePage({
       selectedPrice = rate?.price_amount ?? null;
     }
   }
+
+  const confirmedToday = bookings.filter((b) => b.status === "confirmed").length;
+  const blockedToday = bookings.filter((b) => b.status === "blocked").length;
 
   return (
     <AppShell profile={profile} area="admin">
@@ -146,13 +181,27 @@ export default async function AdminSchedulePage({
         </div>
 
         <ScheduleToolbar
+          // Remounts (and re-applies the initial* props) whenever a
+          // different free cell is clicked; without this, clicking a
+          // second cell while the panel is already open wouldn't update it.
+          key={`${prefillCourt}-${prefillStart}`}
           courts={courts.map((c) => ({ id: c.id, name: c.name }))}
           members={(members ?? [])
             .filter((m) => m.active)
             .map((m) => ({ person_id: m.person_id, full_name: m.full_name }))}
           coaches={coaches ?? []}
           date={date}
+          initialOpen={prefillCourt && prefillStart ? "create" : null}
+          initialCourtId={prefillCourt}
+          initialStartTime={prefillStart}
+          initialEndTime={prefillStart ? toHHMM(toMinutes(prefillStart) + stepMin) : ""}
         />
+
+        <div className="flex flex-wrap gap-3">
+          <Stat label="Confirmadas hoy" value={confirmedToday} />
+          <Stat label="Casillas libres" value={freeCells.length} />
+          <Stat label="Bloqueos activos" value={blockedToday} />
+        </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm">
           <div className="flex items-center gap-2">
@@ -215,7 +264,7 @@ export default async function AdminSchedulePage({
                   className="grid"
                   style={{
                     gridTemplateColumns: `64px repeat(${courts.length}, minmax(140px, 1fr))`,
-                    gridTemplateRows: `auto repeat(${TOTAL_ROWS}, 28px)`,
+                    gridTemplateRows: `auto repeat(${totalRows}, 40px)`,
                   }}
                 >
                   <div className="sticky top-0 z-10 border-b border-r border-border bg-surface-container p-2 text-label-xs text-on-surface-variant" style={{ gridColumn: 1, gridRow: 1 }}>
@@ -245,15 +294,17 @@ export default async function AdminSchedulePage({
                     </div>
                   ))}
 
-                  {courts.map((c, i) =>
-                    rowLabels.map((_, r) => (
-                      <div
-                        key={`${c.id}-${r}`}
-                        className="border-b border-r border-border bg-available-bg/30"
-                        style={{ gridColumn: i + 2, gridRow: r + 2 }}
-                      />
-                    )),
-                  )}
+                  {freeCells.map((cell) => (
+                    <Link
+                      key={`${cell.courtId}-${cell.row}`}
+                      href={withParams({ court: cell.courtId, start: cell.startTime, create: "1" })}
+                      className="m-px flex items-center justify-center border-b border-r border-available-border bg-available-bg text-label-xs font-medium text-available-fg hover:brightness-95"
+                      style={{ gridColumn: (courtIndex.get(cell.courtId) ?? 0) + 2, gridRow: cell.row + 2 }}
+                      title={`Reservar ${cell.startTime}–${cell.endTime}`}
+                    >
+                      {cell.price != null ? `+ $${(cell.price / 1000).toFixed(0)}k` : "+"}
+                    </Link>
+                  ))}
 
                   {bookings.map((b) => {
                     const startLocal = toMinutes(formatLocalTime(b.starts_at, timeZone));
@@ -261,11 +312,8 @@ export default async function AdminSchedulePage({
                     const clampedStart = Math.max(startLocal, GRID_START_MIN);
                     const clampedEnd = Math.min(endLocal, GRID_END_MIN);
                     if (clampedEnd <= clampedStart) return null;
-                    const startRow = Math.floor((clampedStart - GRID_START_MIN) / STEP_MIN) + 2;
-                    const rowSpan = Math.max(
-                      1,
-                      Math.ceil((clampedEnd - clampedStart) / STEP_MIN),
-                    );
+                    const startRow = Math.floor((clampedStart - GRID_START_MIN) / stepMin) + 2;
+                    const rowSpan = Math.max(1, Math.ceil((clampedEnd - clampedStart) / stepMin));
                     return (
                       <Link
                         key={b.id}
@@ -286,7 +334,7 @@ export default async function AdminSchedulePage({
             )}
 
             <div className="mt-3 flex flex-wrap gap-3 text-label-xs text-on-surface-variant">
-              <LegendDot className="bg-available-bg border-available-border" label="Disponible" />
+              <LegendDot className="bg-available-bg border-available-border" label="Disponible (clic para reservar)" />
               <LegendDot className="bg-occupied-bg border-occupied-border" label="Ocupada" />
               <LegendDot className="bg-blocked-bg border-blocked-border" label="Bloqueada / Pendiente" />
             </div>
@@ -346,5 +394,14 @@ function LegendDot({ className, label }: { className: string; label: string }) {
       <span className={`h-3 w-3 rounded border ${className}`} />
       {label}
     </span>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: number }) {
+  return (
+    <div className="flex flex-col rounded-lg border border-border bg-surface-container-lowest px-4 py-2">
+      <span className="text-label-xs uppercase text-on-surface-variant">{label}</span>
+      <span className="text-body-md-medium text-on-surface">{value}</span>
+    </div>
   );
 }

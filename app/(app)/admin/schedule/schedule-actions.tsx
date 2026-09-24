@@ -16,13 +16,21 @@ export function ScheduleToolbar({
   members,
   coaches,
   date,
+  initialOpen,
+  initialCourtId,
+  initialStartTime,
+  initialEndTime,
 }: {
   courts: Court[];
   members: Member[];
   coaches: Coach[];
   date: string;
+  initialOpen?: "create" | "block" | null;
+  initialCourtId?: string;
+  initialStartTime?: string;
+  initialEndTime?: string;
 }) {
-  const [open, setOpen] = useState<"create" | "block" | null>(null);
+  const [open, setOpen] = useState<"create" | "block" | null>(initialOpen ?? null);
 
   return (
     <div className="flex flex-col gap-3">
@@ -48,6 +56,9 @@ export function ScheduleToolbar({
           members={members}
           coaches={coaches}
           date={date}
+          initialCourtId={initialCourtId}
+          initialStartTime={initialStartTime}
+          initialEndTime={initialEndTime}
           onClose={() => setOpen(null)}
         />
       )}
@@ -119,12 +130,18 @@ function CreateReservationForm({
   members,
   coaches,
   date,
+  initialCourtId,
+  initialStartTime,
+  initialEndTime,
   onClose,
 }: {
   courts: Court[];
   members: Member[];
   coaches: Coach[];
   date: string;
+  initialCourtId?: string;
+  initialStartTime?: string;
+  initialEndTime?: string;
   onClose: () => void;
 }) {
   const [state, formAction, pending] = useActionState(createReservation, undefined);
@@ -166,7 +183,7 @@ function CreateReservationForm({
       <form action={formAction} className="flex flex-col gap-4">
         <input type="hidden" name="kind" value={kind} />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <Select id="court_id" label="Cancha" defaultValue={state?.fields?.court_id ?? ""}>
+          <Select id="court_id" label="Cancha" defaultValue={state?.fields?.court_id ?? initialCourtId ?? ""}>
             <option value="" disabled>
               Elige una cancha
             </option>
@@ -177,8 +194,8 @@ function CreateReservationForm({
             ))}
           </Select>
           <Field id="date" label="Fecha" type="date" defaultValue={state?.fields?.date ?? date} required />
-          <Field id="start_time" label="Desde" type="time" defaultValue={state?.fields?.start_time ?? "06:00"} required />
-          <Field id="end_time" label="Hasta" type="time" defaultValue={state?.fields?.end_time ?? "07:00"} required />
+          <Field id="start_time" label="Desde" type="time" defaultValue={state?.fields?.start_time ?? initialStartTime ?? "06:00"} required />
+          <Field id="end_time" label="Hasta" type="time" defaultValue={state?.fields?.end_time ?? initialEndTime ?? "07:00"} required />
         </div>
 
         {kind === "member" && (
