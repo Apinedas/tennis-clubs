@@ -6,6 +6,12 @@ export const metadata = { title: "Administración · Academia de Tenis" };
 
 const SHORTCUTS = [
   {
+    href: "/admin/schedule",
+    icon: "calendar_month",
+    title: "Calendario",
+    description: "Todas las reservas del club, todas las canchas.",
+  },
+  {
     href: "/admin/settings/club",
     icon: "domain",
     title: "Configuración del club",
