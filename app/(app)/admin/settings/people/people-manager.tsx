@@ -104,27 +104,12 @@ export function PeopleManager({
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-1 flex-wrap items-center gap-2">
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar por nombre o correo…"
-            className="h-10 w-full max-w-xs rounded-lg border border-border bg-surface-container-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant focus:border-primary"
-          />
-          <FilterChip
-            label="Todos"
-            active={roleFilter === "all"}
-            onClick={() => setRoleFilter("all")}
-          />
-          {ROLE_OPTIONS.map(([value, label]) => (
-            <FilterChip
-              key={value}
-              label={label}
-              active={roleFilter === value}
-              onClick={() => setRoleFilter(value)}
-            />
-          ))}
-        </div>
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Buscar por nombre o correo…"
+          className="h-10 w-full rounded-lg border border-border bg-surface-container-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant focus:border-primary sm:max-w-xs"
+        />
         <div className="flex gap-2">
           <Button
             type="button"
@@ -143,6 +128,22 @@ export function PeopleManager({
             Invitar persona
           </Button>
         </div>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <FilterChip
+          label="Todos"
+          active={roleFilter === "all"}
+          onClick={() => setRoleFilter("all")}
+        />
+        {ROLE_OPTIONS.map(([value, label]) => (
+          <FilterChip
+            key={value}
+            label={label}
+            active={roleFilter === value}
+            onClick={() => setRoleFilter(value)}
+          />
+        ))}
       </div>
 
       {invitePanelOpen && (

@@ -95,33 +95,34 @@ export function RatesManager({
       </div>
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-1 flex-wrap items-center gap-2">
-          <input
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Buscar por nombre…"
-            className="h-10 w-full max-w-xs rounded-lg border border-border bg-surface-container-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant focus:border-primary"
-          />
-          <FilterChip
-            label="Todos"
-            active={categoryFilter === "all"}
-            onClick={() => setCategoryFilter("all")}
-          />
-          {CATEGORY_OPTIONS.map(([value, label]) => (
-            <FilterChip
-              key={value}
-              label={label}
-              active={categoryFilter === value}
-              onClick={() => setCategoryFilter(value)}
-            />
-          ))}
-        </div>
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Buscar por nombre…"
+          className="h-10 w-full rounded-lg border border-border bg-surface-container-lowest px-3 text-body-md text-on-surface placeholder:text-on-surface-variant focus:border-primary sm:max-w-xs"
+        />
         <Button type="button" onClick={openCreate} disabled={courts.length === 0}>
           <span className="material-symbols-outlined text-[18px]" aria-hidden>
             add
           </span>
           Agregar tarifa
         </Button>
+      </div>
+
+      <div className="flex flex-wrap items-center gap-2">
+        <FilterChip
+          label="Todos"
+          active={categoryFilter === "all"}
+          onClick={() => setCategoryFilter("all")}
+        />
+        {CATEGORY_OPTIONS.map(([value, label]) => (
+          <FilterChip
+            key={value}
+            label={label}
+            active={categoryFilter === value}
+            onClick={() => setCategoryFilter(value)}
+          />
+        ))}
       </div>
 
       {courts.length === 0 && (
