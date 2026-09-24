@@ -3,6 +3,9 @@ import { logout } from "@/app/actions/auth";
 import { Button } from "@/components/ui/button";
 import type { Profile } from "@/lib/auth/dal";
 import { AREAS, allowedAreas, type Area } from "@/lib/auth/roles";
+import { darken } from "@/lib/color";
+
+const HEX_RE = /^#[0-9a-fA-F]{6}$/;
 
 // Common structure for authenticated areas: header with club, area selector
 // (only the ones the user can see) and sign-out.
@@ -19,8 +22,19 @@ export function AppShell({
     allowedAreas(profile.context).includes(a.area),
   );
 
+  const brandColor = profile.brandColor && HEX_RE.test(profile.brandColor)
+    ? profile.brandColor
+    : null;
+  const themeStyle = brandColor
+    ? ({
+        "--color-primary": brandColor,
+        "--color-primary-hover": darken(brandColor),
+        "--color-primary-container": brandColor,
+      } as React.CSSProperties)
+    : undefined;
+
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col" style={themeStyle}>
       <header className="border-b border-border bg-surface-container-lowest">
         <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-margin py-3 md:px-margin-desktop">
           <div className="flex items-center gap-2">

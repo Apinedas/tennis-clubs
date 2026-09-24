@@ -81,6 +81,7 @@ export type Profile = {
   email: string;
   fullName: string;
   clubName: string | null;
+  brandColor: string | null;
   context: AuthContext;
 };
 
@@ -97,7 +98,7 @@ export async function getProfile(): Promise<Profile> {
     session.context.clubId
       ? supabase
           .from("club")
-          .select("name")
+          .select("name, brand_color")
           .eq("id", session.context.clubId)
           .maybeSingle()
       : Promise.resolve({ data: null }),
@@ -108,6 +109,7 @@ export async function getProfile(): Promise<Profile> {
     email: session.email,
     fullName: person?.full_name ?? session.email,
     clubName: club?.name ?? null,
+    brandColor: club?.brand_color ?? null,
     context: session.context,
   };
 }
