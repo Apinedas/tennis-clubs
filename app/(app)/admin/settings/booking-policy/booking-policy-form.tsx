@@ -42,32 +42,32 @@ export function BookingPolicyForm({ policy }: { policy: Policy }) {
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <Field
             id="slot_minutes"
-            label="Duración del turno (minutos)"
+            label="Duración del turno"
             type="number"
             min={1}
             max={480}
             defaultValue={state?.fields?.slot_minutes ?? policy.slot_minutes}
-            hint="Tamaño de cada bloque en la grilla horaria."
+            hint="Minutos por bloque en la grilla horaria."
             required
           />
           <Field
             id="min_advance_hours"
-            label="Anticipación mínima para reservar (horas)"
+            label="Anticipación mínima"
             type="number"
             min={0}
             max={720}
             defaultValue={state?.fields?.min_advance_hours ?? policy.min_advance_hours}
-            hint="No se permiten reservas de último momento antes de este límite."
+            hint="Horas antes del turno para poder reservarlo."
             required
           />
           <Field
             id="max_advance_days"
-            label="Anticipación máxima para reservar (días)"
+            label="Anticipación máxima"
             type="number"
             min={1}
             max={365}
             defaultValue={state?.fields?.max_advance_days ?? policy.max_advance_days}
-            hint="Ventana máxima hacia el futuro en la grilla."
+            hint="Días hacia el futuro que abre la grilla."
             required
           />
         </div>

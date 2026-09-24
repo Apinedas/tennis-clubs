@@ -37,7 +37,10 @@ const SWATCHES = [
 
 const HEX_RE = /^#[0-9A-Fa-f]{6}$/;
 const MAX_LOGO_BYTES = 2 * 1024 * 1024;
-const LOGO_TYPES = new Set(["image/png", "image/svg+xml", "image/jpeg"]);
+// Some browsers/OSes report JPEGs as "image/jpg" (non-standard) instead of
+// "image/jpeg"; accept both rather than reject a valid file over naming.
+const LOGO_TYPES = new Set(["image/png", "image/svg+xml", "image/jpeg", "image/jpg"]);
+const LOGO_EXTENSIONS = new Set(["png", "svg", "jpg", "jpeg"]);
 
 function slugify(value: string) {
   return value.toLowerCase().replace(/[^a-z0-9-]/g, "");
@@ -80,7 +83,11 @@ export function ClubSettingsForm({
 
   async function handleLogoFile(file: File) {
     setLogoError(null);
-    if (!LOGO_TYPES.has(file.type)) {
+    const extension = file.name.split(".").pop()?.toLowerCase() ?? "";
+    // Some browsers/OSes leave file.type empty for otherwise-valid images;
+    // fall back to the extension rather than reject them outright.
+    const validType = file.type ? LOGO_TYPES.has(file.type) : LOGO_EXTENSIONS.has(extension);
+    if (!validType) {
       setLogoError("Usa PNG, SVG o JPEG.");
       return;
     }
@@ -345,8 +352,8 @@ export function ClubSettingsForm({
                   {logoError && (
                     <span className="text-label-xs text-blocked-fg">{logoError}</span>
                   )}
-                  <div className="mt-1 flex items-center justify-center gap-2 sm:justify-start">
-                    <label className="flex cursor-pointer items-center gap-1 rounded bg-surface-container-lowest px-2 py-1 text-label-sm text-on-surface shadow-sm hover:bg-surface-container">
+                  <div className="mt-1 flex h-9 items-center justify-center gap-2 sm:justify-start">
+                    <label className="flex h-9 cursor-pointer items-center gap-1 rounded px-2 leading-none bg-surface-container-lowest text-label-sm text-on-surface shadow-sm hover:bg-surface-container">
                       <span className="material-symbols-outlined text-[16px]" aria-hidden>
                         upload_file
                       </span>
@@ -354,7 +361,7 @@ export function ClubSettingsForm({
                       <input
                         ref={fileInput}
                         type="file"
-                        accept="image/png,image/svg+xml,image/jpeg"
+                        accept="image/png,image/svg+xml,image/jpeg,image/jpg"
                         className="hidden"
                         disabled={logoBusy}
                         onChange={(e) => {
@@ -368,7 +375,7 @@ export function ClubSettingsForm({
                         type="button"
                         disabled={logoBusy}
                         onClick={removeLogo}
-                        className="flex items-center gap-1 rounded bg-surface-container-lowest px-2 py-1 text-label-sm text-blocked-fg shadow-sm hover:bg-blocked-bg"
+                        className="flex h-9 items-center gap-1 rounded px-2 leading-none bg-surface-container-lowest text-label-sm text-blocked-fg shadow-sm hover:bg-blocked-bg"
                       >
                         <span className="material-symbols-outlined text-[16px]" aria-hidden>
                           delete

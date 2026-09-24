@@ -23,6 +23,9 @@ export function RespondButtons({ bookingId }: { bookingId: string }) {
           <button
             type="submit"
             disabled={acceptPending || rejectPending}
+            onClick={(e) => {
+              if (!confirm("¿Rechazar esta solicitud de clase?")) e.preventDefault();
+            }}
             className="rounded-lg border border-border bg-surface-container-lowest px-3 py-1.5 text-label-sm text-on-surface hover:bg-background disabled:opacity-60"
           >
             {rejectPending ? "Rechazando…" : "Rechazar"}

@@ -37,6 +37,8 @@ export default async function BookCourtPage({
   ]);
 
   const timeZone = club?.timezone ?? "America/Bogota";
+  const surfaces = new Set<string>((allCourts ?? []).map((c) => c.surface));
+  const coveredValues = new Set((allCourts ?? []).map((c) => c.covered));
   const courts = (allCourts ?? []).filter(
     (c) =>
       (!surfaceFilter || c.surface === surfaceFilter) &&
@@ -143,29 +145,35 @@ export default async function BookCourtPage({
             </form>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-label-xs uppercase text-on-surface-variant">Superficie:</span>
-            <Link href={withParams({ surface: null })} className={chipClass(!surfaceFilter)}>
-              Todas
-            </Link>
-            {Object.entries(SURFACE_LABELS).map(([value, label]) => (
-              <Link key={value} href={withParams({ surface: value })} className={chipClass(surfaceFilter === value)}>
-                {label}
+          {surfaces.size > 1 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-label-xs uppercase text-on-surface-variant">Superficie:</span>
+              <Link href={withParams({ surface: null })} className={chipClass(!surfaceFilter)}>
+                Todas
               </Link>
-            ))}
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-label-xs uppercase text-on-surface-variant">Cubierta:</span>
-            <Link href={withParams({ covered: null })} className={chipClass(coveredFilter === null)}>
-              Todas
-            </Link>
-            <Link href={withParams({ covered: "true" })} className={chipClass(coveredFilter === true)}>
-              Techada
-            </Link>
-            <Link href={withParams({ covered: "false" })} className={chipClass(coveredFilter === false)}>
-              Descubierta
-            </Link>
-          </div>
+              {Object.entries(SURFACE_LABELS)
+                .filter(([value]) => surfaces.has(value))
+                .map(([value, label]) => (
+                  <Link key={value} href={withParams({ surface: value })} className={chipClass(surfaceFilter === value)}>
+                    {label}
+                  </Link>
+                ))}
+            </div>
+          )}
+          {coveredValues.size > 1 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-label-xs uppercase text-on-surface-variant">Cubierta:</span>
+              <Link href={withParams({ covered: null })} className={chipClass(coveredFilter === null)}>
+                Todas
+              </Link>
+              <Link href={withParams({ covered: "true" })} className={chipClass(coveredFilter === true)}>
+                Techada
+              </Link>
+              <Link href={withParams({ covered: "false" })} className={chipClass(coveredFilter === false)}>
+                Descubierta
+              </Link>
+            </div>
+          )}
         </div>
 
         {courtsWithSlots.length === 0 ? (

@@ -237,19 +237,21 @@ export default async function AdminSchedulePage({
               Hoy
             </Link>
           </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <span className="text-label-xs uppercase text-on-surface-variant">Superficie:</span>
-            <Link href={withParams({ surface: null })} className={chipClass(!surfaceFilter)}>
-              Todas
-            </Link>
-            {Object.entries(SURFACE_LABELS)
-              .filter(([v]) => (allCourts ?? []).some((c) => c.surface === v))
-              .map(([value, l]) => (
-                <Link key={value} href={withParams({ surface: value })} className={chipClass(surfaceFilter === value)}>
-                  {l}
-                </Link>
-              ))}
-          </div>
+          {new Set((allCourts ?? []).map((c) => c.surface)).size > 1 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-label-xs uppercase text-on-surface-variant">Superficie:</span>
+              <Link href={withParams({ surface: null })} className={chipClass(!surfaceFilter)}>
+                Todas
+              </Link>
+              {Object.entries(SURFACE_LABELS)
+                .filter(([v]) => (allCourts ?? []).some((c) => c.surface === v))
+                .map(([value, l]) => (
+                  <Link key={value} href={withParams({ surface: value })} className={chipClass(surfaceFilter === value)}>
+                    {l}
+                  </Link>
+                ))}
+            </div>
+          )}
         </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-12">
