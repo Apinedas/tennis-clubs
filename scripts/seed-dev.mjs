@@ -83,6 +83,26 @@ for (const court of courts) {
   );
 }
 
+async function upsertRate(clubId, name, rest) {
+  const existing = check(
+    await supabase.from("rate").select("id").eq("club_id", clubId).eq("name", name).maybeSingle(),
+    "buscar tarifa",
+  );
+  if (existing) return;
+  check(
+    await supabase.from("rate").insert({ club_id: clubId, name, ...rest }),
+    "crear tarifa",
+  );
+}
+
+await upsertRate(rodadero, "Clases con entrenador", {
+  service: "lesson",
+  start_time: "08:00",
+  end_time: "19:00",
+  weekdays: [1, 2, 3, 4, 5, 6, 7],
+  price_amount: 60000,
+});
+
 const platform = await upsertUser("plataforma@demo.test", "Paula Plataforma");
 check(await supabase.from("platform_admin").upsert({ person_id: platform }), "platform_admin");
 

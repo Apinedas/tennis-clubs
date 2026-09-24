@@ -273,6 +273,96 @@ select t.fails($$insert into public.booking (club_id, court_id, person_id, type,
   'un coach sin rol student no reserva como student');
 
 -- ---------------------------------------------------------------------------
+-- Solicitudes de clase (pending / accept_lesson_request)
+-- ---------------------------------------------------------------------------
+
+select t.as_user(t.u(3)); -- beto, student
+select t.affects($$insert into public.booking (id, club_id, court_id, person_id, coach_id, type, status, starts_at, ends_at)
+  values (t.u(302), t.u(101), t.u(201), t.u(3), t.u(5), 'lesson', 'pending', '2030-02-01 09:00+00', '2030-02-01 10:00+00')$$, 1,
+  'un student solicita una clase (queda pendiente)');
+select t.fails($$insert into public.booking (club_id, court_id, person_id, coach_id, type, status, starts_at, ends_at)
+  values (t.u(101), t.u(202), t.u(3), t.u(5), 'lesson', 'confirmed', '2030-02-01 11:00+00', '2030-02-01 12:00+00')$$, '42501',
+  'un student no puede saltarse el estado pendiente');
+
+select t.as_user(t.u(8)); -- gus, otro student activo de A
+select t.fails($$insert into public.booking (club_id, court_id, person_id, coach_id, type, status, starts_at, ends_at)
+  values (t.u(101), t.u(202), t.u(8), t.u(5), 'lesson', 'pending', '2030-02-01 09:00+00', '2030-02-01 10:00+00')$$, '23P01',
+  'una solicitud pendiente reserva el horario: nadie más puede pedir el mismo cupo');
+
+select t.as_user(t.u(5)); -- dani, coach
+select t.rows($$select 1 from (select public.cancel_booking(t.u(302))) x$$, 1,
+  'el coach rechaza la solicitud reutilizando cancel_booking');
+select t.rows($$select 1 from public.booking where id = t.u(302) and status = 'cancelled'$$, 1,
+  'la solicitud rechazada queda cancelled, no un estado aparte');
+
+select t.as_user(t.u(8));
+select t.affects($$insert into public.booking (id, club_id, court_id, person_id, coach_id, type, status, starts_at, ends_at)
+  values (t.u(303), t.u(101), t.u(201), t.u(8), t.u(5), 'lesson', 'pending', '2030-02-01 09:00+00', '2030-02-01 10:00+00')$$, 1,
+  'al rechazarse, el horario queda libre para una nueva solicitud');
+
+select t.fails($$select public.accept_lesson_request(t.u(303))$$, '42501',
+  'el propio alumno no puede aceptar su solicitud');
+
+select t.as_user(t.u(5));
+select t.rows($$select 1 from (select public.accept_lesson_request(t.u(303))) x$$, 1,
+  'el coach acepta la solicitud');
+select t.rows($$select 1 from public.booking where id = t.u(303) and status = 'confirmed'$$, 1,
+  'aceptarla la deja confirmed');
+select t.fails($$select public.accept_lesson_request(t.u(303))$$, '22023',
+  'no se puede aceptar dos veces una solicitud ya resuelta');
+
+select t.as_user(t.u(3));
+select t.affects($$insert into public.booking (id, club_id, court_id, person_id, coach_id, type, status, starts_at, ends_at)
+  values (t.u(304), t.u(101), t.u(202), t.u(3), t.u(5), 'lesson', 'pending', '2030-02-02 09:00+00', '2030-02-02 10:00+00')$$, 1,
+  'segunda solicitud de prueba, para que la acepte un admin');
+select t.as_user(t.u(2)); -- ana, admin
+select t.rows($$select 1 from (select public.accept_lesson_request(t.u(304))) x$$, 1,
+  'un admin también puede aceptar una solicitud a nombre del coach');
+
+-- El módulo correcto para reservar clases es 'lessons', no 'bookings'.
+select t.affects($$update public.club_module set active = false where club_id = t.u(101) and module = 'lessons'$$, 1,
+  'admin apaga el módulo de clases');
+select t.as_user(t.u(5));
+select t.fails($$insert into public.booking (club_id, court_id, person_id, coach_id, type, starts_at, ends_at)
+  values (t.u(101), t.u(201), t.u(8), t.u(5), 'lesson', '2030-02-03 09:00+00', '2030-02-03 10:00+00')$$, '42501',
+  'con el módulo de clases apagado, el coach no puede autoagendar una clase');
+select t.as_user(t.u(3));
+select t.fails($$insert into public.booking (club_id, court_id, person_id, coach_id, type, status, starts_at, ends_at)
+  values (t.u(101), t.u(201), t.u(3), t.u(5), 'lesson', 'pending', '2030-02-03 09:00+00', '2030-02-03 10:00+00')$$, '42501',
+  'ni un student solicitar una, con el módulo de clases apagado');
+select t.as_user(t.u(2));
+select t.affects($$update public.club_module set active = true where club_id = t.u(101) and module = 'lessons'$$, 1,
+  'admin reactiva el módulo de clases');
+
+-- ---------------------------------------------------------------------------
+-- Directorio de clases: list_club_coaches / list_my_lessons
+-- ---------------------------------------------------------------------------
+
+select t.as_user(t.u(8)); -- gus, student de A
+select t.rows($$select 1 from public.list_club_coaches(t.u(101)) where person_id = t.u(5)$$, 1,
+  'un student ve a dani en la lista de coaches del club');
+select t.rows($$select 1 from public.list_club_coaches(t.u(101)) where person_id = t.u(3)$$, 0,
+  'un student sin rol coach no aparece en la lista');
+select t.rows($$select 1 from public.list_club_coaches(t.u(102))$$, 0,
+  'no se ve la lista de coaches de un club del que no se es miembro');
+
+select t.rows($$select 1 from public.list_my_lessons(t.u(101)) where id = t.u(303)
+  and viewer_role = 'student' and counterpart_name = 'dani'$$, 1,
+  'el alumno ve el nombre del coach en su propia clase');
+
+select t.as_user(t.u(5)); -- dani, coach
+select t.rows($$select 1 from public.list_my_lessons(t.u(101)) where id = t.u(303)
+  and viewer_role = 'coach' and counterpart_name = 'Gus Pérez'$$, 1,
+  'el coach ve el nombre del alumno en la solicitud');
+select t.rows($$select 1 from public.list_my_lessons(t.u(101)) where id = t.u(304)
+  and viewer_role = 'coach' and counterpart_name = 'beto'$$, 1,
+  'y en cada una de sus clases');
+
+select t.as_user(t.u(4)); -- carla, ajena a estas clases
+select t.rows($$select 1 from public.list_my_lessons(t.u(101)) where id in (t.u(303), t.u(304))$$, 0,
+  'quien no participa en la clase no la ve en list_my_lessons');
+
+-- ---------------------------------------------------------------------------
 -- Tarifas: integridad entre clubes y catálogo
 -- ---------------------------------------------------------------------------
 

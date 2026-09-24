@@ -500,9 +500,17 @@ export type Database = {
     }
     Functions: {
       accept_invitation: { Args: { p_token: string }; Returns: string }
+      accept_lesson_request: { Args: { p_id: string }; Returns: undefined }
       access_token_hook: { Args: { event: Json }; Returns: Json }
       cancel_booking: { Args: { p_id: string }; Returns: undefined }
       join_club: { Args: { p_slug: string }; Returns: string }
+      list_club_coaches: {
+        Args: { p_club: string }
+        Returns: {
+          full_name: string
+          person_id: string
+        }[]
+      }
       list_club_members: {
         Args: { p_club: string }
         Returns: {
@@ -515,6 +523,18 @@ export type Database = {
           phone: string
           roles: Database["public"]["Enums"]["club_role"][]
           title: string
+        }[]
+      }
+      list_my_lessons: {
+        Args: { p_club: string }
+        Returns: {
+          counterpart_name: string
+          court_name: string
+          ends_at: string
+          id: string
+          starts_at: string
+          status: Database["public"]["Enums"]["booking_status"]
+          viewer_role: Database["public"]["Enums"]["club_role"]
         }[]
       }
       public_club: {
@@ -534,7 +554,7 @@ export type Database = {
       }
     }
     Enums: {
-      booking_status: "confirmed" | "cancelled" | "blocked"
+      booking_status: "confirmed" | "cancelled" | "blocked" | "pending"
       booking_type: "singles" | "doubles" | "lesson"
       club_module_name:
         | "bookings"
@@ -674,7 +694,7 @@ export const Constants = {
   },
   public: {
     Enums: {
-      booking_status: ["confirmed", "cancelled", "blocked"],
+      booking_status: ["confirmed", "cancelled", "blocked", "pending"],
       booking_type: ["singles", "doubles", "lesson"],
       club_module_name: [
         "bookings",
