@@ -31,6 +31,13 @@ const RESERVATIONS_SHORTCUT = {
   description: "Tus próximas clases y reservas, y tu historial.",
 };
 
+const PROFILE_SHORTCUT = {
+  href: "/student/profile",
+  icon: "person",
+  title: "Mi perfil",
+  description: "Tus datos de contacto y contraseña.",
+};
+
 export default async function StudentPage() {
   const session = await requireArea("student");
   const profile = await getProfile();
@@ -46,6 +53,7 @@ export default async function StudentPage() {
   const available = [
     ...SHORTCUTS.filter((s) => enabled.has(s.module)),
     RESERVATIONS_SHORTCUT,
+    PROFILE_SHORTCUT,
   ];
 
   return (
