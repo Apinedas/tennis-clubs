@@ -39,6 +39,7 @@ export async function updateClubSettings(
   const currency = text(formData, "currency");
   const contactEmail = text(formData, "contact_email");
   const contactPhone = text(formData, "contact_phone");
+  const address = text(formData, "address");
   const brandColor = text(formData, "brand_color").toUpperCase();
   const fields = {
     name,
@@ -47,6 +48,7 @@ export async function updateClubSettings(
     currency,
     contact_email: contactEmail,
     contact_phone: contactPhone,
+    address,
     brand_color: brandColor,
   };
 
@@ -82,6 +84,7 @@ export async function updateClubSettings(
       currency,
       contact_email: contactEmail || null,
       contact_phone: contactPhone || null,
+      address: address || null,
       brand_color: brandColor,
     })
     .eq("id", clubId);

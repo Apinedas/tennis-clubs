@@ -272,6 +272,13 @@ export function ClubSettingsForm({
                 placeholder="+57 300 000 0000"
               />
             </div>
+            <Field
+              id="address"
+              label="Dirección"
+              defaultValue={state?.fields?.address ?? club.address ?? ""}
+              placeholder="Cra. 1 # 12-45, El Rodadero, Santa Marta"
+              hint="Se muestra en el microsite público del club."
+            />
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <Select
                 id="timezone"

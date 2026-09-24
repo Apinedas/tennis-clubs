@@ -84,8 +84,9 @@ export function homePath(ctx: AuthContext): string {
 // ---------------------------------------------------------------------------
 
 const GUEST_PAGES = ["/login", "/register"];
-// Reachable with or without a session: email confirmation and invitations.
-const PUBLIC_PREFIXES = ["/auth/", "/invitation/"];
+// Reachable with or without a session: email confirmation, invitations, and
+// a club's public microsite.
+const PUBLIC_PREFIXES = ["/auth/", "/invitation/", "/club/"];
 
 // Returns the path to redirect to, or null if the request should proceed.
 export function decideRedirect(

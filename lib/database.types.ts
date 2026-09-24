@@ -163,6 +163,7 @@ export type Database = {
       }
       club: {
         Row: {
+          address: string | null
           brand_color: string
           contact_email: string | null
           contact_phone: string | null
@@ -176,6 +177,7 @@ export type Database = {
           timezone: string
         }
         Insert: {
+          address?: string | null
           brand_color?: string
           contact_email?: string | null
           contact_phone?: string | null
@@ -189,6 +191,7 @@ export type Database = {
           timezone?: string
         }
         Update: {
+          address?: string | null
           brand_color?: string
           contact_email?: string | null
           contact_phone?: string | null
@@ -560,8 +563,36 @@ export type Database = {
       public_club: {
         Args: { p_slug: string }
         Returns: {
+          address: string
+          brand_color: string
+          contact_email: string
+          contact_phone: string
+          logo_url: string
           name: string
           open_registration: boolean
+        }[]
+      }
+      public_club_coaches: {
+        Args: { p_slug: string }
+        Returns: {
+          full_name: string
+          title: string
+        }[]
+      }
+      public_club_courts: {
+        Args: { p_slug: string }
+        Returns: {
+          covered: boolean
+          name: string
+          surface: Database["public"]["Enums"]["court_surface"]
+        }[]
+      }
+      public_club_rates: {
+        Args: { p_slug: string }
+        Returns: {
+          category: Database["public"]["Enums"]["rate_category"]
+          name: string
+          price_amount: number
         }[]
       }
       view_invitation: {

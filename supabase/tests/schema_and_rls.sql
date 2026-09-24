@@ -666,6 +666,37 @@ select t.rows($$select * from public.court_usage_heatmap(t.u(101), '2035-01-01T0
   'ni el mapa de calor');
 
 -- ---------------------------------------------------------------------------
+-- Microsite público
+-- ---------------------------------------------------------------------------
+
+select t.as_user(t.u(2)); -- ana, admin de A
+select t.affects($$update public.club set address = 'Cra 1 # 12-45, El Rodadero' where id = t.u(101)$$, 1,
+  'admin fija la dirección del club');
+
+select t.anon();
+select t.rows($$select 1 from public.public_club('club-a') where name = 'Club A' and address = 'Cra 1 # 12-45, El Rodadero'$$, 1,
+  'anon ve nombre y dirección públicos del club');
+select t.rows($$select * from public.public_club('no-existe')$$, 0, 'club inexistente no devuelve nada');
+
+select t.rows($$select 1 from public.public_club_courts('club-a')$$, 2,
+  'anon ve las canchas activas del club (la 201 quedó inactiva, no cuenta)');
+select t.rows($$select 1 from public.public_club_courts('club-a') where name = 'Cancha 1'$$, 0,
+  'una cancha inactiva no aparece en el microsite');
+
+select t.rows($$select 1 from public.public_club_coaches('club-a') where full_name = 'dani'$$, 1,
+  'anon ve a los entrenadores activos del club');
+select t.rows($$select 1 from public.public_club_coaches('club-a') where full_name = 'beto'$$, 0,
+  'un entrenador con la membresía inactiva no aparece');
+
+select t.rows($$select 1 from public.public_club_rates('club-a') where name = 'Base socio'$$, 1,
+  'anon ve las tarifas activas del club');
+
+select t.rows($$select * from public.public_club_courts('no-existe')$$, 0,
+  'y nada de esto expone datos de un club que no existe');
+select t.rows($$select * from public.public_club_coaches('no-existe')$$, 0, 'ni entrenadores de un club inexistente');
+select t.rows($$select * from public.public_club_rates('no-existe')$$, 0, 'ni tarifas de un club inexistente');
+
+-- ---------------------------------------------------------------------------
 -- Configuración del club: columnas nuevas y logos
 -- ---------------------------------------------------------------------------
 

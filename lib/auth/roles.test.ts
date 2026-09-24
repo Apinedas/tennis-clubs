@@ -29,7 +29,7 @@ describe("homePath", () => {
 
 describe("decideRedirect sin sesión", () => {
   it("deja pasar las páginas públicas", () => {
-    for (const p of ["/login", "/register", "/invitation/abc", "/auth/confirm"]) {
+    for (const p of ["/login", "/register", "/invitation/abc", "/auth/confirm", "/club/el-rodadero"]) {
       assert.equal(decideRedirect(p, "", null), null, p);
     }
   });
@@ -78,6 +78,10 @@ describe("decideRedirect con sesión", () => {
     assert.equal(decideRedirect("/invitation/abc", "", none), null);
     assert.equal(decideRedirect("/auth/confirm", "?code=1", student), null);
     assert.equal(decideRedirect("/join/x", "", none), null);
+  });
+  it("el microsite público es visible con o sin sesión, incluso admin", () => {
+    assert.equal(decideRedirect("/club/el-rodadero", "", null), null);
+    assert.equal(decideRedirect("/club/el-rodadero", "", adminCoach), null);
   });
 });
 
