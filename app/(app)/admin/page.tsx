@@ -29,6 +29,12 @@ const SHORTCUTS = [
     title: "Personas",
     description: "Invita entrenadores y alumnos, gestiona sus roles.",
   },
+  {
+    href: "/admin/settings/booking-policy",
+    icon: "calendar_clock",
+    title: "Reservas",
+    description: "Duración de turno y ventanas para agendar y cancelar.",
+  },
 ];
 
 export default async function AdminPage() {

@@ -495,6 +495,35 @@ select t.rows($$select * from public.list_club_members(t.u(101))$$, 6,
   'el admin de plataforma ve el directorio de cualquier club');
 
 -- ---------------------------------------------------------------------------
+-- Política de reservas
+-- ---------------------------------------------------------------------------
+
+select t.rows($$select 1 from public.booking_policy where club_id = t.u(101)
+  and slot_minutes = 60 and min_advance_hours = 1 and max_advance_days = 14
+  and cancellation_hours = 24 and self_cancel_allowed and not accept_guests$$, 1,
+  'un club existente recibió su política con los valores por defecto (backfill)');
+
+select t.as_user(t.u(2)); -- ana, admin de A
+select t.rows($$select 1 from public.booking_policy where club_id = t.u(101)$$, 1,
+  'el admin ve la política de su club');
+select t.affects($$update public.booking_policy set slot_minutes = 90, min_advance_hours = 2,
+  max_advance_days = 30, cancellation_hours = 12, self_cancel_allowed = false, accept_guests = true
+  where club_id = t.u(101)$$, 1, 'admin edita la política de su club');
+select t.fails($$update public.booking_policy set slot_minutes = 0 where club_id = t.u(101)$$, '23514',
+  'la duración del turno debe ser positiva');
+select t.fails($$update public.booking_policy set max_advance_days = 400 where club_id = t.u(101)$$, '23514',
+  'la anticipación máxima tiene un tope razonable');
+select t.fails($$update public.booking_policy set min_advance_hours = 200, max_advance_days = 1
+  where club_id = t.u(101)$$, '23514',
+  'la anticipación mínima no puede superar la ventana máxima');
+select t.affects($$update public.booking_policy set slot_minutes = 60 where club_id = t.u(102)$$, 0,
+  'el admin de A no edita la política del club B');
+
+select t.as_user(t.u(3)); -- beto, student
+select t.affects($$update public.booking_policy set slot_minutes = 30 where club_id = t.u(101)$$, 0,
+  'un student no puede editar la política de reservas');
+
+-- ---------------------------------------------------------------------------
 -- Configuración del club: columnas nuevas y logos
 -- ---------------------------------------------------------------------------
 

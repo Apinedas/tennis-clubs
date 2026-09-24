@@ -123,6 +123,44 @@ export type Database = {
           },
         ]
       }
+      booking_policy: {
+        Row: {
+          accept_guests: boolean
+          cancellation_hours: number
+          club_id: string
+          max_advance_days: number
+          min_advance_hours: number
+          self_cancel_allowed: boolean
+          slot_minutes: number
+        }
+        Insert: {
+          accept_guests?: boolean
+          cancellation_hours?: number
+          club_id: string
+          max_advance_days?: number
+          min_advance_hours?: number
+          self_cancel_allowed?: boolean
+          slot_minutes?: number
+        }
+        Update: {
+          accept_guests?: boolean
+          cancellation_hours?: number
+          club_id?: string
+          max_advance_days?: number
+          min_advance_hours?: number
+          self_cancel_allowed?: boolean
+          slot_minutes?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_policy_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: true
+            referencedRelation: "club"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       club: {
         Row: {
           brand_color: string
