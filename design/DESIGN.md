@@ -171,6 +171,7 @@ La geometría del sistema equilibra solidez estructural y ergonomía visual medi
 - **Tarjetas, Paneles y Celdas de Reserva:** Radio exterior de 8px. Si se encuentran anidadas dentro de contenedores con padding, las divisiones internas permanecen rectas o usan 4px para no colisionar con el contorno.
 - **Controles e Inputs:** Botones, inputs de texto, selects y badges de cancha adoptan estrictamente 8px de radio.
 - **Sin Formas Circulares Completas:** Los badges y píldoras nunca usan radio de 9999px (full pill); mantienen el estándar de 6px a 8px para preservar el orden métrico y rectangular del software de gestión.
+- **Excepción — Avatares:** un avatar de perfil (iniciales o foto) sí usa radio completo (círculo). No es un badge ni un control de la grilla operativa, es una convención casi universal para representar a una persona, y forzarlo a un cuadrado de 8px lo haría menos reconocible sin ganar orden real a cambio.
 
 ## Components
 
@@ -214,3 +215,12 @@ La geometría del sistema equilibra solidez estructural y ergonomía visual medi
 - El icono siempre lleva `aria-label` y `title` con el verbo completo (ej. "Editar cancha"), nunca solo el icono sin texto accesible.
 - Tono neutro (`#5E625C`, hover fondo `#F6F7F5`) para acciones no destructivas; tono destructivo (`#A35005` sobre fondo `#FFF3E6` en hover) para eliminar, consistente con el botón Destructivo de la sección 1.
 - Los indicadores binarios de una característica de fila (ej. cubierta, iluminación) siguen el mismo espíritu: icono dentro de una insignia de 28x28px, radio 6px, con `aria-label`/`title` describiendo el estado — en vez de una insignia de texto "Sí/No".
+
+### 9. Menú Hamburguesa (Mobile)
+- El encabezado no tiene tratamiento propio en mobile por defecto: en pantalla angosta, los enlaces de área y "Cambiar de club" del nav de escritorio se ocultan (`hidden md:flex`) y se accede a ellos desde un botón de icono `menu`/`close` de 36x36px, radio 8px, junto al avatar de perfil.
+- El panel desplegable es el mismo contenido del nav de escritorio, sin agregar ni quitar opciones — solo cambia dónde vive. Contenedor 224px de ancho, radio 8px, sombra de Nivel 2, se cierra con click afuera, Escape o al elegir una opción.
+
+### 10. Menú de Perfil
+- Reemplaza el nombre en texto plano + botón "Salir" siempre visibles del encabezado, en mobile y escritorio por igual.
+- Botón: avatar circular de 36px (ver excepción de Avatares en Shapes) con las iniciales del nombre, fondo `--color-primary` (el color real del club activo), texto blanco.
+- Panel: mismo contenedor que el menú hamburguesa (224px, radio 8px, sombra de Nivel 2), con nombre y correo arriba (no interactivo), separador, y las acciones de la sesión (ej. "Mi perfil", "Salir") como filas de 40px con icono + texto.

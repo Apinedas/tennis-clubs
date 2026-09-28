@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { logout } from "@/app/actions/auth";
-import { Button } from "@/components/ui/button";
+import { MobileNav } from "@/components/mobile-nav";
+import { ProfileMenu } from "@/components/profile-menu";
 import type { Profile } from "@/lib/auth/dal";
 import { AREAS, allowedAreas, type Area } from "@/lib/auth/roles";
 import { darken } from "@/lib/color";
@@ -8,7 +8,10 @@ import { darken } from "@/lib/color";
 const HEX_RE = /^#[0-9a-fA-F]{6}$/;
 
 // Common structure for authenticated areas: header with club, area selector
-// (only the ones the user can see) and sign-out.
+// (only the ones the user can see) and profile menu. The area links and
+// "Cambiar de club" live in the desktop nav (unchanged) and, on mobile,
+// behind the hamburger in MobileNav — same content, just relocated so it
+// doesn't wrap across several lines on a narrow screen.
 export function AppShell({
   profile,
   area,
@@ -21,6 +24,7 @@ export function AppShell({
   const areas = AREAS.filter((a) =>
     allowedAreas(profile.context).includes(a.area),
   );
+  const showChangeClub = profile.context.clubCount > 1;
 
   const brandColor = profile.brandColor && HEX_RE.test(profile.brandColor)
     ? profile.brandColor
@@ -36,7 +40,7 @@ export function AppShell({
   return (
     <div className="flex flex-1 flex-col" style={themeStyle}>
       <header className="border-b border-border bg-surface-container-lowest">
-        <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-margin py-3 md:px-margin-desktop">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-margin py-3 md:px-margin-desktop">
           <div className="flex items-center gap-2">
             {profile.logoUrl ? (
               // eslint-disable-next-line @next/next/no-img-element -- external Storage URL, no static size known
@@ -54,7 +58,7 @@ export function AppShell({
               {profile.clubName ?? "Academia de Tenis"}
             </span>
           </div>
-          <nav aria-label="Áreas" className="flex flex-1 gap-4">
+          <nav aria-label="Áreas" className="hidden flex-1 gap-4 md:flex">
             {areas.map((a) => (
               <Link
                 key={a.area}
@@ -69,7 +73,7 @@ export function AppShell({
                 {a.label}
               </Link>
             ))}
-            {profile.context.clubCount > 1 && (
+            {showChangeClub && (
               <Link
                 href="/select-club"
                 className="text-body-md text-on-surface-variant hover:text-on-surface"
@@ -78,15 +82,13 @@ export function AppShell({
               </Link>
             )}
           </nav>
-          <div className="flex items-center gap-3">
-            <span className="text-label-sm text-on-surface-variant">
-              {profile.fullName}
-            </span>
-            <form action={logout}>
-              <Button type="submit" variant="secondary" className="py-1.5!">
-                Salir
-              </Button>
-            </form>
+          <div className="flex items-center gap-2">
+            <MobileNav areas={areas} currentArea={area} showChangeClub={showChangeClub} />
+            <ProfileMenu
+              fullName={profile.fullName}
+              email={profile.email}
+              showProfileLink={allowedAreas(profile.context).includes("student")}
+            />
           </div>
         </div>
       </header>
