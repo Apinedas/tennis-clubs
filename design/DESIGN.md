@@ -216,11 +216,12 @@ La geometría del sistema equilibra solidez estructural y ergonomía visual medi
 - Tono neutro (`#5E625C`, hover fondo `#F6F7F5`) para acciones no destructivas; tono destructivo (`#A35005` sobre fondo `#FFF3E6` en hover) para eliminar, consistente con el botón Destructivo de la sección 1.
 - Los indicadores binarios de una característica de fila (ej. cubierta, iluminación) siguen el mismo espíritu: icono dentro de una insignia de 28x28px, radio 6px, con `aria-label`/`title` describiendo el estado — en vez de una insignia de texto "Sí/No".
 
-### 9. Menú Hamburguesa (Mobile)
-- El encabezado no tiene tratamiento propio en mobile por defecto: en pantalla angosta, los enlaces de área y "Cambiar de club" del nav de escritorio se ocultan (`hidden md:flex`) y se accede a ellos desde un botón de icono `menu`/`close` de 36x36px, radio 8px, junto al avatar de perfil.
-- El panel desplegable es el mismo contenido del nav de escritorio, sin agregar ni quitar opciones — solo cambia dónde vive. Contenedor 224px de ancho, radio 8px, sombra de Nivel 2, se cierra con click afuera, Escape o al elegir una opción.
+### 9. Menú Hamburguesa (Mobile, solo Administración)
+- Existe únicamente en el área de admin: es la única con suficientes destinos (8: Calendario, Configuración × 6, Reportes) para necesitar navegación propia en pantalla angosta. Entrenador y Alumno no lo muestran.
+- Botón de icono `menu`/`close` de 36x36px, radio 8px, junto al avatar de perfil. El panel desplegable es el mismo contenido que el sidebar de escritorio (AdminNav) — mismos 8 destinos, mismo orden — solo cambia dónde vive. Contenedor 256px de ancho, radio 8px, sombra de Nivel 2, se cierra con click afuera, Escape o al elegir una opción.
+- Cambiar de rol o de club NO va aquí — eso vive en el Menú de Perfil (sección 10), porque aplica a cualquier área, no solo a admin.
 
 ### 10. Menú de Perfil
-- Reemplaza el nombre en texto plano + botón "Salir" siempre visibles del encabezado, en mobile y escritorio por igual.
+- Reemplaza el nombre en texto plano + botón "Salir" siempre visibles del encabezado, en mobile y escritorio por igual. Existe en las 3 áreas (a diferencia del hamburguer).
 - Botón: avatar circular de 36px (ver excepción de Avatares en Shapes) con las iniciales del nombre, fondo `--color-primary` (el color real del club activo), texto blanco.
-- Panel: mismo contenedor que el menú hamburguesa (224px, radio 8px, sombra de Nivel 2), con nombre y correo arriba (no interactivo), separador, y las acciones de la sesión (ej. "Mi perfil", "Salir") como filas de 40px con icono + texto.
+- Panel: mismo contenedor que el menú hamburguesa (256px, radio 8px, sombra de Nivel 2). De arriba a abajo: nombre y correo (no interactivo); si la persona tiene más de un rol y/o más de un club, el switcher de área y "Cambiar de club" (nunca si solo tiene una opción — no mostrar un selector sin nada que seleccionar); separador; acciones de la sesión ("Mi perfil" si aplica, "Salir") como filas de 40px con icono + texto.
