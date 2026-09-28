@@ -16,7 +16,9 @@
 2. Calendario de clases
 3. Reservas
 4. Perfil de alumno
-5. Pagos (fase 2, no MVP)
+5. Pagos (fase 2, no MVP) — construido con alcance reducido: sin pasarela, solo
+   estado "pendiente de pago" con comprobante subido por el alumno y revisión
+   manual del admin (aprobar/rechazar)
 
 ## Diseño
 Referencias de diseño exportadas de Stitch están en /design

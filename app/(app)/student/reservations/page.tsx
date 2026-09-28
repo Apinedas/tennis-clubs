@@ -1,15 +1,18 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { LessonStatusBadge } from "@/components/lesson-status-badge";
+import { PaymentStatusBadge } from "@/components/payment-status-badge";
 import { getProfile, requireArea } from "@/lib/auth/dal";
 import { formatLocalTime } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/lib/database.types";
 import { CancelReservationButton } from "./reservation-actions";
+import { PaymentProofUpload } from "./payment-proof-upload";
 
 export const metadata = { title: "Mis reservas · Academia de Tenis" };
 
 type Status = Database["public"]["Enums"]["booking_status"];
+type PaymentStatus = Database["public"]["Enums"]["payment_status"];
 
 type Reservation = {
   id: string;
@@ -18,6 +21,8 @@ type Reservation = {
   endsAt: string;
   title: string;
   subtitle: string;
+  paymentStatus: PaymentStatus;
+  paymentRejectionNote: string | null;
 };
 
 export default async function ReservationsPage({
@@ -36,7 +41,9 @@ export default async function ReservationsPage({
       supabase.rpc("list_my_lessons", { p_club: clubId }),
       supabase
         .from("booking")
-        .select("id, status, starts_at, ends_at, type, court:court(name)")
+        .select(
+          "id, status, starts_at, ends_at, type, court:court(name), payment_status, payment_rejection_note",
+        )
         .eq("club_id", clubId)
         .eq("person_id", session.userId)
         .in("type", ["singles", "doubles"]),
@@ -55,6 +62,8 @@ export default async function ReservationsPage({
       endsAt: l.ends_at,
       title: `Clase con ${l.counterpart_name}`,
       subtitle: l.court_name,
+      paymentStatus: l.payment_status,
+      paymentRejectionNote: l.payment_rejection_note,
     }));
 
   const courtRows: Reservation[] = (general ?? []).map((b) => ({
@@ -64,6 +73,8 @@ export default async function ReservationsPage({
     endsAt: b.ends_at,
     title: `${b.court?.name ?? "Cancha"} · ${b.type === "singles" ? "Sencillos" : "Dobles"}`,
     subtitle: "",
+    paymentStatus: b.payment_status,
+    paymentRejectionNote: b.payment_rejection_note,
   }));
 
   const all = [...lessonRows, ...courtRows];
@@ -134,9 +145,10 @@ export default async function ReservationsPage({
                   className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface-container-lowest p-3"
                 >
                   <div>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center gap-2">
                       <p className="text-body-md-medium text-on-surface">{r.title}</p>
                       <LessonStatusBadge status={r.status} />
+                      {r.status === "confirmed" && <PaymentStatusBadge status={r.paymentStatus} />}
                     </div>
                     <p className="text-label-xs text-on-surface-variant">
                       {new Date(r.startsAt).toLocaleDateString("es-CO", {
@@ -147,22 +159,32 @@ export default async function ReservationsPage({
                       · {formatLocalTime(r.startsAt, timeZone)}–{formatLocalTime(r.endsAt, timeZone)}
                       {r.subtitle && ` · ${r.subtitle}`}
                     </p>
+                    {r.status === "confirmed" && r.paymentStatus === "unpaid" && r.paymentRejectionNote && (
+                      <p className="mt-1 max-w-xs text-label-xs text-blocked-fg">
+                        Comprobante rechazado: {r.paymentRejectionNote}
+                      </p>
+                    )}
                   </div>
-                  {tab === "upcoming" &&
-                    (policy?.self_cancel_allowed ? (
-                      <div className="flex flex-col items-end gap-1">
-                        <CancelReservationButton bookingId={r.id} />
-                        {lateForFreeCancel && (
-                          <span className="max-w-[180px] text-right text-label-xs text-on-surface-variant">
-                            Fuera del plazo de cancelación sin recargo
-                          </span>
-                        )}
-                      </div>
-                    ) : (
-                      <span className="text-label-xs text-on-surface-variant">
-                        El club gestiona las cancelaciones
-                      </span>
-                    ))}
+                  <div className="flex flex-col items-end gap-2">
+                    {r.status === "confirmed" && r.paymentStatus === "unpaid" && (
+                      <PaymentProofUpload bookingId={r.id} clubId={clubId} />
+                    )}
+                    {tab === "upcoming" &&
+                      (policy?.self_cancel_allowed ? (
+                        <div className="flex flex-col items-end gap-1">
+                          <CancelReservationButton bookingId={r.id} />
+                          {lateForFreeCancel && (
+                            <span className="max-w-[180px] text-right text-label-xs text-on-surface-variant">
+                              Fuera del plazo de cancelación sin recargo
+                            </span>
+                          )}
+                        </div>
+                      ) : (
+                        <span className="text-label-xs text-on-surface-variant">
+                          El club gestiona las cancelaciones
+                        </span>
+                      ))}
+                  </div>
                 </li>
               );
             })}

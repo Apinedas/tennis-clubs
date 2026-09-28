@@ -50,6 +50,11 @@ export type Database = {
           guest_name: string | null
           id: string
           notes: string | null
+          payment_proof_path: string | null
+          payment_rejection_note: string | null
+          payment_reviewed_at: string | null
+          payment_reviewed_by: string | null
+          payment_status: Database["public"]["Enums"]["payment_status"]
           person_id: string | null
           starts_at: string
           status: Database["public"]["Enums"]["booking_status"]
@@ -65,6 +70,11 @@ export type Database = {
           guest_name?: string | null
           id?: string
           notes?: string | null
+          payment_proof_path?: string | null
+          payment_rejection_note?: string | null
+          payment_reviewed_at?: string | null
+          payment_reviewed_by?: string | null
+          payment_status?: Database["public"]["Enums"]["payment_status"]
           person_id?: string | null
           starts_at: string
           status?: Database["public"]["Enums"]["booking_status"]
@@ -80,6 +90,11 @@ export type Database = {
           guest_name?: string | null
           id?: string
           notes?: string | null
+          payment_proof_path?: string | null
+          payment_rejection_note?: string | null
+          payment_reviewed_at?: string | null
+          payment_reviewed_by?: string | null
+          payment_status?: Database["public"]["Enums"]["payment_status"]
           person_id?: string | null
           starts_at?: string
           status?: Database["public"]["Enums"]["booking_status"]
@@ -110,6 +125,13 @@ export type Database = {
           {
             foreignKeyName: "booking_created_by_fkey"
             columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "person"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "booking_payment_reviewed_by_fkey"
+            columns: ["payment_reviewed_by"]
             isOneToOne: false
             referencedRelation: "person"
             referencedColumns: ["id"]
@@ -555,11 +577,28 @@ export type Database = {
           ends_at: string
           id: string
           notes: string
+          payment_proof_path: string
+          payment_rejection_note: string
+          payment_status: Database["public"]["Enums"]["payment_status"]
           starts_at: string
           status: Database["public"]["Enums"]["booking_status"]
           viewer_role: Database["public"]["Enums"]["club_role"]
         }[]
       }
+      list_pending_payments: {
+        Args: { p_club: string }
+        Returns: {
+          court_name: string
+          ends_at: string
+          guest_name: string
+          id: string
+          payment_proof_path: string
+          person_name: string
+          starts_at: string
+          type: Database["public"]["Enums"]["booking_type"]
+        }[]
+      }
+      mark_booking_paid: { Args: { p_id: string }; Returns: undefined }
       public_club: {
         Args: { p_slug: string }
         Returns: {
@@ -595,6 +634,14 @@ export type Database = {
           price_amount: number
         }[]
       }
+      reject_payment_proof: {
+        Args: { p_id: string; p_note?: string }
+        Returns: undefined
+      }
+      submit_payment_proof: {
+        Args: { p_id: string; p_path: string }
+        Returns: undefined
+      }
       view_invitation: {
         Args: { p_token: string }
         Returns: {
@@ -614,6 +661,7 @@ export type Database = {
         | "tournaments"
       club_role: "admin" | "coach" | "student"
       court_surface: "clay" | "hard" | "grass" | "carpet" | "other"
+      payment_status: "unpaid" | "pending_review" | "paid"
       rate_category: "member" | "non_member"
     }
     CompositeTypes: {
@@ -755,6 +803,7 @@ export const Constants = {
       ],
       club_role: ["admin", "coach", "student"],
       court_surface: ["clay", "hard", "grass", "carpet", "other"],
+      payment_status: ["unpaid", "pending_review", "paid"],
       rate_category: ["member", "non_member"],
     },
   },

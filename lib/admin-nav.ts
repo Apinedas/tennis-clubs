@@ -57,4 +57,10 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     label: "Uso de canchas",
     description: "Ocupación agregada por cancha y horario.",
   },
+  {
+    path: "/admin/payments",
+    icon: "receipt_long",
+    label: "Pagos",
+    description: "Comprobantes pendientes de revisión.",
+  },
 ];
