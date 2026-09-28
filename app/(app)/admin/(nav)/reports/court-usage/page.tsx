@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { AppShell } from "@/components/app-shell";
-import { getProfile, requireArea } from "@/lib/auth/dal";
+import { requireArea } from "@/lib/auth/dal";
 import { SURFACE_LABELS, WEEKDAYS } from "@/lib/labels";
 import { addDays, isoWeekday, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
@@ -20,7 +19,6 @@ export default async function CourtUsageReportPage({
   searchParams,
 }: PageProps<"/admin/reports/court-usage">) {
   const session = await requireArea("admin");
-  const profile = await getProfile();
   const clubId = session.context.clubId as string;
   const supabase = await createClient();
 
@@ -86,13 +84,9 @@ export default async function CourtUsageReportPage({
   }
 
   return (
-    <AppShell profile={profile} area="admin">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-1">
-          <Link href="/admin" className="text-label-sm text-on-surface-variant hover:text-on-surface">
-            ← Administración
-          </Link>
-          <h1 className="text-headline-lg text-on-surface">Uso de Canchas</h1>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-headline-lg text-on-surface">Uso de Canchas</h1>
           <p className="text-body-md text-on-surface-variant">
             Ocupación agregada por cancha y horario. Solo lectura.
           </p>
@@ -228,7 +222,6 @@ export default async function CourtUsageReportPage({
           </div>
         </section>
       </div>
-    </AppShell>
   );
 }
 

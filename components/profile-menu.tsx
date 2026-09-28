@@ -4,15 +4,22 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { logout } from "@/app/actions/auth";
 import { initials } from "@/lib/initials";
+import type { Area } from "@/lib/auth/roles";
 
 export function ProfileMenu({
   fullName,
   email,
   showProfileLink,
+  areas,
+  currentArea,
+  showChangeClub,
 }: {
   fullName: string;
   email: string;
   showProfileLink: boolean;
+  areas: { area: Area; path: string; label: string }[];
+  currentArea: Area;
+  showChangeClub: boolean;
 }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -32,6 +39,10 @@ export function ProfileMenu({
       document.removeEventListener("keydown", onKeyDown);
     };
   }, [open]);
+
+  // Only worth showing as a switcher when there's actually something to
+  // switch between — a single-role, single-club user has nothing to pick.
+  const showAreaSwitcher = areas.length > 1;
 
   return (
     <div ref={ref} className="relative">
@@ -54,6 +65,40 @@ export function ProfileMenu({
             <p className="truncate text-body-md-medium text-on-surface">{fullName}</p>
             <p className="truncate text-label-xs text-on-surface-variant">{email}</p>
           </div>
+
+          {(showAreaSwitcher || showChangeClub) && (
+            <>
+              <div className="my-1 border-t border-border" />
+              {showAreaSwitcher &&
+                areas.map((a) => (
+                  <Link
+                    key={a.area}
+                    href={a.path}
+                    role="menuitem"
+                    onClick={() => setOpen(false)}
+                    aria-current={a.area === currentArea ? "page" : undefined}
+                    className={
+                      a.area === currentArea
+                        ? "block rounded-lg px-2.5 py-2 text-body-md-medium text-primary"
+                        : "block rounded-lg px-2.5 py-2 text-body-md text-on-surface hover:bg-surface-container"
+                    }
+                  >
+                    {a.label}
+                  </Link>
+                ))}
+              {showChangeClub && (
+                <Link
+                  href="/select-club"
+                  role="menuitem"
+                  onClick={() => setOpen(false)}
+                  className="block rounded-lg px-2.5 py-2 text-body-md text-on-surface hover:bg-surface-container"
+                >
+                  Cambiar de club
+                </Link>
+              )}
+            </>
+          )}
+
           <div className="my-1 border-t border-border" />
           {showProfileLink && (
             <Link

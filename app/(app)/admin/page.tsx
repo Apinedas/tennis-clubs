@@ -1,59 +1,9 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { getProfile, requireArea } from "@/lib/auth/dal";
+import { ADMIN_NAV_ITEMS } from "@/lib/admin-nav";
 
 export const metadata = { title: "Administración · Academia de Tenis" };
-
-const SHORTCUTS = [
-  {
-    href: "/admin/schedule",
-    icon: "calendar_month",
-    title: "Calendario",
-    description: "Todas las reservas del club, todas las canchas.",
-  },
-  {
-    href: "/admin/settings/club",
-    icon: "domain",
-    title: "Configuración del club",
-    description: "Nombre, slug, marca y localización de la sede.",
-  },
-  {
-    href: "/admin/settings/courts",
-    icon: "stadium",
-    title: "Canchas",
-    description: "Nombre, superficie y disponibilidad de cada cancha.",
-  },
-  {
-    href: "/admin/settings/rates",
-    icon: "payments",
-    title: "Tarifas",
-    description: "Precios por cancha, horario, categoría y servicio.",
-  },
-  {
-    href: "/admin/settings/people",
-    icon: "group",
-    title: "Personas",
-    description: "Invita entrenadores y alumnos, gestiona sus roles.",
-  },
-  {
-    href: "/admin/settings/booking-policy",
-    icon: "calendar_clock",
-    title: "Reservas",
-    description: "Duración de turno y ventanas para agendar y cancelar.",
-  },
-  {
-    href: "/admin/settings/modules",
-    icon: "extension",
-    title: "Módulos",
-    description: "Activa o desactiva las funcionalidades del club.",
-  },
-  {
-    href: "/admin/reports/court-usage",
-    icon: "monitoring",
-    title: "Uso de canchas",
-    description: "Ocupación agregada por cancha y horario.",
-  },
-];
 
 export default async function AdminPage() {
   await requireArea("admin");
@@ -66,18 +16,18 @@ export default async function AdminPage() {
         {profile.clubName}
       </p>
       <div className="mt-6 grid max-w-2xl grid-cols-1 gap-3 sm:grid-cols-2">
-        {SHORTCUTS.map((s) => (
+        {ADMIN_NAV_ITEMS.map((item) => (
           <Link
-            key={s.href}
-            href={s.href}
+            key={item.path}
+            href={item.path}
             className="flex items-center gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm hover:bg-surface-container-low"
           >
             <span className="material-symbols-outlined text-primary" aria-hidden>
-              {s.icon}
+              {item.icon}
             </span>
             <div>
-              <p className="text-body-md-medium text-on-surface">{s.title}</p>
-              <p className="text-label-xs text-on-surface-variant">{s.description}</p>
+              <p className="text-body-md-medium text-on-surface">{item.label}</p>
+              <p className="text-label-xs text-on-surface-variant">{item.description}</p>
             </div>
           </Link>
         ))}

@@ -7,11 +7,11 @@ import { darken } from "@/lib/color";
 
 const HEX_RE = /^#[0-9a-fA-F]{6}$/;
 
-// Common structure for authenticated areas: header with club, area selector
-// (only the ones the user can see) and profile menu. The area links and
-// "Cambiar de club" live in the desktop nav (unchanged) and, on mobile,
-// behind the hamburger in MobileNav — same content, just relocated so it
-// doesn't wrap across several lines on a narrow screen.
+// Common structure for authenticated areas: header with club, area nav
+// (desktop only — role/club switching lives in ProfileMenu instead, since
+// most people only ever have one role in one club) and the profile menu.
+// The mobile hamburger (MobileNav) is admin-only: it's the one area with
+// enough sub-destinations to need its own navigation on a narrow screen.
 export function AppShell({
   profile,
   area,
@@ -83,11 +83,14 @@ export function AppShell({
             )}
           </nav>
           <div className="flex items-center gap-2">
-            <MobileNav areas={areas} currentArea={area} showChangeClub={showChangeClub} />
+            {area === "admin" && <MobileNav />}
             <ProfileMenu
               fullName={profile.fullName}
               email={profile.email}
               showProfileLink={allowedAreas(profile.context).includes("student")}
+              areas={areas}
+              currentArea={area}
+              showChangeClub={showChangeClub}
             />
           </div>
         </div>

@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { getProfile, requireArea } from "@/lib/auth/dal";
-import { AppShell } from "@/components/app-shell";
+import { requireArea } from "@/lib/auth/dal";
 import { selectApplicableRate } from "@/lib/rate-matching";
 import { addDays, formatLocalTime, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
@@ -38,7 +37,6 @@ export default async function AdminSchedulePage({
   searchParams,
 }: PageProps<"/admin/schedule">) {
   const session = await requireArea("admin");
-  const profile = await getProfile();
   const clubId = session.context.clubId as string;
   const supabase = await createClient();
 
@@ -168,13 +166,9 @@ export default async function AdminSchedulePage({
   const blockedToday = bookings.filter((b) => b.status === "blocked").length;
 
   return (
-    <AppShell profile={profile} area="admin">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-1">
-          <Link href="/admin" className="text-label-sm text-on-surface-variant hover:text-on-surface">
-            ← Administración
-          </Link>
-          <h1 className="text-headline-lg text-on-surface">Calendario Operativo</h1>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-headline-lg text-on-surface">Calendario Operativo</h1>
           <p className="text-body-md text-on-surface-variant">
             Todas las reservas del club, todas las canchas.
           </p>
@@ -380,7 +374,6 @@ export default async function AdminSchedulePage({
           )}
         </div>
       </div>
-    </AppShell>
   );
 }
 
