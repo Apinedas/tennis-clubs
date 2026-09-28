@@ -46,7 +46,7 @@ export function MobileNav() {
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-11 z-20 w-64 rounded-xl border border-border bg-surface-container-lowest p-1.5 shadow-lg"
+          className="absolute right-0 top-11 z-20 w-64 rounded-xl border border-border bg-surface-container-lowest p-1.5 shadow-lg"
         >
           <Link
             href="/admin"
