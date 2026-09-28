@@ -1,6 +1,6 @@
 "use client";
 
-import { useActionState, useRef, useState } from "react";
+import { useActionState, useRef, useState, useSyncExternalStore } from "react";
 import { updateClubSettings } from "@/app/actions/club-settings";
 import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -64,11 +64,18 @@ export function ClubSettingsForm({
   const [copied, setCopied] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
 
+  // window.location.origin only exists client-side; useSyncExternalStore
+  // renders the server snapshot ("") during hydration and swaps to the
+  // client one right after, without the hydration mismatch a plain
+  // `typeof window` branch (or a setState-in-effect) would cause here.
+  const origin = useSyncExternalStore(
+    () => () => {},
+    () => window.location.origin,
+    () => "",
+  );
+
   const registrationPath = `/register?club=${slug || "tu-club"}`;
-  const registrationUrl =
-    typeof window === "undefined"
-      ? registrationPath
-      : `${window.location.origin}${registrationPath}`;
+  const registrationUrl = `${origin}${registrationPath}`;
 
   async function copyLink() {
     await navigator.clipboard.writeText(registrationUrl);
