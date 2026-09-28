@@ -347,7 +347,7 @@ export function ClubSettingsForm({
                 </div>
                 <div className="flex flex-1 flex-col gap-1 text-center sm:text-left">
                   <span className="text-label-xs text-on-surface-variant">
-                    PNG o SVG, máx 2MB.
+                    PNG, JPG o SVG, máx 2MB.
                   </span>
                   {logoError && (
                     <span className="text-label-xs text-blocked-fg">{logoError}</span>

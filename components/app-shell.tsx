@@ -38,9 +38,18 @@ export function AppShell({
       <header className="border-b border-border bg-surface-container-lowest">
         <div className="mx-auto flex w-full max-w-5xl flex-wrap items-center gap-x-6 gap-y-2 px-margin py-3 md:px-margin-desktop">
           <div className="flex items-center gap-2">
-            <span className="material-symbols-outlined text-primary" aria-hidden>
-              sports_tennis
-            </span>
+            {profile.logoUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element -- external Storage URL, no static size known
+              <img
+                src={profile.logoUrl}
+                alt=""
+                className="h-7 w-7 shrink-0 rounded-md object-contain"
+              />
+            ) : (
+              <span className="material-symbols-outlined text-primary" aria-hidden>
+                sports_tennis
+              </span>
+            )}
             <span className="text-headline-sm text-on-surface">
               {profile.clubName ?? "Academia de Tenis"}
             </span>
