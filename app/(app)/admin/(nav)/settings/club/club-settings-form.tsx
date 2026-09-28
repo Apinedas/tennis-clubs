@@ -360,7 +360,7 @@ export function ClubSettingsForm({
                     <span className="text-label-xs text-blocked-fg">{logoError}</span>
                   )}
                   <div className="mt-1 flex h-9 items-center justify-center gap-2 sm:justify-start">
-                    <label className="flex h-9 cursor-pointer items-center gap-1 rounded px-2 leading-none bg-surface-container-lowest text-label-sm text-on-surface shadow-sm hover:bg-surface-container">
+                    <label className="flex h-9 shrink-0 cursor-pointer items-center gap-1 whitespace-nowrap rounded px-2 leading-none bg-surface-container-lowest text-label-sm text-on-surface shadow-sm hover:bg-surface-container">
                       <span className="material-symbols-outlined text-[16px]" aria-hidden>
                         upload_file
                       </span>
@@ -382,7 +382,7 @@ export function ClubSettingsForm({
                         type="button"
                         disabled={logoBusy}
                         onClick={removeLogo}
-                        className="flex h-9 items-center gap-1 rounded px-2 leading-none bg-surface-container-lowest text-label-sm text-blocked-fg shadow-sm hover:bg-blocked-bg"
+                        className="flex h-9 shrink-0 items-center gap-1 whitespace-nowrap rounded px-2 leading-none bg-surface-container-lowest text-label-sm text-blocked-fg shadow-sm hover:bg-blocked-bg"
                       >
                         <span className="material-symbols-outlined text-[16px]" aria-hidden>
                           delete
