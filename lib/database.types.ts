@@ -43,6 +43,7 @@ export type Database = {
         Row: {
           club_id: string
           coach_id: string | null
+          course_id: string | null
           court_id: string
           created_at: string
           created_by: string | null
@@ -63,6 +64,7 @@ export type Database = {
         Insert: {
           club_id: string
           coach_id?: string | null
+          course_id?: string | null
           court_id: string
           created_at?: string
           created_by?: string | null
@@ -83,6 +85,7 @@ export type Database = {
         Update: {
           club_id?: string
           coach_id?: string | null
+          course_id?: string | null
           court_id?: string
           created_at?: string
           created_by?: string | null
@@ -114,6 +117,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "membership"
             referencedColumns: ["person_id", "club_id"]
+          },
+          {
+            foreignKeyName: "booking_course_fk"
+            columns: ["course_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "course"
+            referencedColumns: ["id", "club_id"]
           },
           {
             foreignKeyName: "booking_court_fk"
@@ -253,6 +263,243 @@ export type Database = {
             columns: ["club_id"]
             isOneToOne: false
             referencedRelation: "club"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course: {
+        Row: {
+          active: boolean
+          assistant_coach_id: string | null
+          capacity: number
+          club_id: string
+          court_id: string
+          created_at: string
+          end_date: string
+          end_time: string
+          head_coach_id: string
+          id: string
+          level: string | null
+          name: string
+          rate_id: string | null
+          start_date: string
+          start_time: string
+          weekdays: number[]
+        }
+        Insert: {
+          active?: boolean
+          assistant_coach_id?: string | null
+          capacity: number
+          club_id: string
+          court_id: string
+          created_at?: string
+          end_date: string
+          end_time: string
+          head_coach_id: string
+          id?: string
+          level?: string | null
+          name: string
+          rate_id?: string | null
+          start_date: string
+          start_time: string
+          weekdays: number[]
+        }
+        Update: {
+          active?: boolean
+          assistant_coach_id?: string | null
+          capacity?: number
+          club_id?: string
+          court_id?: string
+          created_at?: string
+          end_date?: string
+          end_time?: string
+          head_coach_id?: string
+          id?: string
+          level?: string | null
+          name?: string
+          rate_id?: string | null
+          start_date?: string
+          start_time?: string
+          weekdays?: number[]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_assistant_coach_fk"
+            columns: ["assistant_coach_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "membership"
+            referencedColumns: ["person_id", "club_id"]
+          },
+          {
+            foreignKeyName: "course_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "club"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_court_fk"
+            columns: ["court_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "court"
+            referencedColumns: ["id", "club_id"]
+          },
+          {
+            foreignKeyName: "course_head_coach_fk"
+            columns: ["head_coach_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "membership"
+            referencedColumns: ["person_id", "club_id"]
+          },
+          {
+            foreignKeyName: "course_rate_fk"
+            columns: ["rate_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "rate"
+            referencedColumns: ["id", "club_id"]
+          },
+        ]
+      }
+      course_attendance: {
+        Row: {
+          club_id: string
+          course_id: string
+          id: string
+          marked_at: string | null
+          marked_by: string | null
+          person_id: string
+          present: boolean
+          session_booking_id: string
+        }
+        Insert: {
+          club_id: string
+          course_id: string
+          id?: string
+          marked_at?: string | null
+          marked_by?: string | null
+          person_id: string
+          present?: boolean
+          session_booking_id: string
+        }
+        Update: {
+          club_id?: string
+          course_id?: string
+          id?: string
+          marked_at?: string | null
+          marked_by?: string | null
+          person_id?: string
+          present?: boolean
+          session_booking_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_attendance_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "club"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_attendance_course_fk"
+            columns: ["course_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "course"
+            referencedColumns: ["id", "club_id"]
+          },
+          {
+            foreignKeyName: "course_attendance_marked_by_fkey"
+            columns: ["marked_by"]
+            isOneToOne: false
+            referencedRelation: "person"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_attendance_person_fk"
+            columns: ["person_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "membership"
+            referencedColumns: ["person_id", "club_id"]
+          },
+          {
+            foreignKeyName: "course_attendance_session_booking_id_fkey"
+            columns: ["session_booking_id"]
+            isOneToOne: false
+            referencedRelation: "booking"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      course_enrollment: {
+        Row: {
+          club_id: string
+          course_id: string
+          created_at: string
+          id: string
+          person_id: string
+          requested_by: string | null
+          review_note: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          status: Database["public"]["Enums"]["enrollment_status"]
+        }
+        Insert: {
+          club_id: string
+          course_id: string
+          created_at?: string
+          id?: string
+          person_id: string
+          requested_by?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["enrollment_status"]
+        }
+        Update: {
+          club_id?: string
+          course_id?: string
+          created_at?: string
+          id?: string
+          person_id?: string
+          requested_by?: string | null
+          review_note?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          status?: Database["public"]["Enums"]["enrollment_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "course_enrollment_club_id_fkey"
+            columns: ["club_id"]
+            isOneToOne: false
+            referencedRelation: "club"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_enrollment_course_fk"
+            columns: ["course_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "course"
+            referencedColumns: ["id", "club_id"]
+          },
+          {
+            foreignKeyName: "course_enrollment_person_fk"
+            columns: ["person_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "membership"
+            referencedColumns: ["person_id", "club_id"]
+          },
+          {
+            foreignKeyName: "course_enrollment_requested_by_fkey"
+            columns: ["requested_by"]
+            isOneToOne: false
+            referencedRelation: "person"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "course_enrollment_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "person"
             referencedColumns: ["id"]
           },
         ]
@@ -547,12 +794,53 @@ export type Database = {
           surface: Database["public"]["Enums"]["court_surface"]
         }[]
       }
+      create_course: {
+        Args: {
+          p_assistant_coach_id: string
+          p_capacity: number
+          p_club: string
+          p_court_id: string
+          p_end_date: string
+          p_end_time: string
+          p_head_coach_id: string
+          p_level: string
+          p_name: string
+          p_rate_id: string
+          p_start_date: string
+          p_start_time: string
+          p_weekdays: number[]
+        }
+        Returns: string
+      }
+      enroll_member: {
+        Args: { p_course_id: string; p_person_id: string }
+        Returns: undefined
+      }
       join_club: { Args: { p_slug: string }; Returns: string }
       list_club_coaches: {
         Args: { p_club: string }
         Returns: {
           full_name: string
           person_id: string
+        }[]
+      }
+      list_club_courses: {
+        Args: { p_club: string }
+        Returns: {
+          active: boolean
+          capacity: number
+          court_name: string
+          end_date: string
+          end_time: string
+          enrolled_count: number
+          head_coach_name: string
+          id: string
+          level: string
+          name: string
+          price_amount: number
+          start_date: string
+          start_time: string
+          weekdays: number[]
         }[]
       }
       list_club_members: {
@@ -567,6 +855,16 @@ export type Database = {
           phone: string
           roles: Database["public"]["Enums"]["club_role"][]
           title: string
+        }[]
+      }
+      list_course_roster: {
+        Args: { p_course_id: string }
+        Returns: {
+          enrollment_id: string
+          full_name: string
+          person_id: string
+          review_note: string
+          status: Database["public"]["Enums"]["enrollment_status"]
         }[]
       }
       list_my_lessons: {
@@ -600,6 +898,17 @@ export type Database = {
           starts_at: string
         }[]
       }
+      list_pending_enrollments: {
+        Args: { p_club: string }
+        Returns: {
+          course_id: string
+          course_name: string
+          id: string
+          person_id: string
+          person_name: string
+          status: Database["public"]["Enums"]["enrollment_status"]
+        }[]
+      }
       list_pending_payments: {
         Args: { p_club: string }
         Returns: {
@@ -612,6 +921,14 @@ export type Database = {
           starts_at: string
           type: Database["public"]["Enums"]["booking_type"]
         }[]
+      }
+      mark_attendance: {
+        Args: {
+          p_person_id: string
+          p_present: boolean
+          p_session_booking_id: string
+        }
+        Returns: undefined
       }
       mark_booking_paid: { Args: { p_id: string }; Returns: undefined }
       public_club: {
@@ -653,6 +970,13 @@ export type Database = {
         Args: { p_id: string; p_note?: string }
         Returns: undefined
       }
+      remove_enrollment: { Args: { p_id: string }; Returns: undefined }
+      request_enrollment: { Args: { p_course_id: string }; Returns: undefined }
+      request_unenroll: { Args: { p_id: string }; Returns: undefined }
+      review_enrollment: {
+        Args: { p_approve: boolean; p_id: string; p_note?: string }
+        Returns: undefined
+      }
       submit_payment_proof: {
         Args: { p_id: string; p_path: string }
         Returns: undefined
@@ -668,14 +992,20 @@ export type Database = {
     }
     Enums: {
       booking_status: "confirmed" | "cancelled" | "blocked" | "pending"
-      booking_type: "singles" | "doubles" | "lesson"
+      booking_type: "singles" | "doubles" | "lesson" | "course"
       club_module_name:
         | "bookings"
         | "lessons"
         | "dynamic_pricing"
         | "tournaments"
+        | "courses"
       club_role: "admin" | "coach" | "student"
       court_surface: "clay" | "hard" | "grass" | "carpet" | "other"
+      enrollment_status:
+        | "pending"
+        | "active"
+        | "pending_cancellation"
+        | "cancelled"
       payment_status: "unpaid" | "pending_review" | "paid"
       rate_category: "member" | "non_member"
     }
@@ -809,15 +1139,22 @@ export const Constants = {
   public: {
     Enums: {
       booking_status: ["confirmed", "cancelled", "blocked", "pending"],
-      booking_type: ["singles", "doubles", "lesson"],
+      booking_type: ["singles", "doubles", "lesson", "course"],
       club_module_name: [
         "bookings",
         "lessons",
         "dynamic_pricing",
         "tournaments",
+        "courses",
       ],
       club_role: ["admin", "coach", "student"],
       court_surface: ["clay", "hard", "grass", "carpet", "other"],
+      enrollment_status: [
+        "pending",
+        "active",
+        "pending_cancellation",
+        "cancelled",
+      ],
       payment_status: ["unpaid", "pending_review", "paid"],
       rate_category: ["member", "non_member"],
     },

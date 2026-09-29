@@ -18,6 +18,11 @@ export const MODULES: {
     description: "Agenda de clases, cuerpo técnico y tarifas por hora de profesor.",
   },
   {
+    value: "courses",
+    label: "Cursos y clínicas",
+    description: "Clases grupales recurrentes con cupo: inscripción, asistencia y horario fijo.",
+  },
+  {
     value: "dynamic_pricing",
     label: "Tarifario dinámico",
     description: "Precios que varían automáticamente según demanda u ocupación.",

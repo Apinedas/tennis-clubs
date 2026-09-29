@@ -3,10 +3,10 @@ import { describe, it } from "node:test";
 import { MODULES, moduleLabel } from "./modules.ts";
 
 describe("MODULES", () => {
-  it("covers exactly the four columns club_module_name allows", () => {
+  it("covers exactly the columns club_module_name allows", () => {
     assert.deepEqual(
       MODULES.map((m) => m.value).sort(),
-      ["bookings", "dynamic_pricing", "lessons", "tournaments"],
+      ["bookings", "courses", "dynamic_pricing", "lessons", "tournaments"],
     );
   });
   it("every module has a non-empty label and description", () => {
