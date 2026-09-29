@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+<html lang="es"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{colors:{"on-secondary-container":"#61655f","surface-container-high":"#e8e8e3","on-background":"#1a1c19","on-tertiary-fixed-variant":"#7c2b33","secondary-fixed":"#e0e4dc","surface-tint":"#006d40","on-tertiary-container":"#fff0f0","tertiary":"#903a42","tertiary-fixed-dim":"#ffb3b5","on-tertiary":"#ffffff","outline":"#6f7a70","primary-fixed-dim":"#7dd9a1","inverse-primary":"#7dd9a1","on-secondary-fixed-variant":"#444842","secondary-container":"#e0e4dc","on-secondary":"#ffffff","surface-bright":"#fafaf4","secondary-fixed-dim":"#c4c8c0","tertiary-fixed":"#ffdada","surface-container-highest":"#e3e3de","on-primary-container":"#d1ffde","on-error-container":"#93000a","on-primary-fixed-variant":"#00522f","secondary":"#5b5f5a","error-container":"#ffdad6","on-secondary-fixed":"#191d18","on-primary":"#ffffff","background":"#fafaf4","error":"#ba1a1a","surface-variant":"#e3e3de","surface-container-lowest":"#ffffff","primary-fixed":"#99f6bb","surface-dim":"#dadad5","primary":"#00643b","tertiary-container":"#af5259","inverse-on-surface":"#f1f1ec","surface-container-low":"#f4f4ee","surface":"#fafaf4","surface-container":"#eeeee9","primary-container":"#1b7f4f","on-surface":"#1a1c19","outline-variant":"#becabf","inverse-surface":"#2f312e","on-surface-variant":"#3f4941","on-primary-fixed":"#002110","on-tertiary-fixed":"#40000c","on-error":"#ffffff"},borderRadius:{DEFAULT:"0.25rem",lg:"0.5rem",xl:"0.75rem",full:"9999px"},spacing:{"space-sm":"0.5rem","space-xs":"0.25rem",gutter:"0.75rem","space-lg":"1rem","margin-desktop":"1.5rem","space-xl":"1.5rem","space-md":"0.75rem","gutter-desktop":"1rem",margin:"1rem"},fontFamily:{"body-md":["Inter"],"label-xs":["Inter"],"body-md-medium":["Inter"],"headline-lg":["Inter"],"label-sm":["Inter"],"headline-sm":["Inter"]},fontSize:{"body-md":["14px",{lineHeight:"20px",fontWeight:"400"}],"label-xs":["11px",{lineHeight:"14px",fontWeight:"500"}],"body-md-medium":["14px",{lineHeight:"20px",fontWeight:"500"}],"headline-lg":["20px",{lineHeight:"28px",fontWeight:"500"}],"label-sm":["12px",{lineHeight:"16px",letterSpacing:"0.01em",fontWeight:"500"}],"headline-sm":["16px",{lineHeight:"24px",fontWeight:"500"}]}}}};</script></head><body class="bg-background font-body-md text-on-surface min-h-screen"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest border-r border-outline-variant/30 z-50 flex flex-col justify-between"><div class="flex flex-col h-full overflow-y-auto"><div class="h-16 px-space-lg flex items-center gap-space-sm border-b border-outline-variant/30"><img alt="Tenis Pro Ops Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AOf_b95eD6wK44q282c07iY-Nf5c4hI3R-X8V3a9E4x1kL3oFp1_Gg"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface font-semibold tracking-tight">Tenis Pro Ops</span><span class="font-label-xs text-label-xs text-on-surface-variant">Gestión Operativa B2B</span></div></div><div class="p-space-md"><div class="p-space-sm bg-surface-container-low rounded-lg border border-outline-variant/40 flex items-center justify-between"><div class="flex items-center gap-space-xs"><span class="material-symbols-outlined text-primary text-[18px]">sports_tennis</span><div class="flex flex-col"><span class="font-label-xs text-label-xs text-on-surface-variant uppercase">Sede activa</span><span class="font-label-sm text-label-sm font-semibold text-on-surface truncate max-w-[140px]">El Rodadero</span></div></div><span class="material-symbols-outlined text-on-surface-variant text-[16px]">unfold_more</span></div></div><nav class="flex-1 px-space-md space-y-space-md" data-active-classes="bg-primary-container text-on-primary font-medium rounded-lg shadow-sm"><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-outline font-semibold">Operación Principal</div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="dashboard-general" href="#"><span class="material-symbols-outlined text-[20px]">dashboard</span><span class="font-body-md text-body-md">Dashboard / General</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="calendario-y-grilla" href="#"><span class="material-symbols-outlined text-[20px]">calendar_view_week</span><span class="font-body-md text-body-md">Calendario y Grilla</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="canchas" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="font-body-md text-body-md">Canchas</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="reservas" href="#"><span class="material-symbols-outlined text-[20px]">event_available</span><span class="font-body-md text-body-md">Reservas</span></a></div><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-outline font-semibold">Programas Deportivos</div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="cursos-y-clinicas" href="#"><span class="material-symbols-outlined text-[20px]">school</span><span class="font-body-md text-body-md">Cursos y Clínicas</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="torneos" href="#"><span class="material-symbols-outlined text-[20px]">emoji_events</span><span class="font-body-md text-body-md">Torneos</span></a></div><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-outline font-semibold">Análisis y Personas</div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="reportes" href="#"><span class="material-symbols-outlined text-[20px]">bar_chart</span><span class="font-body-md text-body-md">Reportes</span></a><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="personas" href="#"><span class="material-symbols-outlined text-[20px]">group</span><span class="font-body-md text-body-md">Personas</span></a></div><div class="space-y-space-xs"><div class="px-space-sm py-space-xs font-label-xs text-label-xs uppercase tracking-wider text-outline font-semibold">Sistema</div><a class="flex items-center gap-space-sm px-space-md py-space-sm rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" data-path="configuracion" href="#"><span class="material-symbols-outlined text-[20px]">settings</span><span class="font-body-md text-body-md">Configuración</span></a></div></nav><div class="p-space-md border-t border-outline-variant/30"><div class="flex items-center justify-between p-space-sm rounded-lg bg-surface-container-low"><div class="flex items-center gap-space-sm"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col"><span class="font-label-sm text-label-sm font-semibold text-on-surface">Carlos Mendoza</span><span class="font-label-xs text-label-xs text-on-surface-variant">Recepción / Turnos</span></div></div><a class="text-outline hover:text-error transition-colors" data-path="login" href="#" title="Cerrar sesión"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface-container-lowest border-b border-outline-variant/30 z-40 flex items-center justify-between px-margin-desktop"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-xs font-label-sm text-label-sm text-on-surface-variant"><span class="font-body-md text-body-md text-on-surface font-semibold">Club Campestre El Rodadero</span><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><span class="text-outline">Operación</span><span class="material-symbols-outlined text-[16px] text-outline">chevron_right</span><span class="text-primary font-medium">Cursos y Clínicas</span></div><div class="hidden xl:flex items-center bg-surface-container-low px-space-md py-space-xs rounded-lg border border-outline-variant/30 w-72"><span class="material-symbols-outlined text-on-surface-variant text-[18px] mr-space-xs">search</span><input class="bg-transparent border-none text-on-surface placeholder:text-outline text-body-md font-body-md focus:outline-none w-full" placeholder="Buscar socio, cancha, turno..." type="text"/></div></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs"><button aria-label="Notificaciones" class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface relative transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-tertiary"></span></button><button aria-label="Ayuda y Soporte" class="p-space-xs rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" type="button"><span class="material-symbols-outlined text-[22px]">help</span></button></div><div class="h-6 w-px bg-outline-variant/40"></div><div class="flex items-center gap-space-sm pl-space-xs"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="hidden sm:flex flex-col"><span class="font-label-sm text-label-sm font-semibold text-on-surface leading-tight">Carlos Mendoza</span><span class="font-label-xs text-label-xs text-outline leading-tight">Operador Principal</span></div></div></div></header><main class="relative pt-16 bg-background min-h-screen w-full px-margin-desktop py-space-xl"><div class="flex flex-col w-full">
+<!-- Content Header Area -->
+<header class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md mb-space-xl">
+<div class="flex flex-col space-y-space-xs">
+<div class="flex items-center gap-space-sm">
+<span class="px-space-sm py-0.5 rounded text-label-xs font-semibold bg-primary-container/15 text-primary tracking-wide uppercase">Ciclo Temporada 2024-II</span>
+<span class="text-outline text-label-xs">|</span>
+<span class="text-on-surface-variant font-label-xs">4 Programas Activos en Programación</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface font-semibold tracking-tight">Gestión de Cursos y Clínicas de Tenis</h1>
+<p class="font-body-md text-body-md text-secondary">Administración de programas semestrales, clínicas intensivas y control de cupos en sede Campestre El Rodadero.</p>
+</div>
+<!-- Quick Stats & Actions -->
+<div class="flex items-center gap-space-md">
+<div class="hidden xl:flex items-center gap-space-lg px-space-md py-space-sm bg-surface-container-low rounded-lg">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline uppercase font-semibold">Ocupación Total</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">79.4% <span class="font-label-xs text-primary font-medium">(27/34 cupos)</span></span>
+</div>
+<div class="h-6 w-px bg-outline-variant/60"></div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline uppercase font-semibold">Canchas Asignadas</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">4 <span class="font-label-xs text-secondary font-medium">de 12</span></span>
+</div>
+</div>
+<div class="flex items-center gap-space-sm">
+<button class="h-10 px-space-md rounded-lg bg-surface-container-lowest text-on-surface hover:bg-surface-container font-body-md-medium text-body-md-medium flex items-center gap-space-xs shadow-sm transition-all" onclick="alert('Exportando listado en formato XLSX...')" type="button">
+<span class="material-symbols-outlined text-[18px] text-secondary">sim_card_download</span>
+<span>Exportar listado</span>
+</button>
+<button class="h-10 px-space-lg rounded-lg bg-primary-container text-on-primary hover:bg-primary font-body-md-medium text-body-md-medium flex items-center gap-space-xs shadow-sm transition-all" onclick="nuevoCurso()" type="button">
+<span class="material-symbols-outlined text-[18px]">add_circle</span>
+<span>+ Nuevo Curso</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Master Split Layout: List & Editor Panels -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter-desktop items-start">
+<!-- LEFT / CENTER PANEL: Courses List & Filters (Cols 7 on Desktop) -->
+<section aria-label="Catálogo de cursos programados" class="lg:col-span-7 flex flex-col space-y-space-md">
+<!-- Filter Bar -->
+<div class="bg-surface-container-lowest p-space-md rounded-lg shadow-sm flex flex-col sm:flex-row gap-space-sm items-stretch sm:items-center justify-between">
+<div class="relative flex-1">
+<span class="material-symbols-outlined text-outline absolute left-3 top-2.5 text-[18px]">search</span>
+<input class="w-full h-10 pl-9 pr-space-md bg-surface-container-low rounded-lg text-on-surface placeholder:text-outline font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors" id="searchInput" placeholder="Buscar por nombre de curso o entrenador..." type="text"/>
+</div>
+<div class="flex items-center gap-space-sm">
+<select class="h-10 px-space-sm bg-surface-container-low rounded-lg text-on-surface font-body-md-medium text-body-md focus:outline-none cursor-pointer">
+<option value="todos">Todos los programas</option>
+<option value="infantil">Infantil / Juvenil</option>
+<option value="adultos">Adultos</option>
+<option value="competencia">Alta Competencia</option>
+</select>
+<select class="h-10 px-space-sm bg-surface-container-low rounded-lg text-on-surface font-body-md-medium text-body-md focus:outline-none cursor-pointer">
+<option value="todos_estados">Todos los estados</option>
+<option selected="" value="en_curso">En curso</option>
+<option value="abiertas">Inscripciones abiertas</option>
+<option value="finalizados">Finalizados</option>
+</select>
+</div>
+</div>
+<!-- Quick Metrics Ribbon -->
+<div class="grid grid-cols-3 gap-space-sm text-center">
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col items-center justify-center">
+<span class="font-label-xs text-label-xs text-secondary uppercase font-semibold">Ingresos Estimados</span>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold tracking-tight mt-0.5">$10.280.000 <span class="font-label-xs text-outline font-normal">COP</span></span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col items-center justify-center">
+<span class="font-label-xs text-label-xs text-secondary uppercase font-semibold">Tasa de Asistencia</span>
+<span class="font-headline-sm text-headline-sm text-primary font-bold tracking-tight mt-0.5">94.2%</span>
+</div>
+<div class="bg-surface-container-lowest p-space-sm rounded-lg shadow-sm flex flex-col items-center justify-center">
+<span class="font-label-xs text-label-xs text-secondary uppercase font-semibold">Cupos Disponibles</span>
+<span class="font-headline-sm text-headline-sm text-tertiary font-bold tracking-tight mt-0.5">7 Libres</span>
+</div>
+</div>
+<!-- Course Cards Container -->
+<div class="space-y-space-sm" id="coursesList">
+<!-- CARD 1: Selected / In Edition -->
+<article class="p-space-lg rounded-lg shadow-sm bg-surface-container-lowest bg-surface-container-low/60 transition-all cursor-pointer relative" onclick="selectCourse(1)">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="h-6 px-2.5 rounded bg-primary text-on-primary font-label-xs text-label-xs font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-fixed animate-pulse"></span>
+                En curso
+              </span>
+<span class="h-6 px-2.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">
+                ID #CUR-104
+              </span>
+<span class="h-6 px-2 rounded bg-surface-container text-secondary font-label-xs text-label-xs font-medium">
+                Adultos Avanzado
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">$420.000 <span class="text-label-xs font-normal text-secondary">COP</span></span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm mb-space-md">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface leading-tight hover:text-primary transition-colors">
+                Clínica Intensiva de Saque y Volea
+              </h2>
+<div class="flex items-center gap-space-sm mt-1 text-secondary font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">sports_tennis</span>
+<span class="font-medium text-on-surface">Prof. Carlos Mario Restrepo</span>
+</div>
+<span>•</span>
+<span class="text-on-surface-variant">ITF Nivel II</span>
+</div>
+</div>
+</div>
+<!-- Metadata Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-space-sm bg-surface-container-low/50 rounded-lg px-space-md mb-space-md text-body-md">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Cancha</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">stadium</span>
+                Cancha 1 (Arcilla Tech.)
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Horario</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">schedule</span>
+                Mar y Jue 18:30 - 20:00
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Vigencia</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">calendar_month</span>
+                3 Jun - 25 Jul (8 sem)
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Estado Cupo</span>
+<span class="font-body-md-medium text-body-md-medium text-tertiary flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[15px] text-tertiary">group</span>
+                8/8 Completo
+              </span>
+</div>
+</div>
+<!-- Capacity Bar & Students Preview -->
+<div class="flex items-center justify-between pt-space-xs gap-space-md">
+<div class="flex-1">
+<div class="flex items-center justify-between text-label-xs font-label-xs mb-1">
+<span class="text-tertiary font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                  Cupo Lleno - 2 en lista de espera
+                </span>
+<span class="text-on-surface font-semibold">100% ocupado</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="bg-tertiary h-full rounded transition-all" style="width: 100%"></div>
+</div>
+</div>
+<!-- Student Avatars & CTAs -->
+<div class="flex items-center gap-space-sm pl-space-md">
+<div class="flex -space-x-2 overflow-hidden">
+<div class="inline-block h-7 w-7 rounded-full bg-primary-fixed text-on-primary-fixed text-label-xs font-bold flex items-center justify-center">AR</div>
+<div class="inline-block h-7 w-7 rounded-full bg-secondary-fixed text-on-secondary-fixed text-label-xs font-bold flex items-center justify-center">VS</div>
+<div class="inline-block h-7 w-7 rounded-full bg-tertiary-fixed text-on-tertiary-fixed text-label-xs font-bold flex items-center justify-center">FA</div>
+<div class="inline-block h-7 w-7 rounded-full bg-surface-container-high text-on-surface text-label-xs font-semibold flex items-center justify-center">+5</div>
+</div>
+<button class="h-8 px-space-md bg-primary-container text-on-primary rounded text-label-sm font-label-sm font-semibold hover:bg-primary transition-colors flex items-center gap-1" type="button">
+<span>Editando</span>
+<span class="material-symbols-outlined text-[16px]">edit</span>
+</button>
+</div>
+</div>
+</article>
+<!-- CARD 2: Escuela Semillero Infantil -->
+<article class="p-space-lg rounded-lg shadow-sm bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer" onclick="selectCourse(2)">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="h-6 px-2.5 rounded bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Inscripciones abiertas
+              </span>
+<span class="h-6 px-2.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">
+                ID #CUR-105
+              </span>
+<span class="h-6 px-2 rounded bg-surface-container text-secondary font-label-xs text-label-xs font-medium">
+                Infantil (6 - 11 años)
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">$360.000 <span class="text-label-xs font-normal text-secondary">COP</span></span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm mb-space-md">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface leading-tight hover:text-primary transition-colors">
+                Escuela Semillero Infantil (Nivel Iniciación)
+              </h2>
+<div class="flex items-center gap-space-sm mt-1 text-secondary font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">sports_tennis</span>
+<span class="font-medium text-on-surface">Profe Valentina Gómez Duque</span>
+</div>
+<span>•</span>
+<span class="text-on-surface-variant">Lic. Educación Física</span>
+</div>
+</div>
+</div>
+<!-- Metadata Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-space-sm bg-surface-container-low/50 rounded-lg px-space-md mb-space-md text-body-md">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Cancha</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">stadium</span>
+                Cancha 6 - Escuela
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Horario</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">schedule</span>
+                Sáb y Dom 08:00 - 09:30
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Vigencia</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">calendar_month</span>
+                15 Jun - 10 Ago 2024
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Disponibles</span>
+<span class="font-body-md-medium text-body-md-medium text-primary flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[15px] text-primary">event_seat</span>
+                3 cupos libres
+              </span>
+</div>
+</div>
+<!-- Capacity Bar -->
+<div class="flex items-center justify-between pt-space-xs gap-space-md">
+<div class="flex-1">
+<div class="flex items-center justify-between text-label-xs font-label-xs mb-1">
+<span class="text-secondary font-medium">9 de 12 inscritos</span>
+<span class="text-on-surface font-semibold">75% ocupado</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="bg-primary-container h-full rounded transition-all" style="width: 75%"></div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pl-space-md">
+<button class="h-8 px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface rounded text-label-sm font-label-sm font-medium transition-colors" type="button">
+                Editar
+              </button>
+</div>
+</div>
+</article>
+<!-- CARD 3: Manejo de Presión y Táctica Singles Adultos -->
+<article class="p-space-lg rounded-lg shadow-sm bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer" onclick="selectCourse(3)">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="h-6 px-2.5 rounded bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Inscripciones abiertas
+              </span>
+<span class="h-6 px-2.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">
+                ID #CUR-106
+              </span>
+<span class="h-6 px-2 rounded bg-surface-container text-secondary font-label-xs text-label-xs font-medium">
+                Singles Competitivo
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">$450.000 <span class="text-label-xs font-normal text-secondary">COP</span></span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm mb-space-md">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface leading-tight hover:text-primary transition-colors">
+                Manejo de Presión y Táctica Singles Adultos
+              </h2>
+<div class="flex items-center gap-space-sm mt-1 text-secondary font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">sports_tennis</span>
+<span class="font-medium text-on-surface">Prof. Jairo Henao</span>
+</div>
+<span>•</span>
+<span class="text-on-surface-variant">Ex-Jugador Fedecoltenis</span>
+</div>
+</div>
+</div>
+<!-- Metadata Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-space-sm bg-surface-container-low/50 rounded-lg px-space-md mb-space-md text-body-md">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Cancha</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">stadium</span>
+                Cancha 4 (Plexicushion)
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Horario</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">schedule</span>
+                Lun y Mié 19:00 - 20:30
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Vigencia</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">calendar_month</span>
+                10 Jun - 29 Jul 2024
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Disponibles</span>
+<span class="font-body-md-medium text-body-md-medium text-primary flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[15px] text-primary">event_seat</span>
+                2 cupos libres
+              </span>
+</div>
+</div>
+<!-- Capacity Bar -->
+<div class="flex items-center justify-between pt-space-xs gap-space-md">
+<div class="flex-1">
+<div class="flex items-center justify-between text-label-xs font-label-xs mb-1">
+<span class="text-secondary font-medium">6 de 8 inscritos</span>
+<span class="text-on-surface font-semibold">75% ocupado</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="bg-primary-container h-full rounded transition-all" style="width: 75%"></div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pl-space-md">
+<button class="h-8 px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface rounded text-label-sm font-label-sm font-medium transition-colors" type="button">
+                Editar
+              </button>
+</div>
+</div>
+</article>
+<!-- CARD 4: Técnica de Revés a Dos Manos y Topspin -->
+<article class="p-space-lg rounded-lg shadow-sm bg-surface-container-lowest hover:bg-surface-container-low transition-all cursor-pointer" onclick="selectCourse(4)">
+<div class="flex items-start justify-between gap-space-md mb-space-sm">
+<div class="flex items-center gap-space-sm flex-wrap">
+<span class="h-6 px-2.5 rounded bg-primary-fixed text-on-primary-fixed font-label-xs text-label-xs font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+                Inscripciones abiertas
+              </span>
+<span class="h-6 px-2.5 rounded bg-surface-container-high text-on-surface-variant font-label-xs text-label-xs font-semibold">
+                ID #CUR-107
+              </span>
+<span class="h-6 px-2 rounded bg-surface-container text-secondary font-label-xs text-label-xs font-medium">
+                Técnico Especializado
+              </span>
+</div>
+<div class="flex items-center gap-space-xs">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">$280.000 <span class="text-label-xs font-normal text-secondary">COP</span></span>
+</div>
+</div>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-sm mb-space-md">
+<div>
+<h2 class="font-headline-sm text-headline-sm font-semibold text-on-surface leading-tight hover:text-primary transition-colors">
+                Técnica de Revés a Dos Manos y Topspin
+              </h2>
+<div class="flex items-center gap-space-sm mt-1 text-secondary font-body-md text-body-md">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">sports_tennis</span>
+<span class="font-medium text-on-surface">Prof. Camilo Mendoza</span>
+</div>
+<span>•</span>
+<span class="text-on-surface-variant">Especialista en Biomecánica</span>
+</div>
+</div>
+</div>
+<!-- Metadata Grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-space-sm py-space-sm bg-surface-container-low/50 rounded-lg px-space-md mb-space-md text-body-md">
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Cancha</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">stadium</span>
+                Cancha 2 (Arcilla Exterior)
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Horario</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">schedule</span>
+                Viernes 17:00 - 19:00
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Vigencia</span>
+<span class="font-body-md-medium text-body-md-medium text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-outline">calendar_month</span>
+                21 Jun - 26 Jul 2024
+              </span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-xs text-label-xs text-outline font-semibold uppercase">Disponibles</span>
+<span class="font-body-md-medium text-body-md-medium text-primary flex items-center gap-1 font-semibold">
+<span class="material-symbols-outlined text-[15px] text-primary">event_seat</span>
+                2 cupos libres
+              </span>
+</div>
+</div>
+<!-- Capacity Bar -->
+<div class="flex items-center justify-between pt-space-xs gap-space-md">
+<div class="flex-1">
+<div class="flex items-center justify-between text-label-xs font-label-xs mb-1">
+<span class="text-secondary font-medium">4 de 6 inscritos</span>
+<span class="text-on-surface font-semibold">66% ocupado</span>
+</div>
+<div class="w-full h-2 rounded bg-surface-container overflow-hidden">
+<div class="bg-primary-container h-full rounded transition-all" style="width: 66.6%"></div>
+</div>
+</div>
+<div class="flex items-center gap-space-sm pl-space-md">
+<button class="h-8 px-space-md bg-surface-container hover:bg-surface-container-high text-on-surface rounded text-label-sm font-label-sm font-medium transition-colors" type="button">
+                Editar
+              </button>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- RIGHT PANEL: Edit / Create Course Interactive Form (Cols 5 on Desktop) -->
+<section aria-label="Editor de programa deportivo" class="lg:col-span-5 bg-surface-container-lowest rounded-lg shadow-sm flex flex-col overflow-hidden sticky top-20">
+<!-- Editor Header -->
+<div class="p-space-lg bg-surface-container-low flex flex-col space-y-space-xs">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="px-2 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-label-xs text-label-xs font-bold" id="badgeCourseId">ID #CUR-104</span>
+<span class="px-2 py-0.5 rounded bg-primary text-on-primary font-label-xs text-label-xs font-medium">Edición Activa</span>
+</div>
+<!-- Toggle Switch for Public Visibility -->
+<label class="inline-flex items-center cursor-pointer gap-space-xs" title="Controla si los socios pueden ver este curso en su app móvil">
+<input checked="" class="sr-only peer" id="publishToggle" type="checkbox"/>
+<div class="relative w-9 h-5 bg-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-container"></div>
+<span class="font-label-xs text-label-xs text-on-surface-variant font-medium select-none">Publicado en app socios</span>
+</label>
+</div>
+<h3 class="font-headline-sm text-headline-sm font-bold text-on-surface leading-snug mt-1" id="formHeaderTitle">
+          Editar Curso: Clínica Intensiva de Saque y Volea
+        </h3>
+<p class="font-label-xs text-label-xs text-secondary">Ajusta los parámetros operativos, instructores y límites de capacidad.</p>
+</div>
+<!-- Form Inputs Body -->
+<form class="p-space-lg flex-1 overflow-y-auto space-y-space-md" id="courseForm" onsubmit="event.preventDefault(); guardarCurso();">
+<!-- Field 1: Course Name -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface flex items-center justify-between" for="courseName">
+<span>Nombre del Programa o Clínica</span>
+<span class="font-label-xs text-outline font-normal">Requerido</span>
+</label>
+<input class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none" id="courseName" required="" type="text" value="Clínica Intensiva de Saque y Volea"/>
+</div>
+<!-- Field 2: Instructors Row -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="headCoach">Entrenador Titular</label>
+<div class="relative">
+<select class="w-full h-10 pl-space-md pr-8 rounded-lg bg-surface-container-low text-on-surface font-body-md-medium text-body-md focus:bg-surface-container-lowest focus:outline-none cursor-pointer appearance-none" id="headCoach">
+<option selected="" value="1">Prof. Carlos Mario Restrepo (ITF II)</option>
+<option value="2">Profe Valentina Gómez (Escuela)</option>
+<option value="3">Prof. Jairo Henao (Singles)</option>
+<option value="4">Prof. Camilo Mendoza (Biomecánica)</option>
+</select>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2.5 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="assistantCoach">Asistente (Opcional)</label>
+<div class="relative">
+<select class="w-full h-10 pl-space-md pr-8 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none cursor-pointer appearance-none" id="assistantCoach">
+<option value="none">Sin asistente asignado</option>
+<option selected="" value="asst1">Monitor Andrés Posada</option>
+<option value="asst2">Monitor David Zuluaga</option>
+</select>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2.5 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+</div>
+<!-- Field 3: Court Assignment -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface flex items-center justify-between" for="courtSelect">
+<span>Cancha Reservada</span>
+<span class="font-label-xs text-primary font-medium flex items-center gap-1">
+<span class="w-2 h-2 rounded-full bg-primary inline-block"></span>
+              Sin solapamientos
+            </span>
+</label>
+<div class="relative">
+<select class="w-full h-10 pl-space-md pr-8 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none cursor-pointer appearance-none" id="courtSelect">
+<option selected="" value="cancha1">Cancha 1 - Principal (Arcilla Techada)</option>
+<option value="cancha2">Cancha 2 (Arcilla Exterior)</option>
+<option value="cancha3">Cancha 3 (Arcilla Exterior)</option>
+<option value="cancha4">Cancha 4 (Plexicushion - Rápida)</option>
+<option value="cancha5">Cancha 5 (Plexicushion - Rápida)</option>
+<option value="cancha6">Cancha 6 - Escuela Infantil</option>
+</select>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2.5 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Field 4: Days Selection Chips -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface">Días de Entrenamiento en Sede</label>
+<div class="grid grid-cols-7 gap-1">
+<label class="flex flex-col items-center justify-center p-2 rounded cursor-pointer bg-surface-container-low text-secondary hover:bg-surface-container">
+<input class="sr-only peer" name="days" type="checkbox" value="lun"/>
+<span class="font-label-xs text-label-xs font-semibold peer-checked:text-on-primary">LUN</span>
+</label>
+<label class="flex flex-col items-center justify-center p-2 rounded cursor-pointer bg-primary-container text-on-primary shadow-sm">
+<input checked="" class="sr-only peer" name="days" type="checkbox" value="mar"/>
+<span class="font-label-xs text-label-xs font-semibold">MAR</span>
+</label>
+<label class="flex flex-col items-center justify-center p-2 rounded cursor-pointer bg-surface-container-low text-secondary hover:bg-surface-container">
+<input class="sr-only peer" name="days" type="checkbox" value="mie"/>
+<span class="font-label-xs text-label-xs font-semibold peer-checked:text-on-primary">MIÉ</span>
+</label>
+<label class="flex flex-col items-center justify-center p-2 rounded cursor-pointer bg-primary-container text-on-primary shadow-sm">
+<input checked="" class="sr-only peer" name="days" type="checkbox" value="jue"/>
+<span class="font-label-xs text-label-xs font-semibold">JUE</span>
+</label>
+<label class="flex flex-col items-center justify-center p-2 rounded cursor-pointer bg-surface-container-low text-secondary hover:bg-surface-container">
+<input class="sr-only peer" name="days" type="checkbox" value="vie"/>
+<span class="font-label-xs text-label-xs font-semibold peer-checked:text-on-primary">VIE</span>
+</label>
+<label class="flex flex-col items-center justify-center p-2 rounded cursor-pointer bg-surface-container-low text-secondary hover:bg-surface-container">
+<input class="sr-only peer" name="days" type="checkbox" value="sab"/>
+<span class="font-label-xs text-label-xs font-semibold peer-checked:text-on-primary">SÁB</span>
+</label>
+<label class="flex flex-col items-center justify-center p-2 rounded cursor-pointer bg-surface-container-low text-secondary hover:bg-surface-container">
+<input class="sr-only peer" name="days" type="checkbox" value="dom"/>
+<span class="font-label-xs text-label-xs font-semibold peer-checked:text-on-primary">DOM</span>
+</label>
+</div>
+</div>
+<!-- Field 5: Schedule Times -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="startTime">Hora Inicio</label>
+<input class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none" id="startTime" type="time" value="18:30"/>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="endTime">Hora Fin (90 min)</label>
+<input class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none" id="endTime" type="time" value="20:00"/>
+</div>
+</div>
+<!-- Field 6: Date Range -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="startDate">Fecha Inicio</label>
+<input class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none" id="startDate" type="date" value="2024-06-03"/>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="endDate">Fecha Fin</label>
+<input class="h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none" id="endDate" type="date" value="2024-07-25"/>
+</div>
+</div>
+<!-- Field 7: Capacity & Pricing -->
+<div class="grid grid-cols-2 gap-space-sm">
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface flex items-center justify-between" for="maxCapacity">
+<span>Cupo Máx.</span>
+<span class="font-label-xs text-tertiary font-semibold">8 inscritos</span>
+</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none" id="maxCapacity" max="30" min="1" type="number" value="8"/>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2.5 text-[18px]">group</span>
+</div>
+</div>
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="coursePrice">Tarifa Socio (COP)</label>
+<div class="relative">
+<input class="w-full h-10 px-space-md rounded-lg bg-surface-container-low text-on-surface font-body-md font-semibold text-body-md focus:bg-surface-container-lowest focus:outline-none" id="coursePrice" type="text" value="$420.000 COP"/>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2.5 text-[18px]">payments</span>
+</div>
+</div>
+</div>
+<!-- Field 8: Technical Level -->
+<div class="flex flex-col space-y-space-xs">
+<label class="font-label-sm text-label-sm font-semibold text-on-surface" for="levelSelect">Nivel Técnico Requerido</label>
+<div class="relative">
+<select class="w-full h-10 pl-space-md pr-8 rounded-lg bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none cursor-pointer appearance-none" id="levelSelect">
+<option value="iniciacion">Iniciación / Formativo</option>
+<option value="intermedio">Intermedio (5ta y 4ta categoría)</option>
+<option selected="" value="avanzado">Intermedio - Avanzado (4ta y 3ra categoría)</option>
+<option value="competencia">Alta Competencia (2da y 1ra categoría)</option>
+</select>
+<span class="material-symbols-outlined text-outline absolute right-2.5 top-2.5 pointer-events-none text-[18px]">expand_more</span>
+</div>
+</div>
+<!-- Student Roster Box (Live in this course) -->
+<div class="p-space-md rounded-lg bg-surface-container-low/70 flex flex-col space-y-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm font-bold text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">how_to_reg</span>
+              Alumnos Registrados (8 de 8)
+            </span>
+<button class="text-primary font-label-xs text-label-xs font-semibold hover:underline" onclick="verAlumnos()" type="button">
+              Ver los 8 alumnos inscritos
+            </button>
+</div>
+<!-- Compact Roster Table -->
+<div class="space-y-1">
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container-lowest rounded text-body-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-xs text-label-xs text-outline w-4">1.</span>
+<span class="font-medium text-on-surface text-label-sm">Andrés Felipe Restrepo</span>
+</div>
+<span class="font-label-xs text-label-xs text-primary font-semibold">Paz y Salvo</span>
+</div>
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container-lowest rounded text-body-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-xs text-label-xs text-outline w-4">2.</span>
+<span class="font-medium text-on-surface text-label-sm">Valentina Sotomayor</span>
+</div>
+<span class="font-label-xs text-label-xs text-primary font-semibold">Paz y Salvo</span>
+</div>
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container-lowest rounded text-body-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-xs text-label-xs text-outline w-4">3.</span>
+<span class="font-medium text-on-surface text-label-sm">Felipe Arango Echeverri</span>
+</div>
+<span class="font-label-xs text-label-xs text-tertiary font-semibold">Pago Pendiente</span>
+</div>
+<div class="flex items-center justify-between px-space-sm py-1 bg-surface-container-lowest rounded text-body-md">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-xs text-label-xs text-outline w-4">4.</span>
+<span class="font-medium text-on-surface text-label-sm">Mariana Peláez Vélez</span>
+</div>
+<span class="font-label-xs text-label-xs text-primary font-semibold">Paz y Salvo</span>
+</div>
+</div>
+</div>
+<!-- Sticky Footer Form Actions -->
+<div class="pt-space-sm flex items-center justify-between gap-space-sm">
+<button class="h-10 px-space-md rounded-lg bg-surface-container-low text-secondary hover:bg-surface-container font-body-md-medium text-body-md transition-colors" onclick="resetForm()" type="button">
+            Cancelar / Descartar
+          </button>
+<div class="flex items-center gap-space-xs">
+<button class="h-10 px-space-sm rounded-lg bg-surface-container hover:bg-surface-container-high text-on-surface font-body-md-medium text-body-md transition-colors" onclick="duplicarCurso()" title="Duplicar configuración para nuevo horario" type="button">
+<span class="material-symbols-outlined text-[18px]">content_copy</span>
+</button>
+<button class="h-10 px-space-lg rounded-lg bg-primary-container text-on-primary hover:bg-primary font-body-md-medium text-body-md flex items-center gap-space-xs shadow-sm transition-all" type="submit">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span id="btnSubmitText">Guardar Curso</span>
+</button>
+</div>
+</div>
+</form>
+</section>
+</div>
+</div>
+<script>
+  function selectCourse(id) {
+    const titles = {
+      1: 'Clínica Intensiva de Saque y Volea',
+      2: 'Escuela Semillero Infantil (Nivel Iniciación)',
+      3: 'Manejo de Presión y Táctica Singles Adultos',
+      4: 'Técnica de Revés a Dos Manos y Topspin'
+    };
+    const codes = {
+      1: 'ID #CUR-104',
+      2: 'ID #CUR-105',
+      3: 'ID #CUR-106',
+      4: 'ID #CUR-107'
+    };
+    const prices = {
+      1: '$420.000 COP',
+      2: '$360.000 COP',
+      3: '$450.000 COP',
+      4: '$280.000 COP'
+    };
+    const coaches = {
+      1: '1',
+      2: '2',
+      3: '3',
+      4: '4'
+    };
+    const courts = {
+      1: 'cancha1',
+      2: 'cancha6',
+      3: 'cancha4',
+      4: 'cancha2'
+    };
+
+    document.getElementById('badgeCourseId').textContent = codes[id];
+    document.getElementById('formHeaderTitle').textContent = 'Editar Curso: ' + titles[id];
+    document.getElementById('courseName').value = titles[id];
+    document.getElementById('coursePrice').value = prices[id];
+    document.getElementById('headCoach').value = coaches[id];
+    document.getElementById('courtSelect').value = courts[id];
+    document.getElementById('btnSubmitText').textContent = 'Guardar Cambios';
+
+    // Highlight card visually
+    const cards = document.querySelectorAll('#coursesList article');
+    cards.forEach((c, idx) => {
+      if (idx === id - 1) {
+        c.classList.add('bg-surface-container-low/60');
+      } else {
+        c.classList.remove('bg-surface-container-low/60');
+      }
+    });
+  }
+
+  function nuevoCurso() {
+    document.getElementById('badgeCourseId').textContent = 'NUEVO REGISTRO';
+    document.getElementById('formHeaderTitle').textContent = 'Crear Nuevo Curso o Clínica';
+    document.getElementById('courseName').value = '';
+    document.getElementById('courseName').placeholder = 'Ej: Taller Intensivo de Devolución de Saque';
+    document.getElementById('coursePrice').value = '$350.000 COP';
+    document.getElementById('btnSubmitText').textContent = 'Crear y Publicar';
+    document.getElementById('courseName').focus();
+  }
+
+  function resetForm() {
+    selectCourse(1);
+  }
+
+  function guardarCurso() {
+    const nombre = document.getElementById('courseName').value;
+    alert('Cambios guardados con éxito para: ' + nombre);
+  }
+
+  function duplicarCurso() {
+    const actual = document.getElementById('courseName').value;
+    document.getElementById('courseName').value = actual + ' (Copia Grupo B)';
+    document.getElementById('badgeCourseId').textContent = 'BORRADOR';
+    document.getElementById('btnSubmitText').textContent = 'Guardar como Nuevo';
+    alert('Curso duplicado en modo borrador. Ajusta horario y cancha.');
+  }
+
+  function verAlumnos() {
+    alert('Desplegando lista completa con ficha médica y contacto de emergencia de los 8 inscritos.');
+  }
+</script></main></div></body></html>
