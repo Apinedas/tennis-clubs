@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
-import { formatLocalTime, generateSlots } from "@/lib/slot-scheduling";
+import { addDays, formatLocalTime, generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import { LessonRequestPanel } from "./lesson-actions";
 
@@ -28,12 +28,15 @@ export default async function StudentLessonsPage({
 
   let slots: { startsAtUtc: string; endsAtUtc: string; label: string }[] = [];
   if (coachId && date && club && policy) {
-    const { data: existing } = await supabase
-      .from("booking")
-      .select("starts_at, ends_at")
-      .eq("club_id", clubId)
-      .eq("coach_id", coachId)
-      .neq("status", "cancelled");
+    // RLS on booking only exposes the caller's own rows; this RPC returns
+    // just the occupied windows (no person_id) so the picker shows the
+    // coach's real schedule, not only lessons the current student booked.
+    const { data: existing } = await supabase.rpc("list_occupied_windows", {
+      p_club: clubId,
+      p_start: zonedTimeToUtcISO(date, "00:00", club.timezone),
+      p_end: zonedTimeToUtcISO(addDays(date, 1), "00:00", club.timezone),
+      p_coach_id: coachId,
+    });
 
     slots = generateSlots({
       dateISO: date,

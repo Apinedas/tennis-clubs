@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { requireArea } from "@/lib/auth/dal";
 import { selectApplicableRate } from "@/lib/rate-matching";
-import { generateSlots } from "@/lib/slot-scheduling";
+import { addDays, generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import type { FormState } from "./auth";
 
@@ -65,18 +65,22 @@ export async function requestLesson(
 
   const supabase = await createClient();
 
-  const [{ data: club }, { data: policy }, { data: existing }] = await Promise.all([
+  const [{ data: club }, { data: policy }] = await Promise.all([
     supabase.from("club").select("timezone").eq("id", clubId).single(),
     supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
-    supabase
-      .from("booking")
-      .select("starts_at, ends_at")
-      .eq("club_id", clubId)
-      .eq("coach_id", coachId)
-      .neq("status", "cancelled"),
   ]);
 
   if (!club || !policy) return { error: "No pudimos validar el club.", fields };
+
+  // RLS on booking only exposes the caller's own rows; this RPC returns
+  // just the occupied windows (no person_id) so re-validation below sees
+  // the coach's real schedule, not only the caller's own bookings.
+  const { data: existing } = await supabase.rpc("list_occupied_windows", {
+    p_club: clubId,
+    p_start: zonedTimeToUtcISO(dateISO, "00:00", club.timezone),
+    p_end: zonedTimeToUtcISO(addDays(dateISO, 1), "00:00", club.timezone),
+    p_coach_id: coachId,
+  });
 
   const now = new Date();
   const maxDate = new Date(now.getTime() + policy.max_advance_days * 86_400_000);

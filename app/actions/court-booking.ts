@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { requireArea } from "@/lib/auth/dal";
 import { selectApplicableRate } from "@/lib/rate-matching";
-import { generateSlots } from "@/lib/slot-scheduling";
+import { addDays, generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/lib/database.types";
 import type { FormState } from "./auth";
@@ -37,20 +37,23 @@ export async function bookCourt(
 
   const supabase = await createClient();
 
-  const [{ data: court }, { data: club }, { data: policy }, { data: existing }] =
-    await Promise.all([
-      supabase.from("court").select("id, surface").eq("id", courtId).eq("club_id", clubId).single(),
-      supabase.from("club").select("timezone").eq("id", clubId).single(),
-      supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
-      supabase
-        .from("booking")
-        .select("starts_at, ends_at")
-        .eq("club_id", clubId)
-        .eq("court_id", courtId)
-        .neq("status", "cancelled"),
-    ]);
+  const [{ data: court }, { data: club }, { data: policy }] = await Promise.all([
+    supabase.from("court").select("id, surface").eq("id", courtId).eq("club_id", clubId).single(),
+    supabase.from("club").select("timezone").eq("id", clubId).single(),
+    supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
+  ]);
 
   if (!court || !club || !policy) return { error: "No pudimos validar la cancha.", fields };
+
+  // RLS on booking only exposes the caller's own rows; this RPC returns
+  // just the occupied windows (no person_id) so the re-validation below
+  // sees everyone's bookings on this court, not only the caller's.
+  const { data: existing } = await supabase.rpc("list_occupied_windows", {
+    p_club: clubId,
+    p_start: zonedTimeToUtcISO(dateISO, "00:00", club.timezone),
+    p_end: zonedTimeToUtcISO(addDays(dateISO, 1), "00:00", club.timezone),
+    p_court_ids: [courtId],
+  });
 
   const maxDate = new Date(new Date().getTime() + policy.max_advance_days * 86_400_000);
   if (new Date(startsAtUtc) > maxDate) {
@@ -157,20 +160,23 @@ export async function bookCourts(
   const supabase = await createClient();
   const courtIds = [...new Set(items.map((i) => i.courtId))];
 
-  const [{ data: courts }, { data: club }, { data: policy }, { data: existing }] =
-    await Promise.all([
-      supabase.from("court").select("id, name, surface").eq("club_id", clubId).in("id", courtIds),
-      supabase.from("club").select("timezone").eq("id", clubId).single(),
-      supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
-      supabase
-        .from("booking")
-        .select("court_id, starts_at, ends_at")
-        .eq("club_id", clubId)
-        .in("court_id", courtIds)
-        .neq("status", "cancelled"),
-    ]);
+  const [{ data: courts }, { data: club }, { data: policy }] = await Promise.all([
+    supabase.from("court").select("id, name, surface").eq("club_id", clubId).in("id", courtIds),
+    supabase.from("club").select("timezone").eq("id", clubId).single(),
+    supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
+  ]);
 
   if (!club || !policy) return { error: "No pudimos validar la reserva." };
+
+  // RLS on booking only exposes the caller's own rows; this RPC returns
+  // just the occupied windows (no person_id) so re-validation below sees
+  // every court's real occupancy, not only the caller's own bookings.
+  const { data: existing } = await supabase.rpc("list_occupied_windows", {
+    p_club: clubId,
+    p_start: zonedTimeToUtcISO(dateISO, "00:00", club.timezone),
+    p_end: zonedTimeToUtcISO(addDays(dateISO, 1), "00:00", club.timezone),
+    p_court_ids: courtIds,
+  });
 
   const courtById = new Map((courts ?? []).map((c) => [c.id, c]));
   const maxDate = new Date(new Date().getTime() + policy.max_advance_days * 86_400_000);

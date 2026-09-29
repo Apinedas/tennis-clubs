@@ -49,14 +49,15 @@ export default async function BookCourtPage({
   if (club && policy && courts.length > 0) {
     const rangeStart = zonedTimeToUtcISO(date, "00:00", timeZone);
     const rangeEnd = zonedTimeToUtcISO(addDays(date, 1), "00:00", timeZone);
-    const { data: existing } = await supabase
-      .from("booking")
-      .select("court_id, starts_at, ends_at")
-      .eq("club_id", clubId)
-      .in("court_id", courts.map((c) => c.id))
-      .neq("status", "cancelled")
-      .gte("starts_at", rangeStart)
-      .lt("starts_at", rangeEnd);
+    // RLS on booking only lets a member see their own rows — this RPC
+    // returns just the occupied windows (no person_id) so the grid can
+    // show what's actually free, not just what the viewer booked.
+    const { data: existing } = await supabase.rpc("list_occupied_windows", {
+      p_club: clubId,
+      p_start: rangeStart,
+      p_end: rangeEnd,
+      p_court_ids: courts.map((c) => c.id),
+    });
 
     courtsWithSlots = courts.map((court) => ({
       id: court.id,

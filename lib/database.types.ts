@@ -585,6 +585,21 @@ export type Database = {
           viewer_role: Database["public"]["Enums"]["club_role"]
         }[]
       }
+      list_occupied_windows: {
+        Args: {
+          p_club: string
+          p_coach_id?: string
+          p_court_ids?: string[]
+          p_end: string
+          p_start: string
+        }
+        Returns: {
+          coach_id: string
+          court_id: string
+          ends_at: string
+          starts_at: string
+        }[]
+      }
       list_pending_payments: {
         Args: { p_club: string }
         Returns: {
