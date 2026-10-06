@@ -22,6 +22,7 @@ export const SERVICE_LABELS: Record<BookingType, string> = {
   doubles: "Dobles",
   lesson: "Clase",
   course: "Curso",
+  tournament: "Torneo",
 };
 
 export const SERVICE_OPTIONS = Object.entries(SERVICE_LABELS) as [

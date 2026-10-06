@@ -29,8 +29,8 @@ export const MODULES: {
   },
   {
     value: "tournaments",
-    label: "Torneos y rankings",
-    description: "Cuadros eliminatorios, round-robin y escalafón interno del club.",
+    label: "Torneos",
+    description: "Eliminación directa, round robin por grupos, o grupos + eliminatoria.",
   },
 ];
 
