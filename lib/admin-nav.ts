@@ -46,6 +46,12 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     description: "Clases grupales, cupo, inscripciones y asistencia.",
   },
   {
+    path: "/admin/settings/tournaments",
+    icon: "trophy",
+    label: "Torneos",
+    description: "Cuadro, inscripciones, agenda y resultados.",
+  },
+  {
     path: "/admin/settings/booking-policy",
     icon: "calendar_clock",
     label: "Reservas",

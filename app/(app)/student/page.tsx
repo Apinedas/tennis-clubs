@@ -5,7 +5,7 @@ import { createClient } from "@/lib/supabase/server";
 
 export const metadata = { title: "Alumno · Academia de Tenis" };
 
-const SHORTCUTS: { module: "bookings" | "lessons" | "courses"; href: string; icon: string; title: string; description: string }[] = [
+const SHORTCUTS: { module: "bookings" | "lessons" | "courses" | "tournaments"; href: string; icon: string; title: string; description: string }[] = [
   {
     module: "bookings",
     href: "/student/book",
@@ -26,6 +26,13 @@ const SHORTCUTS: { module: "bookings" | "lessons" | "courses"; href: string; ico
     icon: "school",
     title: "Cursos",
     description: "Clases grupales con cupo, por semanas.",
+  },
+  {
+    module: "tournaments",
+    href: "/student/tournaments",
+    icon: "trophy",
+    title: "Torneos",
+    description: "Inscríbete y sigue el cuadro.",
   },
 ];
 
