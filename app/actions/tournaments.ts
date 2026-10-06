@@ -192,11 +192,15 @@ export async function generateBracket(
     payloadEntries = groups.flatMap((g) =>
       g.entries.map((e) => ({ entry_id: e.id, group_label: g.groupLabel })),
     );
+    // slot must be unique per (tournament, phase, round) across ALL groups,
+    // not reset to 0 within each one — a per-group index collides with any
+    // other group's match 0, 1, 2… as soon as there's more than one group.
+    let slot = 0;
     payloadMatches = groups.flatMap((g) =>
-      roundRobinPairs(g.entries).map(([a, b], i) => ({
+      roundRobinPairs(g.entries).map(([a, b]) => ({
         phase: "group" as const,
         round: 1,
-        slot: i,
+        slot: slot++,
         entry1_id: a.id,
         entry2_id: b.id,
         winner_entry_id: null,
