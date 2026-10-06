@@ -40,6 +40,12 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     description: "Invita entrenadores y alumnos, gestiona sus roles.",
   },
   {
+    path: "/admin/settings/courses",
+    icon: "school",
+    label: "Cursos",
+    description: "Clases grupales, cupo, inscripciones y asistencia.",
+  },
+  {
     path: "/admin/settings/booking-policy",
     icon: "calendar_clock",
     label: "Reservas",

@@ -30,16 +30,23 @@ export default async function CoachPage({
   const today = new Date().toISOString().slice(0, 10);
   const date = typeof params.date === "string" && params.date ? params.date : today;
 
-  const [{ data: club }, { data: lessons }, { data: ownBookings }] = await Promise.all([
-    supabase.from("club").select("timezone").eq("id", clubId).single(),
-    supabase.rpc("list_my_lessons", { p_club: clubId }),
-    supabase
-      .from("booking")
-      .select("id, status, starts_at, ends_at, type, court:court(name)")
-      .eq("club_id", clubId)
-      .eq("person_id", session.userId)
-      .in("type", ["singles", "doubles"]),
-  ]);
+  const [{ data: club }, { data: lessons }, { data: ownBookings }, { data: coursesModule }] =
+    await Promise.all([
+      supabase.from("club").select("timezone").eq("id", clubId).single(),
+      supabase.rpc("list_my_lessons", { p_club: clubId }),
+      supabase
+        .from("booking")
+        .select("id, status, starts_at, ends_at, type, court:court(name)")
+        .eq("club_id", clubId)
+        .eq("person_id", session.userId)
+        .in("type", ["singles", "doubles"]),
+      supabase
+        .from("club_module")
+        .select("active")
+        .eq("club_id", clubId)
+        .eq("module", "courses")
+        .maybeSingle(),
+    ]);
   const timeZone = club?.timezone ?? "America/Bogota";
 
   const mine = (lessons ?? []).filter((l) => l.viewer_role === "coach");
@@ -97,6 +104,11 @@ export default async function CoachPage({
           <p className="text-body-md text-on-surface-variant">
             Solicitudes de clase y tu cronograma del día.
           </p>
+          {coursesModule?.active && (
+            <Link href="/coach/courses" className="mt-1 text-label-sm text-primary hover:underline">
+              Mis Cursos →
+            </Link>
+          )}
         </div>
 
         <section className="flex flex-col gap-3">

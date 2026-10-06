@@ -828,16 +828,20 @@ export type Database = {
         Args: { p_club: string }
         Returns: {
           active: boolean
+          assistant_coach_id: string
           capacity: number
+          court_id: string
           court_name: string
           end_date: string
           end_time: string
           enrolled_count: number
+          head_coach_id: string
           head_coach_name: string
           id: string
           level: string
           name: string
           price_amount: number
+          rate_id: string
           start_date: string
           start_time: string
           weekdays: number[]
@@ -865,6 +869,15 @@ export type Database = {
           person_id: string
           review_note: string
           status: Database["public"]["Enums"]["enrollment_status"]
+        }[]
+      }
+      list_course_sessions: {
+        Args: { p_course_id: string }
+        Returns: {
+          ends_at: string
+          id: string
+          starts_at: string
+          status: Database["public"]["Enums"]["booking_status"]
         }[]
       }
       list_my_lessons: {
