@@ -2,7 +2,7 @@
 
 import { useActionState, useRef } from "react";
 import { toggleModule } from "@/app/actions/module-settings";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Switch } from "@/components/ui/switch";
 import type { Database } from "@/lib/database.types";
 import { MODULES, type ClubModuleName } from "@/lib/modules";
 
@@ -95,9 +95,9 @@ function ModuleToggle({
     <form ref={formRef} action={formAction} className="shrink-0">
       <input type="hidden" name="module" value={module} />
       <input type="hidden" name="active" value={(!active).toString()} />
-      <Checkbox
+      <Switch
         id={`module-active-${module}`}
-        label={active ? "Activo" : "Inactivo"}
+        label={active ? "Desactivar módulo" : "Activar módulo"}
         checked={active}
         disabled={disabled || pending}
         onChange={() => formRef.current?.requestSubmit()}
