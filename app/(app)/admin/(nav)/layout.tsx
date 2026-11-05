@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { AdminNav } from "@/components/admin-nav";
 import { AppShell } from "@/components/app-shell";
+import { SidebarNav } from "@/components/sidebar-nav";
 import { getProfile, requireArea } from "@/lib/auth/dal";
+import { ADMIN_NAV_ITEMS } from "@/lib/nav-items";
 
 // Shared chrome for every admin destination except the dashboard itself
 // (/admin, which already shows this same list as cards and doesn't need a
@@ -16,11 +17,20 @@ export default async function AdminNavLayout({
   const profile = await getProfile();
 
   return (
-    <AppShell profile={profile} area="admin">
+    <AppShell
+      profile={profile}
+      area="admin"
+      nav={{ items: ADMIN_NAV_ITEMS, hubHref: "/admin", hubLabel: "Administración" }}
+    >
       <div className="flex flex-col gap-6 md:flex-row">
-        <AdminNav />
+        <SidebarNav
+          items={ADMIN_NAV_ITEMS}
+          backHref="/admin"
+          backLabel="Administración"
+          ariaLabel="Navegación de administración"
+        />
         <div className="min-w-0 flex-1">
-          {/* AdminNav's own "← Administración" is desktop-only (hidden
+          {/* SidebarNav's own "← Administración" is desktop-only (hidden
               below md); without this, mobile had no way back except the
               hamburger. */}
           <Link

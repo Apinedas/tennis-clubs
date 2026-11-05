@@ -4,21 +4,25 @@ import { ProfileMenu } from "@/components/profile-menu";
 import type { Profile } from "@/lib/auth/dal";
 import { AREAS, allowedAreas, type Area } from "@/lib/auth/roles";
 import { darken } from "@/lib/color";
+import type { NavItem } from "@/lib/nav-items";
 
 const HEX_RE = /^#[0-9a-fA-F]{6}$/;
 
 // Common structure for authenticated areas: header with club, area nav
 // (desktop only — role/club switching lives in ProfileMenu instead, since
 // most people only ever have one role in one club) and the profile menu.
-// The mobile hamburger (MobileNav) is admin-only: it's the one area with
-// enough sub-destinations to need its own navigation on a narrow screen.
+// `nav`, when passed, also renders the mobile hamburger (MobileNav) — the
+// area's own SidebarNav (desktop, hidden below md) is rendered by the
+// caller's layout, beside AppShell's children, not inside AppShell itself.
 export function AppShell({
   profile,
   area,
+  nav,
   children,
 }: {
   profile: Profile;
   area: Area;
+  nav?: { items: NavItem[]; hubHref: string; hubLabel: string };
   children: React.ReactNode;
 }) {
   const areas = AREAS.filter((a) =>
@@ -83,7 +87,7 @@ export function AppShell({
             )}
           </nav>
           <div className="flex items-center gap-2">
-            {area === "admin" && <MobileNav />}
+            {nav && <MobileNav items={nav.items} hubHref={nav.hubHref} hubLabel={nav.hubLabel} />}
             <ProfileMenu
               fullName={profile.fullName}
               email={profile.email}

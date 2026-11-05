@@ -3,12 +3,20 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { ADMIN_NAV_ITEMS } from "@/lib/admin-nav";
+import type { NavItem } from "@/lib/nav-items";
 
-// Mobile-only entry point into the admin destinations that, on desktop,
-// live in the AdminNav sidebar (hidden below md). Role/club switching and
-// "Mi perfil" live in ProfileMenu instead — this is admin navigation only.
-export function MobileNav() {
+// Mobile-only entry point into an area's destinations that, on desktop,
+// live in the SidebarNav sidebar (hidden below md). Role/club switching and
+// "Mi perfil" live in ProfileMenu instead — this is area navigation only.
+export function MobileNav({
+  items,
+  hubHref,
+  hubLabel,
+}: {
+  items: NavItem[];
+  hubHref?: string;
+  hubLabel?: string;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -48,18 +56,22 @@ export function MobileNav() {
           role="menu"
           className="absolute right-0 top-11 z-20 w-64 rounded-xl border border-border bg-surface-container-lowest p-1.5 shadow-lg"
         >
-          <Link
-            href="/admin"
-            role="menuitem"
-            onClick={() => setOpen(false)}
-            aria-current={pathname === "/admin" ? "page" : undefined}
-            className="block rounded-lg px-2.5 py-2 text-body-md-medium text-on-surface hover:bg-surface-container"
-          >
-            Administración
-          </Link>
-          <div className="my-1 border-t border-border" />
-          {ADMIN_NAV_ITEMS.map((item) => {
-            const active = pathname.startsWith(item.path);
+          {hubHref && hubLabel && (
+            <>
+              <Link
+                href={hubHref}
+                role="menuitem"
+                onClick={() => setOpen(false)}
+                aria-current={pathname === hubHref ? "page" : undefined}
+                className="block rounded-lg px-2.5 py-2 text-body-md-medium text-on-surface hover:bg-surface-container"
+              >
+                {hubLabel}
+              </Link>
+              <div className="my-1 border-t border-border" />
+            </>
+          )}
+          {items.map((item) => {
+            const active = pathname === item.path || pathname.startsWith(`${item.path}/`);
             return (
               <Link
                 key={item.path}

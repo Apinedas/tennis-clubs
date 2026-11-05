@@ -1,8 +1,7 @@
 import Link from "next/link";
-import { AppShell } from "@/components/app-shell";
 import { LessonStatusBadge } from "@/components/lesson-status-badge";
 import { PaymentStatusBadge } from "@/components/payment-status-badge";
-import { getProfile, requireArea } from "@/lib/auth/dal";
+import { requireArea } from "@/lib/auth/dal";
 import { formatLocalTime } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import type { Database } from "@/lib/database.types";
@@ -29,7 +28,6 @@ export default async function ReservationsPage({
   searchParams,
 }: PageProps<"/student/reservations">) {
   const session = await requireArea("student");
-  const profile = await getProfile();
   const clubId = session.context.clubId as string;
   const supabase = await createClient();
 
@@ -90,107 +88,102 @@ export default async function ReservationsPage({
   const visible = tab === "upcoming" ? upcoming : history;
 
   return (
-    <AppShell profile={profile} area="student">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-1">
-          <Link href="/student" className="text-label-sm text-on-surface-variant hover:text-on-surface">
-            ← Alumno
-          </Link>
-          <h1 className="text-headline-lg text-on-surface">Mis reservas</h1>
-        </div>
-
-        {policy && (
-          <div className="rounded-lg border border-available-border bg-available-bg p-3 text-body-md text-available-fg">
-            Cancelaciones sin recargo hasta {policy.cancellation_hours} horas antes del turno.
-          </div>
-        )}
-
-        <div className="flex gap-2">
-          <Link
-            href="?tab=upcoming"
-            className={
-              tab === "upcoming"
-                ? "rounded-lg bg-primary px-3 py-1.5 text-label-sm text-on-primary"
-                : "rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface-variant hover:bg-surface-container"
-            }
-          >
-            Próximas ({upcoming.length})
-          </Link>
-          <Link
-            href="?tab=history"
-            className={
-              tab === "history"
-                ? "rounded-lg bg-primary px-3 py-1.5 text-label-sm text-on-primary"
-                : "rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface-variant hover:bg-surface-container"
-            }
-          >
-            Historial ({history.length})
-          </Link>
-        </div>
-
-        {visible.length === 0 ? (
-          <p className="text-body-md text-on-surface-variant">
-            {tab === "upcoming" ? "No tienes reservas próximas." : "Todavía no hay historial."}
-          </p>
-        ) : (
-          <ul className="flex flex-col gap-2">
-            {visible.map((r) => {
-              const lateForFreeCancel =
-                policy != null &&
-                new Date(r.startsAt).getTime() - now.getTime() < policy.cancellation_hours * 3_600_000;
-
-              return (
-                <li
-                  key={r.id}
-                  className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface-container-lowest p-3"
-                >
-                  <div>
-                    <div className="flex flex-wrap items-center gap-2">
-                      <p className="text-body-md-medium text-on-surface">{r.title}</p>
-                      <LessonStatusBadge status={r.status} />
-                      {r.status === "confirmed" && <PaymentStatusBadge status={r.paymentStatus} />}
-                    </div>
-                    <p className="text-label-xs text-on-surface-variant">
-                      {new Date(r.startsAt).toLocaleDateString("es-CO", {
-                        weekday: "long",
-                        day: "numeric",
-                        month: "long",
-                      })}{" "}
-                      · {formatLocalTime(r.startsAt, timeZone)}–{formatLocalTime(r.endsAt, timeZone)}
-                      {r.subtitle && ` · ${r.subtitle}`}
-                    </p>
-                    {r.status === "confirmed" && r.paymentStatus === "unpaid" && r.paymentRejectionNote && (
-                      <p className="mt-1 max-w-xs text-label-xs text-blocked-fg">
-                        Comprobante rechazado: {r.paymentRejectionNote}
-                      </p>
-                    )}
-                  </div>
-                  <div className="flex flex-col items-end gap-2">
-                    {r.status === "confirmed" && r.paymentStatus === "unpaid" && (
-                      <PaymentProofUpload bookingId={r.id} clubId={clubId} />
-                    )}
-                    {tab === "upcoming" &&
-                      (policy?.self_cancel_allowed ? (
-                        <div className="flex flex-col items-end gap-1">
-                          <CancelReservationButton bookingId={r.id} />
-                          {lateForFreeCancel && (
-                            <span className="max-w-[180px] text-right text-label-xs text-on-surface-variant">
-                              Fuera del plazo de cancelación sin recargo
-                            </span>
-                          )}
-                        </div>
-                      ) : (
-                        <span className="text-label-xs text-on-surface-variant">
-                          El club gestiona las cancelaciones
-                        </span>
-                      ))}
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
-        )}
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-headline-lg text-on-surface">Mis reservas</h1>
       </div>
-    </AppShell>
+
+      {policy && (
+        <div className="rounded-lg border border-available-border bg-available-bg p-3 text-body-md text-available-fg">
+          Cancelaciones sin recargo hasta {policy.cancellation_hours} horas antes del turno.
+        </div>
+      )}
+
+      <div className="flex gap-2">
+        <Link
+          href="?tab=upcoming"
+          className={
+            tab === "upcoming"
+              ? "rounded-lg bg-primary px-3 py-1.5 text-label-sm text-on-primary"
+              : "rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface-variant hover:bg-surface-container"
+          }
+        >
+          Próximas ({upcoming.length})
+        </Link>
+        <Link
+          href="?tab=history"
+          className={
+            tab === "history"
+              ? "rounded-lg bg-primary px-3 py-1.5 text-label-sm text-on-primary"
+              : "rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface-variant hover:bg-surface-container"
+          }
+        >
+          Historial ({history.length})
+        </Link>
+      </div>
+
+      {visible.length === 0 ? (
+        <p className="text-body-md text-on-surface-variant">
+          {tab === "upcoming" ? "No tienes reservas próximas." : "Todavía no hay historial."}
+        </p>
+      ) : (
+        <ul className="flex flex-col gap-2">
+          {visible.map((r) => {
+            const lateForFreeCancel =
+              policy != null &&
+              new Date(r.startsAt).getTime() - now.getTime() < policy.cancellation_hours * 3_600_000;
+
+            return (
+              <li
+                key={r.id}
+                className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border bg-surface-container-lowest p-3"
+              >
+                <div>
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-body-md-medium text-on-surface">{r.title}</p>
+                    <LessonStatusBadge status={r.status} />
+                    {r.status === "confirmed" && <PaymentStatusBadge status={r.paymentStatus} />}
+                  </div>
+                  <p className="text-label-xs text-on-surface-variant">
+                    {new Date(r.startsAt).toLocaleDateString("es-CO", {
+                      weekday: "long",
+                      day: "numeric",
+                      month: "long",
+                    })}{" "}
+                    · {formatLocalTime(r.startsAt, timeZone)}–{formatLocalTime(r.endsAt, timeZone)}
+                    {r.subtitle && ` · ${r.subtitle}`}
+                  </p>
+                  {r.status === "confirmed" && r.paymentStatus === "unpaid" && r.paymentRejectionNote && (
+                    <p className="mt-1 max-w-xs text-label-xs text-blocked-fg">
+                      Comprobante rechazado: {r.paymentRejectionNote}
+                    </p>
+                  )}
+                </div>
+                <div className="flex flex-col items-end gap-2">
+                  {r.status === "confirmed" && r.paymentStatus === "unpaid" && (
+                    <PaymentProofUpload bookingId={r.id} clubId={clubId} />
+                  )}
+                  {tab === "upcoming" &&
+                    (policy?.self_cancel_allowed ? (
+                      <div className="flex flex-col items-end gap-1">
+                        <CancelReservationButton bookingId={r.id} />
+                        {lateForFreeCancel && (
+                          <span className="max-w-[180px] text-right text-label-xs text-on-surface-variant">
+                            Fuera del plazo de cancelación sin recargo
+                          </span>
+                        )}
+                      </div>
+                    ) : (
+                      <span className="text-label-xs text-on-surface-variant">
+                        El club gestiona las cancelaciones
+                      </span>
+                    ))}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
   );
 }

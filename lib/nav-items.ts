@@ -1,14 +1,24 @@
-// Single source of truth for admin destinations — reused by the dashboard
-// cards, the desktop sidebar, and the mobile hamburger, so the three never
-// drift out of sync.
-export type AdminNavItem = {
+import type { ClubModuleName } from "./modules";
+
+// Single source of truth for each area's destinations — reused by the
+// dashboard/hub cards, the desktop sidebar, and the mobile hamburger, so the
+// three never drift out of sync. `module`, when set, gates the item behind
+// that club module being active (filterByModules below); admin's settings
+// items have none — admins must reach them to turn a module on in the first
+// place.
+export type NavItem = {
   path: string;
   icon: string;
   label: string;
   description: string;
+  module?: ClubModuleName;
 };
 
-export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
+export function filterByModules(items: NavItem[], enabled: Set<ClubModuleName>) {
+  return items.filter((item) => !item.module || enabled.has(item.module));
+}
+
+export const ADMIN_NAV_ITEMS: NavItem[] = [
   {
     path: "/admin/schedule",
     icon: "calendar_month",
@@ -74,5 +84,65 @@ export const ADMIN_NAV_ITEMS: AdminNavItem[] = [
     icon: "receipt_long",
     label: "Pagos",
     description: "Comprobantes pendientes de revisión.",
+  },
+];
+
+export const COACH_NAV_ITEMS: NavItem[] = [
+  {
+    path: "/coach",
+    icon: "calendar_month",
+    label: "Agenda",
+    description: "Solicitudes de clase y tu cronograma del día.",
+    module: "lessons",
+  },
+  {
+    path: "/coach/courses",
+    icon: "school",
+    label: "Mis Cursos",
+    description: "Cursos que dictas y pase de lista por sesión.",
+    module: "courses",
+  },
+];
+
+export const STUDENT_NAV_ITEMS: NavItem[] = [
+  {
+    path: "/student/book",
+    icon: "stadium",
+    label: "Reservar cancha",
+    description: "Elige cancha y horario para jugar sencillos o dobles.",
+    module: "bookings",
+  },
+  {
+    path: "/student/lessons",
+    icon: "sports_tennis",
+    label: "Solicitar clase",
+    description: "Pide una clase con un entrenador del club.",
+    module: "lessons",
+  },
+  {
+    path: "/student/courses",
+    icon: "school",
+    label: "Cursos",
+    description: "Clases grupales con cupo, por semanas.",
+    module: "courses",
+  },
+  {
+    path: "/student/tournaments",
+    icon: "trophy",
+    label: "Torneos",
+    description: "Inscríbete y sigue el cuadro.",
+    module: "tournaments",
+  },
+  {
+    path: "/student/reservations",
+    icon: "event_note",
+    label: "Mis reservas",
+    description: "Tus próximas clases y reservas, y tu historial.",
+  },
+  {
+    path: "/student/profile",
+    icon: "person",
+    label: "Mi perfil",
+    description: "Tus datos de contacto y contraseña.",
   },
 ];

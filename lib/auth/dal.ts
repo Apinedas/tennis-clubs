@@ -76,6 +76,18 @@ export async function requireModuleEnabled(
   return session;
 }
 
+// Bulk version of the check inside requireModuleEnabled, for screens that
+// need to know several modules at once (nav sidebars filtering their own
+// items) instead of gating a single page.
+export async function getEnabledModules(clubId: string): Promise<Set<ClubModuleName>> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("club_module")
+    .select("module, active")
+    .eq("club_id", clubId);
+  return new Set((data ?? []).filter((m) => m.active).map((m) => m.module));
+}
+
 export type Profile = {
   userId: string;
   email: string;

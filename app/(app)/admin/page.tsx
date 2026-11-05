@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { AppShell } from "@/components/app-shell";
 import { getProfile, requireArea } from "@/lib/auth/dal";
-import { ADMIN_NAV_ITEMS } from "@/lib/admin-nav";
+import { ADMIN_NAV_ITEMS } from "@/lib/nav-items";
 
 export const metadata = { title: "Administración · Academia de Tenis" };
 
@@ -10,7 +10,11 @@ export default async function AdminPage() {
   const profile = await getProfile();
 
   return (
-    <AppShell profile={profile} area="admin">
+    <AppShell
+      profile={profile}
+      area="admin"
+      nav={{ items: ADMIN_NAV_ITEMS, hubHref: "/admin", hubLabel: "Administración" }}
+    >
       <h1 className="text-headline-lg text-on-surface">Administración</h1>
       <p className="mt-1 text-body-md text-on-surface-variant">
         {profile.clubName}

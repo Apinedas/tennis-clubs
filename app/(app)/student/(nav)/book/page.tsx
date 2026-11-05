@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { AppShell } from "@/components/app-shell";
-import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
+import { requireArea, requireModuleEnabled } from "@/lib/auth/dal";
 import { addDays, generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import { BookingGrid } from "./booking-actions";
@@ -20,7 +19,6 @@ export default async function BookCourtPage({
 }: PageProps<"/student/book">) {
   await requireArea("student");
   const session = await requireModuleEnabled("bookings", { back: "/student" });
-  const profile = await getProfile();
   const clubId = session.context.clubId as string;
   const supabase = await createClient();
 
@@ -97,102 +95,94 @@ export default async function BookCourtPage({
   }
 
   return (
-    <AppShell profile={profile} area="student">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-1">
-          <Link href="/student" className="text-label-sm text-on-surface-variant hover:text-on-surface">
-            ← Alumno
-          </Link>
-          <h1 className="text-headline-lg text-on-surface">Reservar cancha</h1>
-          <p className="text-body-md text-on-surface-variant">
-            Elige un día, filtra si quieres, y toca un horario libre.
-          </p>
-        </div>
-
-        <div className="flex flex-col gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm">
-          <div className="flex flex-wrap gap-2">
-            {dayChips.map((d, i) => (
-              <Link
-                key={d}
-                href={withParams({ date: d })}
-                className={
-                  d === date
-                    ? "rounded-lg bg-primary px-3 py-1.5 text-label-sm text-on-primary"
-                    : "rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface-variant hover:bg-surface-container"
-                }
-              >
-                {i === 0 ? "Hoy" : i === 1 ? "Mañana" : d.slice(5)}
-              </Link>
-            ))}
-            <form method="get" className="flex items-center gap-2">
-              <input type="hidden" name="surface" value={surfaceFilter} />
-              {coveredFilter !== null && (
-                <input type="hidden" name="covered" value={String(coveredFilter)} />
-              )}
-              <input
-                type="date"
-                name="date"
-                defaultValue={date}
-                min={today}
-                max={maxDate}
-                className="h-9 rounded-lg border border-border bg-surface-container-lowest px-2 text-label-sm text-on-surface"
-              />
-              <button
-                type="submit"
-                className="rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface hover:bg-surface-container"
-              >
-                Ir
-              </button>
-            </form>
-          </div>
-
-          {surfaces.size > 1 && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-label-xs uppercase text-on-surface-variant">Superficie:</span>
-              <Link href={withParams({ surface: null })} className={chipClass(!surfaceFilter)}>
-                Todas
-              </Link>
-              {Object.entries(SURFACE_LABELS)
-                .filter(([value]) => surfaces.has(value))
-                .map(([value, label]) => (
-                  <Link key={value} href={withParams({ surface: value })} className={chipClass(surfaceFilter === value)}>
-                    {label}
-                  </Link>
-                ))}
-            </div>
-          )}
-          {coveredValues.size > 1 && (
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-label-xs uppercase text-on-surface-variant">Cubierta:</span>
-              <Link href={withParams({ covered: null })} className={chipClass(coveredFilter === null)}>
-                Todas
-              </Link>
-              <Link href={withParams({ covered: "true" })} className={chipClass(coveredFilter === true)}>
-                Techada
-              </Link>
-              <Link href={withParams({ covered: "false" })} className={chipClass(coveredFilter === false)}>
-                Descubierta
-              </Link>
-            </div>
-          )}
-        </div>
-
-        {courtsWithSlots.length === 0 ? (
-          <p className="text-body-md text-on-surface-variant">
-            No hay canchas que coincidan con el filtro.
-          </p>
-        ) : (
-          <BookingGrid key={date} courts={courtsWithSlots} date={date} timeZone={timeZone} />
-        )}
-
-        <Link
-          href="/student/reservations"
-          className="text-body-md text-primary hover:underline"
-        >
-          Ver mis clases y reservas →
-        </Link>
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-headline-lg text-on-surface">Reservar cancha</h1>
+        <p className="text-body-md text-on-surface-variant">
+          Elige un día, filtra si quieres, y toca un horario libre.
+        </p>
       </div>
-    </AppShell>
+
+      <div className="flex flex-col gap-3 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm">
+        <div className="flex flex-wrap gap-2">
+          {dayChips.map((d, i) => (
+            <Link
+              key={d}
+              href={withParams({ date: d })}
+              className={
+                d === date
+                  ? "rounded-lg bg-primary px-3 py-1.5 text-label-sm text-on-primary"
+                  : "rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface-variant hover:bg-surface-container"
+              }
+            >
+              {i === 0 ? "Hoy" : i === 1 ? "Mañana" : d.slice(5)}
+            </Link>
+          ))}
+          <form method="get" className="flex items-center gap-2">
+            <input type="hidden" name="surface" value={surfaceFilter} />
+            {coveredFilter !== null && (
+              <input type="hidden" name="covered" value={String(coveredFilter)} />
+            )}
+            <input
+              type="date"
+              name="date"
+              defaultValue={date}
+              min={today}
+              max={maxDate}
+              className="h-9 rounded-lg border border-border bg-surface-container-lowest px-2 text-label-sm text-on-surface"
+            />
+            <button
+              type="submit"
+              className="rounded-lg border border-border px-3 py-1.5 text-label-sm text-on-surface hover:bg-surface-container"
+            >
+              Ir
+            </button>
+          </form>
+        </div>
+
+        {surfaces.size > 1 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-label-xs uppercase text-on-surface-variant">Superficie:</span>
+            <Link href={withParams({ surface: null })} className={chipClass(!surfaceFilter)}>
+              Todas
+            </Link>
+            {Object.entries(SURFACE_LABELS)
+              .filter(([value]) => surfaces.has(value))
+              .map(([value, label]) => (
+                <Link key={value} href={withParams({ surface: value })} className={chipClass(surfaceFilter === value)}>
+                  {label}
+                </Link>
+              ))}
+          </div>
+        )}
+        {coveredValues.size > 1 && (
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-label-xs uppercase text-on-surface-variant">Cubierta:</span>
+            <Link href={withParams({ covered: null })} className={chipClass(coveredFilter === null)}>
+              Todas
+            </Link>
+            <Link href={withParams({ covered: "true" })} className={chipClass(coveredFilter === true)}>
+              Techada
+            </Link>
+            <Link href={withParams({ covered: "false" })} className={chipClass(coveredFilter === false)}>
+              Descubierta
+            </Link>
+          </div>
+        )}
+      </div>
+
+      {courtsWithSlots.length === 0 ? (
+        <p className="text-body-md text-on-surface-variant">
+          No hay canchas que coincidan con el filtro.
+        </p>
+      ) : (
+        <BookingGrid key={date} courts={courtsWithSlots} date={date} timeZone={timeZone} />
+      )}
+
+      <Link href="/student/reservations" className="text-body-md text-primary hover:underline">
+        Ver mis clases y reservas →
+      </Link>
+    </div>
   );
 }
 
