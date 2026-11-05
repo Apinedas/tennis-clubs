@@ -20,7 +20,9 @@ import { WEEKDAYS, formatMoney } from "@/lib/labels";
 import type { Database } from "@/lib/database.types";
 
 type Course = Database["public"]["Functions"]["list_club_courses"]["Returns"][number];
-type Pending = Database["public"]["Functions"]["list_pending_enrollments"]["Returns"][number];
+type Pending = Database["public"]["Functions"]["list_pending_enrollments"]["Returns"][number] & {
+  proofUrl: string | null;
+};
 type RosterRow = Database["public"]["Functions"]["list_course_roster"]["Returns"][number];
 type Court = { id: string; name: string };
 type Coach = { person_id: string; full_name: string };
@@ -273,6 +275,16 @@ function PendingRow({ item }: { item: Pending }) {
         <p className="text-label-xs text-on-surface-variant">
           {label} · {item.course_name}
         </p>
+        {item.proofUrl && (
+          <a
+            href={item.proofUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-label-xs text-primary hover:underline"
+          >
+            Ver comprobante →
+          </a>
+        )}
       </div>
       {noteOpen ? (
         <form action={formAction} className="flex items-center gap-1">

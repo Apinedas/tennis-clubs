@@ -445,6 +445,7 @@ export type Database = {
           course_id: string
           created_at: string
           id: string
+          payment_proof_path: string | null
           person_id: string
           requested_by: string | null
           review_note: string | null
@@ -457,6 +458,7 @@ export type Database = {
           course_id: string
           created_at?: string
           id?: string
+          payment_proof_path?: string | null
           person_id: string
           requested_by?: string | null
           review_note?: string | null
@@ -469,6 +471,7 @@ export type Database = {
           course_id?: string
           created_at?: string
           id?: string
+          payment_proof_path?: string | null
           person_id?: string
           requested_by?: string | null
           review_note?: string | null
@@ -789,6 +792,7 @@ export type Database = {
           id: string
           knockout_generated: boolean
           name: string
+          rate_id: string | null
           registration_open: boolean
           start_date: string | null
         }
@@ -804,6 +808,7 @@ export type Database = {
           id?: string
           knockout_generated?: boolean
           name: string
+          rate_id?: string | null
           registration_open?: boolean
           start_date?: string | null
         }
@@ -819,6 +824,7 @@ export type Database = {
           id?: string
           knockout_generated?: boolean
           name?: string
+          rate_id?: string | null
           registration_open?: boolean
           start_date?: string | null
         }
@@ -830,6 +836,13 @@ export type Database = {
             referencedRelation: "club"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "tournament_rate_fk"
+            columns: ["rate_id", "club_id"]
+            isOneToOne: false
+            referencedRelation: "rate"
+            referencedColumns: ["id", "club_id"]
+          },
         ]
       }
       tournament_entry: {
@@ -838,8 +851,13 @@ export type Database = {
           created_at: string
           group_label: string | null
           id: string
+          payment_proof_path: string | null
+          payment_rejection_note: string | null
           person_id: string
+          reviewed_at: string | null
+          reviewed_by: string | null
           seed: number | null
+          status: Database["public"]["Enums"]["entry_status"]
           tournament_id: string
         }
         Insert: {
@@ -847,8 +865,13 @@ export type Database = {
           created_at?: string
           group_label?: string | null
           id?: string
+          payment_proof_path?: string | null
+          payment_rejection_note?: string | null
           person_id: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           seed?: number | null
+          status?: Database["public"]["Enums"]["entry_status"]
           tournament_id: string
         }
         Update: {
@@ -856,8 +879,13 @@ export type Database = {
           created_at?: string
           group_label?: string | null
           id?: string
+          payment_proof_path?: string | null
+          payment_rejection_note?: string | null
           person_id?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           seed?: number | null
+          status?: Database["public"]["Enums"]["entry_status"]
           tournament_id?: string
         }
         Relationships: [
@@ -874,6 +902,13 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "membership"
             referencedColumns: ["person_id", "club_id"]
+          },
+          {
+            foreignKeyName: "tournament_entry_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "person"
+            referencedColumns: ["id"]
           },
           {
             foreignKeyName: "tournament_entry_tournament_fk"
@@ -1042,6 +1077,7 @@ export type Database = {
           p_format: Database["public"]["Enums"]["tournament_format"]
           p_group_size: number
           p_name: string
+          p_rate_id?: string
           p_start_date: string
         }
         Returns: string
@@ -1116,6 +1152,8 @@ export type Database = {
           id: string
           knockout_generated: boolean
           name: string
+          price_amount: number
+          rate_id: string
           registration_open: boolean
           start_date: string
         }[]
@@ -1176,6 +1214,7 @@ export type Database = {
           course_id: string
           course_name: string
           id: string
+          payment_proof_path: string
           person_id: string
           person_name: string
           status: Database["public"]["Enums"]["enrollment_status"]
@@ -1194,14 +1233,27 @@ export type Database = {
           type: Database["public"]["Enums"]["booking_type"]
         }[]
       }
+      list_pending_tournament_entries: {
+        Args: { p_club: string }
+        Returns: {
+          id: string
+          payment_proof_path: string
+          person_id: string
+          person_name: string
+          tournament_id: string
+          tournament_name: string
+        }[]
+      }
       list_tournament_entries: {
         Args: { p_tournament_id: string }
         Returns: {
           full_name: string
           group_label: string
           id: string
+          payment_proof_path: string
           person_id: string
           seed: number
+          status: Database["public"]["Enums"]["entry_status"]
         }[]
       }
       list_tournament_matches: {
@@ -1284,13 +1336,20 @@ export type Database = {
         }
         Returns: undefined
       }
-      request_enrollment: { Args: { p_course_id: string }; Returns: undefined }
+      request_enrollment: {
+        Args: { p_course_id: string; p_payment_proof_path?: string }
+        Returns: undefined
+      }
       request_tournament_entry: {
-        Args: { p_tournament_id: string }
+        Args: { p_payment_proof_path?: string; p_tournament_id: string }
         Returns: undefined
       }
       request_unenroll: { Args: { p_id: string }; Returns: undefined }
       review_enrollment: {
+        Args: { p_approve: boolean; p_id: string; p_note?: string }
+        Returns: undefined
+      }
+      review_entry: {
         Args: { p_approve: boolean; p_id: string; p_note?: string }
         Returns: undefined
       }
@@ -1333,6 +1392,7 @@ export type Database = {
         | "active"
         | "pending_cancellation"
         | "cancelled"
+      entry_status: "pending" | "active" | "cancelled"
       match_status: "pending" | "scheduled" | "completed"
       payment_status: "unpaid" | "pending_review" | "paid"
       rate_category: "member" | "non_member"
@@ -1485,6 +1545,7 @@ export const Constants = {
         "pending_cancellation",
         "cancelled",
       ],
+      entry_status: ["pending", "active", "cancelled"],
       match_status: ["pending", "scheduled", "completed"],
       payment_status: ["unpaid", "pending_review", "paid"],
       rate_category: ["member", "non_member"],

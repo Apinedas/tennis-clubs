@@ -1,6 +1,4 @@
-import Link from "next/link";
-import { AppShell } from "@/components/app-shell";
-import { getProfile, requireArea, requireModuleEnabled } from "@/lib/auth/dal";
+import { requireArea, requireModuleEnabled } from "@/lib/auth/dal";
 import { WEEKDAYS } from "@/lib/labels";
 import { createClient } from "@/lib/supabase/server";
 import { CourseActions } from "./course-actions";
@@ -15,7 +13,6 @@ function weekdaysLabel(weekdays: number[]) {
 export default async function StudentCoursesPage() {
   await requireArea("student");
   const session = await requireModuleEnabled("courses", { back: "/student" });
-  const profile = await getProfile();
   const clubId = session.context.clubId as string;
   const supabase = await createClient();
 
@@ -35,70 +32,67 @@ export default async function StudentCoursesPage() {
   const available = (courses ?? []).filter((c) => c.active && c.end_date >= today);
 
   return (
-    <AppShell profile={profile} area="student">
-      <div className="flex flex-col gap-6">
-        <div className="flex flex-col gap-1">
-          <Link href="/student" className="text-label-sm text-on-surface-variant hover:text-on-surface">
-            ← Alumno
-          </Link>
-          <h1 className="text-headline-lg text-on-surface">Academia &amp; Cursos</h1>
-          <p className="text-body-md text-on-surface-variant">
-            Clases grupales con cupo, por semanas.
-          </p>
-        </div>
-
-        {available.length === 0 ? (
-          <p className="text-body-md text-on-surface-variant">
-            No hay cursos abiertos por ahora.
-          </p>
-        ) : (
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-            {available.map((c) => {
-              const spotsLeft = c.capacity - c.enrolled_count;
-              const enrollment = enrollmentByCourse.get(c.id);
-              return (
-                <div
-                  key={c.id}
-                  className="flex flex-col gap-2 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm"
-                >
-                  <div>
-                    <h3 className="text-headline-sm font-bold text-on-surface">{c.name}</h3>
-                    <p className="text-label-xs text-on-surface-variant">
-                      {c.level ? `${c.level} · ` : ""}
-                      {c.head_coach_name}
-                    </p>
-                  </div>
-                  <p className="text-body-md text-on-surface">
-                    {weekdaysLabel(c.weekdays)} · {c.start_time.slice(0, 5)}–{c.end_time.slice(0, 5)}
-                  </p>
-                  <p className="text-label-xs text-on-surface-variant">
-                    {c.court_name} · desde{" "}
-                    {new Date(`${c.start_date}T12:00:00Z`).toLocaleDateString("es-CO", {
-                      day: "numeric",
-                      month: "long",
-                    })}{" "}
-                    hasta{" "}
-                    {new Date(`${c.end_date}T12:00:00Z`).toLocaleDateString("es-CO", {
-                      day: "numeric",
-                      month: "long",
-                    })}
-                  </p>
-                  <p className="text-label-sm text-on-surface-variant">
-                    {spotsLeft > 0 ? `${spotsLeft} cupos disponibles` : "Sin cupo"}
-                  </p>
-                  <CourseActions
-                    courseId={c.id}
-                    price={c.price_amount}
-                    currency={currency}
-                    spotsLeft={spotsLeft}
-                    enrollment={enrollment ?? null}
-                  />
-                </div>
-              );
-            })}
-          </div>
-        )}
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-headline-lg text-on-surface">Academia &amp; Cursos</h1>
+        <p className="text-body-md text-on-surface-variant">
+          Clases grupales con cupo, por semanas.
+        </p>
       </div>
-    </AppShell>
+
+      {available.length === 0 ? (
+        <p className="text-body-md text-on-surface-variant">
+          No hay cursos abiertos por ahora.
+        </p>
+      ) : (
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {available.map((c) => {
+            const spotsLeft = c.capacity - c.enrolled_count;
+            const enrollment = enrollmentByCourse.get(c.id);
+            return (
+              <div
+                key={c.id}
+                className="flex flex-col gap-2 rounded-xl border border-border bg-surface-container-lowest p-4 shadow-sm"
+              >
+                <div>
+                  <h3 className="text-headline-sm font-bold text-on-surface">{c.name}</h3>
+                  <p className="text-label-xs text-on-surface-variant">
+                    {c.level ? `${c.level} · ` : ""}
+                    {c.head_coach_name}
+                  </p>
+                </div>
+                <p className="text-body-md text-on-surface">
+                  {weekdaysLabel(c.weekdays)} · {c.start_time.slice(0, 5)}–{c.end_time.slice(0, 5)}
+                </p>
+                <p className="text-label-xs text-on-surface-variant">
+                  {c.court_name} · desde{" "}
+                  {new Date(`${c.start_date}T12:00:00Z`).toLocaleDateString("es-CO", {
+                    day: "numeric",
+                    month: "long",
+                  })}{" "}
+                  hasta{" "}
+                  {new Date(`${c.end_date}T12:00:00Z`).toLocaleDateString("es-CO", {
+                    day: "numeric",
+                    month: "long",
+                  })}
+                </p>
+                <p className="text-label-sm text-on-surface-variant">
+                  {spotsLeft > 0 ? `${spotsLeft} cupos disponibles` : "Sin cupo"}
+                </p>
+                <CourseActions
+                  courseId={c.id}
+                  price={c.price_amount}
+                  currency={currency}
+                  spotsLeft={spotsLeft}
+                  enrollment={enrollment ?? null}
+                  clubId={clubId}
+                  personId={session.userId}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
   );
 }

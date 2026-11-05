@@ -255,13 +255,22 @@ export async function requestEnrollment(
 ): Promise<FormState> {
   await requireArea("student");
   const courseId = text(formData, "course_id");
+  const proofPath = text(formData, "payment_proof_path");
   if (!courseId) return { error: "Curso inválido." };
 
   const supabase = await createClient();
-  const { error } = await supabase.rpc("request_enrollment", { p_course_id: courseId });
+  const { error } = await supabase.rpc("request_enrollment", {
+    p_course_id: courseId,
+    p_payment_proof_path: (proofPath || null) as string,
+  });
   if (error) {
     return {
-      error: error.code === "23514" ? "Ese curso ya no tiene cupo." : "No pudimos enviar tu solicitud.",
+      error:
+        error.code === "23514"
+          ? "Ese curso ya no tiene cupo."
+          : error.code === "22023"
+            ? "Este curso requiere comprobante de pago."
+            : "No pudimos enviar tu solicitud.",
     };
   }
 

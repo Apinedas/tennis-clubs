@@ -1,7 +1,8 @@
 "use client";
 
-import { useActionState } from "react";
+import { useActionState, useRef, useState } from "react";
 import { requestEnrollment, requestUnenroll } from "@/app/actions/courses";
+import { createClient } from "@/lib/supabase/client";
 import { formatMoney } from "@/lib/labels";
 
 type Enrollment = {
@@ -16,21 +17,34 @@ const STATUS_COPY: Record<string, { label: string; tone: string }> = {
   pending_cancellation: { label: "Baja solicitada", tone: "border-border bg-surface-container text-on-surface-variant" },
 };
 
+const MAX_BYTES = 5 * 1024 * 1024;
+const TYPES = new Set(["image/png", "image/jpeg", "image/jpg", "application/pdf"]);
+const EXTENSIONS = new Set(["png", "jpg", "jpeg", "pdf"]);
+
 export function CourseActions({
   courseId,
   price,
   currency,
   spotsLeft,
   enrollment,
+  clubId,
+  personId,
 }: {
   courseId: string;
   price: number | null;
   currency: string;
   spotsLeft: number;
   enrollment: Enrollment;
+  clubId: string;
+  personId: string;
 }) {
   const [enrollState, enrollAction, enrollPending] = useActionState(requestEnrollment, undefined);
   const [leaveState, leaveAction, leavePending] = useActionState(requestUnenroll, undefined);
+  const [file, setFile] = useState<File | null>(null);
+  const [fileError, setFileError] = useState<string | null>(null);
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const requiresProof = price != null && price > 0;
 
   if (enrollment && enrollment.status !== "cancelled") {
     const copy = STATUS_COPY[enrollment.status];
@@ -62,16 +76,88 @@ export function CourseActions({
     );
   }
 
+  function pickFile(f: File) {
+    setFileError(null);
+    const extension = f.name.split(".").pop()?.toLowerCase() ?? "";
+    const validType = f.type ? TYPES.has(f.type) : EXTENSIONS.has(extension);
+    if (!validType) {
+      setFileError("Usa PNG, JPG o PDF.");
+      return;
+    }
+    if (f.size > MAX_BYTES) {
+      setFileError("El archivo pesa más de 5MB.");
+      return;
+    }
+    setFile(f);
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (requiresProof && !file) {
+      setFileError("Sube tu comprobante de pago para inscribirte.");
+      return;
+    }
+
+    const formData = new FormData();
+    formData.set("course_id", courseId);
+
+    if (file) {
+      setUploading(true);
+      try {
+        const supabase = createClient();
+        const extension = file.name.split(".").pop()?.toLowerCase() || "pdf";
+        const folder = `${clubId}/${personId}/course-${courseId}`;
+        const path = `${folder}/comprobante.${extension}`;
+
+        const { data: existing } = await supabase.storage.from("payment-proofs").list(folder);
+        if (existing?.length) {
+          await supabase.storage.from("payment-proofs").remove(existing.map((f2) => `${folder}/${f2.name}`));
+        }
+
+        const { error: uploadError } = await supabase.storage.from("payment-proofs").upload(path, file);
+        if (uploadError) throw uploadError;
+
+        formData.set("payment_proof_path", path);
+      } catch {
+        setFileError("No pudimos subir el comprobante. Intenta de nuevo.");
+        setUploading(false);
+        return;
+      }
+      setUploading(false);
+    }
+
+    enrollAction(formData);
+  }
+
+  const busy = enrollPending || uploading;
+
   return (
-    <form action={enrollAction} className="flex flex-col gap-1.5">
-      <input type="hidden" name="course_id" value={courseId} />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-1.5">
+      {requiresProof && (
+        <label className="flex h-9 w-fit cursor-pointer items-center gap-1.5 whitespace-nowrap rounded-lg border border-border bg-surface-container-lowest px-3 text-label-sm text-on-surface shadow-sm hover:bg-surface-container">
+          <span className="material-symbols-outlined text-[16px]" aria-hidden>
+            upload_file
+          </span>
+          {file ? file.name : "Adjuntar comprobante"}
+          <input
+            ref={fileInputRef}
+            type="file"
+            accept="image/png,image/jpeg,image/jpg,application/pdf"
+            className="hidden"
+            onChange={(e) => {
+              const f = e.target.files?.[0];
+              if (f) pickFile(f);
+            }}
+          />
+        </label>
+      )}
       <button
         type="submit"
-        disabled={enrollPending || spotsLeft <= 0}
+        disabled={busy || spotsLeft <= 0}
         className="rounded-lg px-4 py-2.5 text-center text-body-md-medium text-white disabled:cursor-not-allowed disabled:opacity-60"
         style={{ backgroundColor: "var(--color-primary)" }}
       >
-        {enrollPending
+        {busy
           ? "Enviando…"
           : spotsLeft <= 0
             ? "Sin cupo"
@@ -79,6 +165,7 @@ export function CourseActions({
               ? `Inscribirme al Curso (${formatMoney(price, currency)})`
               : "Inscribirme al Curso"}
       </button>
+      {fileError && <span className="text-label-xs text-blocked-fg">{fileError}</span>}
       {enrollState?.error && <span className="text-label-xs text-blocked-fg">{enrollState.error}</span>}
       {enrollState?.message && <span className="text-label-xs text-available-fg">{enrollState.message}</span>}
     </form>

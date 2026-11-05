@@ -4,6 +4,8 @@ import { CoursesManager } from "./courses-manager";
 
 export const metadata = { title: "Cursos · Academia de Tenis" };
 
+const SIGNED_URL_TTL_SECONDS = 300;
+
 export default async function CoursesPage({
   searchParams,
 }: PageProps<"/admin/settings/courses">) {
@@ -42,10 +44,20 @@ export default async function CoursesPage({
     supabase.rpc("list_club_members", { p_club: clubId }),
   ]);
 
+  const pendingWithProof = await Promise.all(
+    (pending ?? []).map(async (item) => {
+      if (!item.payment_proof_path) return { ...item, proofUrl: null };
+      const { data } = await supabase.storage
+        .from("payment-proofs")
+        .createSignedUrl(item.payment_proof_path, SIGNED_URL_TTL_SECONDS);
+      return { ...item, proofUrl: data?.signedUrl ?? null };
+    }),
+  );
+
   return (
     <CoursesManager
       courses={courses ?? []}
-      pending={pending ?? []}
+      pending={pendingWithProof}
       courts={courts ?? []}
       coaches={coaches ?? []}
       courseRates={rates ?? []}

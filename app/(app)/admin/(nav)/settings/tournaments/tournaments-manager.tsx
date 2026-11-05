@@ -8,6 +8,7 @@ import {
   generateKnockoutPhase,
   registerEntry,
   reportMatchResult,
+  reviewEntry,
   scheduleMatch,
   toggleRegistration,
   withdrawEntry,
@@ -19,13 +20,24 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { computeStandings } from "@/lib/bracket";
+import { formatMoney } from "@/lib/labels";
 import type { Database } from "@/lib/database.types";
 
 type Tournament = Database["public"]["Functions"]["list_club_tournaments"]["Returns"][number];
 type Entry = Database["public"]["Functions"]["list_tournament_entries"]["Returns"][number];
 type Match = Database["public"]["Functions"]["list_tournament_matches"]["Returns"][number];
+type Pending = Database["public"]["Functions"]["list_pending_tournament_entries"]["Returns"][number] & {
+  proofUrl: string | null;
+};
 type Court = { id: string; name: string };
 type Member = { person_id: string; full_name: string };
+type TournamentRate = { id: string; name: string; price_amount: number };
+
+const ENTRY_STATUS_COPY: Record<Entry["status"], { label: string; tone: string } | null> = {
+  pending: { label: "Pendiente", tone: "border-border bg-surface-container text-on-surface-variant" },
+  active: null,
+  cancelled: { label: "Rechazada", tone: "border-blocked-border bg-blocked-bg text-blocked-fg" },
+};
 
 const FORMAT_LABELS: Record<Tournament["format"], string> = {
   single_elimination: "Eliminación directa",
@@ -37,6 +49,9 @@ export function TournamentsManager({
   tournaments,
   courts,
   members,
+  rates,
+  currency,
+  pending,
   selectedId,
   entries,
   matches,
@@ -44,6 +59,9 @@ export function TournamentsManager({
   tournaments: Tournament[];
   courts: Court[];
   members: Member[];
+  rates: TournamentRate[];
+  currency: string;
+  pending: Pending[];
   selectedId: string;
   entries: Entry[];
   matches: Match[];
@@ -73,7 +91,21 @@ export function TournamentsManager({
       <div className="flex flex-wrap gap-3">
         <Stat label="Torneos" value={tournaments.length} />
         <Stat label="Activos" value={tournaments.filter((t) => t.active).length} />
+        <Stat label="Solicitudes" value={pending.length} />
       </div>
+
+      {pending.length > 0 && (
+        <section className="flex flex-col gap-2">
+          <h2 className="text-headline-sm text-on-surface">
+            Solicitudes pendientes ({pending.length})
+          </h2>
+          <ul className="flex flex-col gap-2">
+            {pending.map((p) => (
+              <PendingRow key={p.id} item={p} />
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <input
@@ -90,7 +122,9 @@ export function TournamentsManager({
         </Button>
       </div>
 
-      {createOpen && <CreatePanel onClose={() => setCreateOpen(false)} />}
+      {createOpen && (
+        <CreatePanel onClose={() => setCreateOpen(false)} rates={rates} currency={currency} />
+      )}
 
       <div className="overflow-x-auto rounded-xl border border-border bg-surface-container-lowest shadow-sm">
         <table className="w-full min-w-[720px] text-left">
@@ -178,7 +212,72 @@ function RegistrationToggle({ tournamentId, open }: { tournamentId: string; open
   );
 }
 
-function CreatePanel({ onClose }: { onClose: () => void }) {
+function PendingRow({ item }: { item: Pending }) {
+  const [state, formAction, pending] = useActionState(reviewEntry, undefined);
+  const [noteOpen, setNoteOpen] = useState(false);
+
+  return (
+    <li className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-blocked-border bg-blocked-bg/40 p-3">
+      <div>
+        <p className="text-body-md-medium text-on-surface">{item.person_name}</p>
+        <p className="text-label-xs text-on-surface-variant">
+          Solicitud de inscripción · {item.tournament_name}
+        </p>
+        {item.proofUrl && (
+          <a
+            href={item.proofUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-label-xs text-primary hover:underline"
+          >
+            Ver comprobante →
+          </a>
+        )}
+      </div>
+      {noteOpen ? (
+        <form action={formAction} className="flex items-center gap-1">
+          <input type="hidden" name="entry_id" value={item.id} />
+          <input
+            type="text"
+            name="note"
+            placeholder="Motivo (opcional)"
+            className="h-8 w-40 rounded-lg border border-border bg-surface-container-lowest px-2 text-label-sm text-on-surface placeholder:text-on-surface-variant focus:border-primary"
+          />
+          <IconButton
+            icon="cancel"
+            label="Confirmar rechazo"
+            tone="danger"
+            type="submit"
+            name="approve"
+            value="false"
+            disabled={pending}
+          />
+          <IconButton icon="close" label="Cancelar" type="button" onClick={() => setNoteOpen(false)} />
+        </form>
+      ) : (
+        <div className="flex items-center gap-1">
+          <form action={formAction}>
+            <input type="hidden" name="entry_id" value={item.id} />
+            <input type="hidden" name="approve" value="true" />
+            <IconButton icon="check_circle" label="Aprobar" type="submit" disabled={pending} />
+          </form>
+          <IconButton icon="cancel" label="Rechazar" tone="danger" onClick={() => setNoteOpen(true)} />
+        </div>
+      )}
+      {state?.error && <p className="w-full text-label-xs text-blocked-fg">{state.error}</p>}
+    </li>
+  );
+}
+
+function CreatePanel({
+  onClose,
+  rates,
+  currency,
+}: {
+  onClose: () => void;
+  rates: TournamentRate[];
+  currency: string;
+}) {
   const [state, formAction, pending] = useActionState(createTournament, undefined);
   const [format, setFormat] = useState<Tournament["format"]>("single_elimination");
 
@@ -214,6 +313,14 @@ function CreatePanel({ onClose }: { onClose: () => void }) {
           </Select>
           <Field id="start_date" label="Fecha de inicio (opcional)" type="date" />
         </div>
+        <Select id="rate_id" label="Tarifa de inscripción (opcional)" defaultValue="">
+          <option value="">Gratis</option>
+          {rates.map((r) => (
+            <option key={r.id} value={r.id}>
+              {r.name} — {formatMoney(r.price_amount, currency)}
+            </option>
+          ))}
+        </Select>
         {format !== "single_elimination" && (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Field
@@ -360,12 +467,18 @@ function TournamentDetail({
 
 function EntryRow({ entry }: { entry: Entry }) {
   const [state, formAction, pending] = useActionState(withdrawEntry, undefined);
+  const statusCopy = ENTRY_STATUS_COPY[entry.status];
   return (
     <li className="flex items-center justify-between gap-2 rounded-lg bg-surface-container px-3 py-1.5">
       <span className="text-body-md text-on-surface">
         {entry.full_name}
         {entry.group_label && (
           <span className="ml-1.5 text-label-xs text-on-surface-variant">Grupo {entry.group_label}</span>
+        )}
+        {statusCopy && (
+          <span className={`ml-1.5 inline-flex items-center rounded-md border px-1.5 py-0.5 text-label-xs ${statusCopy.tone}`}>
+            {statusCopy.label}
+          </span>
         )}
       </span>
       <form action={formAction}>

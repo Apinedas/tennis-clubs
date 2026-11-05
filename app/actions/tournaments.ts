@@ -37,6 +37,7 @@ export async function createTournament(
   const groupSize = text(formData, "group_size");
   const advancePerGroup = text(formData, "advance_per_group");
   const startDate = text(formData, "start_date");
+  const rateId = text(formData, "rate_id");
   const fields = { name, category, format, group_size: groupSize, advance_per_group: advancePerGroup };
 
   if (name.length < 2) return { error: "Ingresa el nombre del torneo.", fields };
@@ -59,6 +60,7 @@ export async function createTournament(
     p_group_size: format === "single_elimination" ? (null as unknown as number) : Number(groupSize),
     p_advance_per_group: format === "group_knockout" ? Number(advancePerGroup) : (null as unknown as number),
     p_start_date: (startDate || null) as string,
+    p_rate_id: (rateId || null) as string,
   });
   if (error) return { error: "No pudimos crear el torneo.", fields };
 
@@ -131,18 +133,47 @@ export async function requestTournamentEntry(
 ): Promise<FormState> {
   await requireArea("student");
   const tournamentId = text(formData, "tournament_id");
+  const proofPath = text(formData, "payment_proof_path");
   if (!tournamentId) return { error: "Torneo inválido." };
 
   const supabase = await createClient();
-  const { error } = await supabase.rpc("request_tournament_entry", { p_tournament_id: tournamentId });
+  const { error } = await supabase.rpc("request_tournament_entry", {
+    p_tournament_id: tournamentId,
+    p_payment_proof_path: (proofPath || null) as string,
+  });
   if (error) {
     return {
-      error: error.code === "22023" ? "Las inscripciones están cerradas." : "No pudimos inscribirte.",
+      error:
+        error.code === "22023"
+          ? "Las inscripciones están cerradas o falta el comprobante de pago."
+          : "No pudimos inscribirte.",
     };
   }
 
   revalidatePath("/student/tournaments");
-  return { message: "Inscripción confirmada." };
+  return { message: "Solicitud enviada. Te confirmamos cuando el club la revise." };
+}
+
+export async function reviewEntry(
+  _: FormState,
+  formData: FormData,
+): Promise<FormState> {
+  await requireArea("admin");
+  const entryId = text(formData, "entry_id");
+  const approve = text(formData, "approve") === "true";
+  const note = text(formData, "note");
+  if (!entryId) return { error: "Falta la inscripción." };
+
+  const supabase = await createClient();
+  const { error } = await supabase.rpc("review_entry", {
+    p_id: entryId,
+    p_approve: approve,
+    p_note: note || undefined,
+  });
+  if (error) return { error: "No pudimos procesar la solicitud." };
+
+  revalidatePath(PATH);
+  return { message: approve ? "Solicitud aprobada." : "Solicitud rechazada." };
 }
 
 export async function generateBracket(
@@ -154,12 +185,15 @@ export async function generateBracket(
   if (!tournamentId) return { error: "Torneo inválido." };
 
   const supabase = await createClient();
-  const [{ data: tournament }, { data: entries }] = await Promise.all([
+  const [{ data: tournament }, { data: allEntries }] = await Promise.all([
     supabase.from("tournament").select("format, group_size").eq("id", tournamentId).single(),
     supabase.rpc("list_tournament_entries", { p_tournament_id: tournamentId }),
   ]);
   if (!tournament) return { error: "No pudimos cargar el torneo." };
-  if (!entries || entries.length < 2) return { error: "Necesitas al menos 2 inscritos." };
+  // Pending/rejected entries haven't cleared review — only approved players
+  // make it into the draw.
+  const entries = (allEntries ?? []).filter((e) => e.status === "active");
+  if (entries.length < 2) return { error: "Necesitas al menos 2 inscritos aprobados." };
 
   const bracketEntries: BracketEntry[] = entries.map((e) => ({ id: e.id, seed: e.seed }));
 
