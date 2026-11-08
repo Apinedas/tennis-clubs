@@ -97,6 +97,24 @@ export function formatLocalTime(utcISO: string, timeZone: string): string {
   }).format(new Date(utcISO));
 }
 
+// Today's calendar date in a given IANA zone — NOT new Date().toISOString(),
+// which is always UTC and can disagree with the zone's actual date for part
+// of every day (e.g. América/Bogotá lags UTC by 5h, so right after UTC
+// midnight it's still "yesterday" there).
+export function todayInZone(timeZone: string, now: Date = new Date()): string {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-US", {
+      timeZone,
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+      .formatToParts(now)
+      .map((p) => [p.type, p.value]),
+  );
+  return `${parts.year}-${parts.month}-${parts.day}`;
+}
+
 export function generateSlots(opts: {
   dateISO: string;
   timeZone: string;

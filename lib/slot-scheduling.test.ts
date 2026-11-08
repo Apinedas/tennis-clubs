@@ -5,6 +5,7 @@ import {
   formatLocalTime,
   generateSlots,
   isoWeekday,
+  todayInZone,
   zonedTimeToUtcISO,
 } from "./slot-scheduling.ts";
 
@@ -44,6 +45,21 @@ describe("zonedTimeToUtcISO", () => {
     const summer = zonedTimeToUtcISO("2030-01-15", "12:00", "America/Santiago");
     const winter = zonedTimeToUtcISO("2030-07-15", "12:00", "America/Santiago");
     assert.notEqual(summer, winter);
+  });
+});
+
+describe("todayInZone", () => {
+  it("returns the UTC calendar date when it matches the zone", () => {
+    const now = new Date("2030-02-04T12:00:00Z"); // midday UTC, well inside both calendar days
+    assert.equal(todayInZone("America/Bogota", now), "2030-02-04");
+  });
+
+  it("stays on the zone's calendar date even when UTC has already rolled over", () => {
+    // 02:00 UTC = 21:00 the PREVIOUS day in Bogotá (UTC-05:00) — this is the
+    // ~5h window every day where new Date().toISOString().slice(0, 10)
+    // disagrees with the club's actual "today".
+    const now = new Date("2030-02-04T02:00:00Z");
+    assert.equal(todayInZone("America/Bogota", now), "2030-02-03");
   });
 });
 

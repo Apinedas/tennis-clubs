@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { requireArea } from "@/lib/auth/dal";
 import { selectApplicableRate } from "@/lib/rate-matching";
-import { addDays, formatLocalTime, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
+import { addDays, formatLocalTime, todayInZone, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import { CancelReservationButton, ScheduleToolbar } from "./schedule-actions";
 
@@ -40,8 +40,15 @@ export default async function AdminSchedulePage({
   const clubId = session.context.clubId as string;
   const supabase = await createClient();
 
+  // Fetched first (not in the Promise.all below) because today/date depend
+  // on it: "today" must be the club's calendar date, not the server
+  // process's UTC date — new Date().toISOString() disagrees with it for
+  // part of every day.
+  const { data: club } = await supabase.from("club").select("timezone").eq("id", clubId).single();
+  const timeZone = club?.timezone ?? "America/Bogota";
+  const today = todayInZone(timeZone);
+
   const params = await searchParams;
-  const today = new Date().toISOString().slice(0, 10);
   const date = typeof params.date === "string" && params.date ? params.date : today;
   const surfaceFilter = typeof params.surface === "string" ? params.surface : "";
   const selectedBookingId = typeof params.booking === "string" ? params.booking : "";
@@ -49,9 +56,8 @@ export default async function AdminSchedulePage({
   const prefillCourt = typeof params.court === "string" ? params.court : "";
   const prefillStart = typeof params.start === "string" ? params.start : "";
 
-  const [{ data: club }, { data: allCourts }, { data: members }, { data: coaches }, { data: policy }, { data: rates }] =
+  const [{ data: allCourts }, { data: members }, { data: coaches }, { data: policy }, { data: rates }] =
     await Promise.all([
-      supabase.from("club").select("timezone").eq("id", clubId).single(),
       supabase.from("court").select("*").eq("club_id", clubId).eq("active", true).order("name"),
       supabase.rpc("list_club_members", { p_club: clubId }),
       supabase.rpc("list_club_coaches", { p_club: clubId }),
@@ -64,7 +70,6 @@ export default async function AdminSchedulePage({
         .or("category.eq.member,category.is.null"),
     ]);
 
-  const timeZone = club?.timezone ?? "America/Bogota";
   const stepMin = policy?.slot_minutes ?? 60;
   const totalRows = Math.floor((GRID_END_MIN - GRID_START_MIN) / stepMin);
   const courts = (allCourts ?? []).filter((c) => !surfaceFilter || c.surface === surfaceFilter);

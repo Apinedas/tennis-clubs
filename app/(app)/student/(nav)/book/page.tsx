@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { requireArea, requireModuleEnabled } from "@/lib/auth/dal";
-import { addDays, generateSlots, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
+import { addDays, generateSlots, todayInZone, zonedTimeToUtcISO } from "@/lib/slot-scheduling";
 import { createClient } from "@/lib/supabase/server";
 import { BookingGrid } from "./booking-actions";
 
@@ -22,19 +22,24 @@ export default async function BookCourtPage({
   const clubId = session.context.clubId as string;
   const supabase = await createClient();
 
+  // Fetched first (not in the Promise.all below) because today/date depend
+  // on it: "today" must be the club's calendar date, not the server
+  // process's UTC date — new Date().toISOString() disagrees with it for
+  // part of every day.
+  const { data: club } = await supabase.from("club").select("timezone").eq("id", clubId).single();
+  const timeZone = club?.timezone ?? "America/Bogota";
+  const today = todayInZone(timeZone);
+
   const params = await searchParams;
-  const today = new Date().toISOString().slice(0, 10);
   const date = typeof params.date === "string" ? params.date : today;
   const surfaceFilter = typeof params.surface === "string" ? params.surface : "";
   const coveredFilter = params.covered === "true" ? true : params.covered === "false" ? false : null;
 
-  const [{ data: club }, { data: policy }, { data: allCourts }] = await Promise.all([
-    supabase.from("club").select("timezone").eq("id", clubId).single(),
+  const [{ data: policy }, { data: allCourts }] = await Promise.all([
     supabase.from("booking_policy").select("*").eq("club_id", clubId).single(),
     supabase.from("court").select("*").eq("club_id", clubId).eq("active", true).order("name"),
   ]);
 
-  const timeZone = club?.timezone ?? "America/Bogota";
   const surfaces = new Set<string>((allCourts ?? []).map((c) => c.surface));
   const coveredValues = new Set((allCourts ?? []).map((c) => c.covered));
   const courts = (allCourts ?? []).filter(
@@ -75,11 +80,7 @@ export default async function BookCourtPage({
     }));
   }
 
-  const maxDate = policy
-    ? new Date(new Date().getTime() + policy.max_advance_days * 86_400_000)
-        .toISOString()
-        .slice(0, 10)
-    : undefined;
+  const maxDate = policy ? addDays(today, policy.max_advance_days) : undefined;
 
   const dayChips = Array.from({ length: 5 }, (_, i) => addDays(today, i));
   function withParams(overrides: Record<string, string | null>) {
@@ -124,6 +125,7 @@ export default async function BookCourtPage({
               <input type="hidden" name="covered" value={String(coveredFilter)} />
             )}
             <input
+              key={date}
               type="date"
               name="date"
               defaultValue={date}
