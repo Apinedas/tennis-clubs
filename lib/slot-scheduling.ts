@@ -107,7 +107,18 @@ export function generateSlots(opts: {
   window?: TimeWindow;
 }): Slot[] {
   const window = opts.window ?? DEFAULT_OPERATING_HOURS;
-  const earliest = new Date(opts.now.getTime() + opts.minAdvanceHours * 3_600_000);
+  const earliestMs = opts.now.getTime() + opts.minAdvanceHours * 3_600_000;
+  // Compared as instants (ms since epoch), not as raw ISO strings: slot
+  // boundaries come from Date#toISOString() ("...000Z"), but the DB's
+  // timestamptz columns come back from PostgREST as "...+00:00" — two valid
+  // but differently-formatted ISO 8601 strings for the same instant, which
+  // don't sort the same lexically. That previously made a slot falsely
+  // "overlap" a booking that merely touched its boundary (e.g. a 09:00-10:00
+  // slot right before a 10:00-11:00 booking), silently hiding the slot.
+  const existing = opts.existingBookingsUtc.map((b) => ({
+    startMs: new Date(b.startsAtUtc).getTime(),
+    endMs: new Date(b.endsAtUtc).getTime(),
+  }));
   const slots: Slot[] = [];
 
   let cursor = window.startTime;
@@ -116,11 +127,11 @@ export function generateSlots(opts: {
     if (end > window.endTime) break; // zero-padded HH:MM compares lexically
     const startsAtUtc = zonedTimeToUtcISO(opts.dateISO, cursor, opts.timeZone);
     const endsAtUtc = zonedTimeToUtcISO(opts.dateISO, end, opts.timeZone);
+    const startMs = new Date(startsAtUtc).getTime();
+    const endMs = new Date(endsAtUtc).getTime();
 
-    if (new Date(startsAtUtc) >= earliest) {
-      const overlaps = opts.existingBookingsUtc.some(
-        (b) => startsAtUtc < b.endsAtUtc && b.startsAtUtc < endsAtUtc,
-      );
+    if (startMs >= earliestMs) {
+      const overlaps = existing.some((b) => startMs < b.endMs && b.startMs < endMs);
       if (!overlaps) slots.push({ startsAtUtc, endsAtUtc, label: cursor });
     }
     cursor = end;

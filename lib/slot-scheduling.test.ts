@@ -86,6 +86,28 @@ describe("generateSlots", () => {
     assert.deepEqual(slots.map((s) => s.label), ["08:00", "10:00"]);
   });
 
+  it("keeps a slot that only touches a booking's boundary, even when the booking's timestamps use PostgREST's '+00:00' format instead of toISOString()'s '.000Z'", () => {
+    // Regression test: a slot's own boundaries always come from
+    // zonedTimeToUtcISO (Date#toISOString() shape), but existingBookingsUtc
+    // in production comes straight from Supabase/PostgREST, which serializes
+    // timestamptz as "...+00:00". Comparing those as raw strings instead of
+    // instants made a slot that merely touches a booking (no real overlap)
+    // register as overlapping, because "+00:00" sorts before ".000Z" in
+    // plain string comparison even for the exact same instant.
+    const slots = generateSlots({
+      ...base,
+      window: { startTime: "08:00", endTime: "11:00" },
+      existingBookingsUtc: [
+        {
+          // 10:00-11:00 Bogotá == 15:00-16:00 UTC, in PostgREST's format.
+          startsAtUtc: "2030-02-04T15:00:00+00:00",
+          endsAtUtc: "2030-02-04T16:00:00+00:00",
+        },
+      ],
+    });
+    assert.deepEqual(slots.map((s) => s.label), ["08:00", "09:00"]);
+  });
+
   it("drops slots before the minimum advance window", () => {
     const slots = generateSlots({
       ...base,
