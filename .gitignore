@@ -42,3 +42,6 @@ next-env.d.ts
 
 # el ejemplo sí se versiona
 !.env.local.example
+
+# cuentas de prueba — acceso rápido local, nunca se sube
+TEST-ACCOUNTS.local.md
